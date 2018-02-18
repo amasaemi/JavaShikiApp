@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/grey_200</color>
+    <color name="colorPrimaryDark">@color/grey_200</color>
+    <color name="colorAccent">#2196f3</color>
+
+    <color name="grey_50">#fafafa</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#bdbdbd</color>
+
+    <color name="white">#fff</color>
+
+    <color name="black_20">#5a000000</color>
+    <color name="black_54">#8a000000</color>
+    <color name="black_87">#d2000000</color>
+    <color name="black_95">#f5000000</color>
+
+    <color name="white_87">#deffffff</color>
+
+    <color name="teal_200">#b2dfdb</color>
+    <color name="yellow_800">#f9a825</color>
+    <color name="green_300">#aed581</color>
+
+    <color name="orange_800">#f57f17</color>
+
+    <color name="blue_300">#64b5f6</color>
+    <color name="light_green_300">#aed581</color>
+
+    <!-- Constants -->
+    <color name="genre_background">#cafdc2</color>
+    <color name="genre_text">#36730f</color>
+
+    <color name="character_background">#ffe6e6</color>
+    <color name="character_border">#f8bbd0</color>
+
+    <color name="background_label">#50000000</color>
+
+    <color name="active_icon">#8a000000</color>
+    <color name="inactive_icon">#61000000</color>
+
+    <color name="menu_selectors_icon">#455a64</color>
+    <color name="menu_selectors_text">@color/black_87</color>
+    <!-- SwipeRefresh -->
+    <color name="refresh_1">#01579b</color>
+    <color name="refresh_2">#64b5f6</color>
+    <color name="refresh_3">#1976d2</color>
+    <color name="refresh_4">#2196f3</color>
+    <!-- PieChart -->
+    <color name="piechart_1">#4682b4</color>
+    <color name="piechart_2">#79A9CF</color>
+    <color name="piechart_3">#757575</color>
+</resources>

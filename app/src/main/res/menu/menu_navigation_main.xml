@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation.anime_catalog"
+            android:checked="true"
+            android:icon="@drawable/icon_anime_catalog"
+            android:title="@string/section.anime_catalog" />
+
+        <item
+            android:id="@+id/navigation.manga_catalog"
+            android:icon="@drawable/icon_manga_catalog"
+            android:title="@string/section.manga_catalog" />
+
+        <item
+            android:id="@+id/navigation.ranobe_catalog"
+            android:icon="@drawable/icon_ranobe_catalog"
+            android:title="@string/section.ranobe_catalog" />
+
+        <item
+            android:id="@+id/navigation.calendar"
+            android:icon="@drawable/icon_calendar"
+            android:title="@string/section.calendar" />
+
+        <item
+            android:id="@+id/navigation.news"
+            android:icon="@drawable/icon_discuss"
+            android:title="@string/section.news_and_discuss" />
+
+        <item
+            android:id="@+id/navigation.social"
+            android:icon="@drawable/icon_social"
+            android:title="@string/section.community" />
+    </group>
+
+    <item android:title="@string/section.application">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/navigation.settings"
+                    android:title="@string/section.settings"/>
+
+                <item
+                    android:id="@+id/navigation.about"
+                    android:title="@string/section.about"/>
+            </group>
+
+        </menu>
+    </item>
+</menu>

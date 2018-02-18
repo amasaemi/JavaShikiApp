@@ -1,0 +1,159 @@
+<resources>
+    <string name="app_name" translatable="false">ShikiApp</string>
+
+    <!-- Список разделов -->
+    <string name="section.anime_catalog">Каталог аниме</string>
+    <string name="section.manga_catalog">Каталог манги</string>
+    <string name="section.ranobe_catalog">Каталог ранобэ</string>
+    <string name="section.calendar">Календарь онгоингов</string>
+    <string name="section.news_and_discuss">Новости и обсуждения</string>
+    <string name="section.community">Сообщество</string>
+    <string name="section.settings">Настройки</string>
+    <string name="section.application">Приложение</string>
+    <string name="section.about">О приложении</string>
+    <!-- END Список разделов -->
+
+    <!-- Список подразделов и заголовков -->
+    <string name="caption.actors">Персонажи и авторы</string>
+    <string name="caption.find_params">Параметры поиска</string>
+    <string name="caption.seyu">Сэйю</string>
+    <string name="caption.character_description">Описание персонажа</string>
+    <string name="caption.roles_in_title">Роли в тайтлах</string>
+    <string name="caption.related">Связанное</string>
+    <string name="caption.similar">Похожее</string>
+    <string name="caption.description">Описание</string>
+    <string name="caption.add_in_my_list">Добавить в список</string>
+    <string name="caption.information">Информация</string>
+    <string name="caption.profile">Профиль</string>
+    <string name="caption.status">Статус</string>
+    <string name="caption.episodes">Эпизоды</string>
+    <string name="caption.rating">Оценка</string>
+    <string name="caption.studio">Студия</string>
+    <string name="caption.publisher">Издательство</string>
+    <string name="caption.video">Видео</string>
+    <string name="caption.roles">Роли</string>
+    <string name="caption.works">Работы</string>
+    <string name="caption.character">Персонаж</string>
+    <string name="caption.characters">Персонажи</string>
+    <string name="caption.creaters">Авторы</string>
+    <string name="caption.list">Список</string>
+    <string name="caption.users">Пользователи</string>
+    <string name="caption.clubs">Клубы</string>
+    <string name="caption.real_man">Человек</string>
+    <string name="caption.producer">Продюсер</string>
+    <string name="caption.mangaka">Мангака</string>
+    <string name="caption.key_figure">Ключевые фигуры</string>
+    <string name="caption.discussion">Обсуждение</string>
+    <string name="caption.animelist">Аниме</string>
+    <string name="caption.mangalist">Манга и ранобэ</string>
+    <string name="caption.favorite_anime">Избранное аниме</string>
+    <string name="caption.favorite_manga">Избранная манга</string>
+    <string name="caption.favorite_ranobe">Избранное ранобэ</string>
+    <string name="caption.favorite_characters">Избранные персонажи</string>
+    <string name="caption.favorite_seyu">Избранные сэйю</string>
+    <string name="caption.favorite_mangakas">Избранные мангаки</string>
+    <string name="caption.favorite_authors">Избранные авторы</string>
+    <string name="caption.favorite_etc">Избранные прочие люди</string>
+    <string name="caption.anime">Аниме</string>
+    <string name="caption.manga">Манга</string>
+    <string name="caption.ranobe">Ранобэ</string>
+    <!-- END Список подразделов и заголовков -->
+
+    <!-- Поля -->
+    <string name="field.aired_on">"Начало показа: "</string>
+    <string name="field.rating">"Возрастной рейтинг: "</string>
+    <string name="field.genres">"Жанры: "</string>
+    <string name="field.next_episode">"Эпизод: "</string>
+    <string name="field.airtime">"Эфирное время: "</string>
+    <string name="field.episodes">"Эпизодов: "</string>
+    <string name="field.volumes_and_chapters">"Томов и глав: "</string>
+    <string name="field.episodes_seen">"Эпизодов просмотрено: "</string>
+    <string name="field.chapters_read">"Глав прочитано: "</string>
+    <string name="field.work_position">"Роль: "</string>
+    <string name="field.seyu">"Сэйю: "</string>
+    <string name="field.profession">"Профессия: "</string>
+    <string name="field.birthday">"День рождения: "</string>
+    <string name="field.name">"Имя: "</string>
+    <string name="field.sex">"Пол: "</string>
+    <string name="field.age">"Возраст: "</string>
+    <string name="field.location">"Откуда: "</string>
+    <!-- END Поля -->
+
+    <!-- Статусы и состояния -->
+    <string name="status.list_empty">Список элементов пуст</string>
+    <string name="status.list_characters_empty">Список персонажей пуст</string>
+    <string name="status.list_creaters_empty">Список авторов пуст</string>
+    <string name="status.list_actors_empty">Список персонажей и авторов пуст</string>
+    <string name="status.favorite_empty">Избранное отсутствует</string>
+    <string name="status.online">онлайн</string>
+    <string name="status.error">Ошибка</string>
+    <!-- END Статусы и состояния -->
+
+    <!-- Статусы ошибок -->
+    <string name="error.error_loading_info">Ошибка загрузки информации</string>
+    <string name="error.mandatory_empty_field">Поле с логином или паролем пустое</string>
+    <string name="error.invalid_login_or_pass">Ошибка авторизации. Неверный логин или пароль</string>
+    <string name="error.timeout">Превышено время ожидания ответа от сервера. Повторите запрос</string>
+    <string name="error.no_internet">Отсутствует соединение с интернетом</string>
+    <string name="error.no_shiki_conn">Отсутствует соединение с сервером. Попробуйте переподключиться</string>
+    <string name="error.unknown_error">Произошла неопознанная ошибка</string>
+    <string name="error.data_error">Ошибка получения данных</string>
+    <string name="error.not_found">Ошибка 404. Возможно что-то испортилось… Сообщите об этом разработчику</string>
+    <string name="error.forbidden">Ошибка 403. Доступ запрещен. Авторизируйтесь</string>
+    <string name="error.activity_not_found">Не найдено приложение, способное открыть эту ссылку</string>
+    <string name="error.retry">Интернет соединение или сервер Shikimori не доступны. Повторите позже…</string>
+    <!-- END Статусы ошибок -->
+
+    <!-- Надписи на элементах управления -->
+    <string name="label.ok">OK</string>
+    <string name="label.reconnection">Переподключиться</string>
+    <string name="label.enter">Войти</string>
+    <string name="label.enter_no_auth">Продолжить без авторизации</string>
+    <string name="label.login">Логин</string>
+    <string name="label.pass">Пароль</string>
+    <string name="label.guest">Гость</string>
+    <string name="label.restore_pass"><a href="https://shikimori.org/users/password/new">Забыли пароль?</a></string>
+    <string name="label.show_all">Показать полностью</string>
+    <string name="label.seen">Смотреть</string>
+    <string name="label.close">Закрыть</string>
+    <string name="label.search">Поиск</string>
+    <string name="label.reset">Сброс параметров</string>
+    <string name="label.change_view">Сменить вид</string>
+    <string name="label.share">Поделиться</string>
+    <string name="label.other_source">Другие источники</string>
+    <string name="label.read_on">Читать на</string>
+    <string name="label.open_in_brows">Открыть в браузере</string>
+    <string name="label.logout">Выйти из профиля</string>
+    <string name="label.action">Действие</string>
+    <string name="label.yes">Да</string>
+    <string name="label.no">Нет</string>
+    <string name="label.add_in_friend">Добавить в друзья</string>
+    <string name="label.remote_from_friend">Удалить из друзей</string>
+    <string name="label.write_message">Написать сообщение</string>
+    <string name="label.to_list">к списку</string>
+    <string name="label.retry">Повторить</string>
+    <!-- END Надписи на элементах управления -->
+
+    <!-- Действия -->
+    <string name="action.query_add_in_friend">Добавить %1$s в друзья?</string>
+    <string name="action.query_remote_from_friend">Удалить %1$s из друзей?</string>
+    <string name="action.anime_added">Аниме %1$s добавлено в список</string>
+    <string name="action.anime_updated">Аниме %1$s изменено в списке</string>
+    <string name="action.anime_removed">Аниме %1$s удалено из списка</string>
+    <string name="action.manga_added">Манга %1$s добавлена в список</string>
+    <string name="action.manga_updated">Манга %1$s изменена в списке</string>
+    <string name="action.manga_removed">Манга %1$s удалена из списка</string>
+    <string name="action.ranobe_added">Ранобэ %1$s добавлено в список</string>
+    <string name="action.ranobe_updated">Ранобэ %1$s изменено в списке</string>
+    <string name="action.ranobe_removed">Ранобэ %1$s удалено из списка</string>
+    <string name="action.check_age">Клуб имеет пометку \"18+\". Продолжить?</string>
+    <!-- END Действия -->
+
+    <!-- Другое -->
+    <string name="shiki_link" translatable="false">shikimori.org</string>
+    <string name="none" translatable="false">-</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <!-- END Другое -->
+</resources>

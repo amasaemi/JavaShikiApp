@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Заголовки ListActivity -->
+    <string-array name="list_activity_titles">
+        <item>Аниме</item>
+        <item>Манга</item>
+        <item>Ранобэ</item>
+        <item>Календарь онгоингов</item>
+        <item>Новости и обсуждения</item>
+        <item>Сообщество</item>
+        <item>Настройки</item>
+        <item>О приложении</item>
+    </string-array>
+
+    <string-array name="anime_mylist">
+        <item>Без статуса</item>
+        <item>Запланировано</item>
+        <item>Смотрю</item>
+        <item>Пересматриваю</item>
+        <item>Просмотрено</item>
+        <item>Отложено</item>
+        <item>Брошено</item>
+    </string-array>
+
+    <string-array name="manga_mylist">
+        <item>Без статуса</item>
+        <item>Запланировано</item>
+        <item>Читаю</item>
+        <item>Перечитываю</item>
+        <item>Прочитано</item>
+        <item>Отложено</item>
+        <item>Брошено</item>
+    </string-array>
+
+    <string-array name="order">
+        <item>По рейтингу</item>
+        <item>По популярности</item>
+        <item>По алфавиту</item>
+        <item>По дате выхода</item>
+        <item>По статусу</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>Анонс</item>
+        <item>Онгоинг</item>
+        <item>Вышло</item>
+    </string-array>
+
+    <string-array name="rating">
+        <item>G</item>
+        <item>PG</item>
+        <item>PG-13</item>
+        <item>R-17</item>
+        <item>R+</item>
+        <item>Rx</item>
+    </string-array>
+
+    <string-array name="anime_kind">
+        <item>ТВ сериал</item>
+        <item>Фильм</item>
+        <item>OVA</item>
+        <item>ONA</item>
+        <item>Спешл</item>
+        <item>Клип</item>
+    </string-array>
+
+    <string-array name="manga_kind">
+        <item>Манга</item>
+        <item>Манхва</item>
+        <item>Маньхуа</item>
+        <item>Ваншот</item>
+        <item>Додзинси</item>
+    </string-array>
+</resources>

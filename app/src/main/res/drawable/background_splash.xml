@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:color="@color/colorPrimary" />
+    </item>
+
+
+    <item>
+        <bitmap
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:src="@drawable/img_shiki_light" />
+    </item>
+</layer-list>

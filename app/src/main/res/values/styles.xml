@@ -1,0 +1,91 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <!-- Общий стиль линии -->
+    <style name="Line">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Заголовок на карточке тайтла -->
+    <style name="TitleCardHeader" parent="Line">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/font_18</item>
+        <item name="android:textColor">@color/black_87</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <!-- Подзаголовок на карточке тайтла -->
+    <style name="TitleCardSubheader" parent="Line">
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/black_87</item>
+    </style>
+
+    <!-- Стиль заголовка маленькой карточки -->
+    <style name="TitleShortCardHeader" parent="Line">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <!-- Стиль поля -->
+    <style name="TitleShortCardField" parent="Line">
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <!-- Стиль для карточки в RecyclerView -->
+    <style name="CardRootLayout" parent="SelectableLayout">
+        <item name="android:paddingLeft">@dimen/size_6</item>
+        <item name="android:paddingRight">@dimen/size_6</item>
+        <item name="android:paddingTop">@dimen/size_4</item>
+        <item name="android:paddingBottom">@dimen/size_4</item>
+        <item name="android:background">@drawable/background_frame</item>
+    </style>
+
+    <!-- Стиль для карточки в RecyclerView -->
+    <style name="CardedLayout" parent="SelectableLayout">
+        <item name="android:padding">@dimen/size_4</item>
+        <item name="android:background">@drawable/background_frame</item>
+    </style>
+
+    <!-- Стиль для лайоута, доступного для нажатия -->
+    <style name="SelectableLayout">
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+
+    <!-- Стиль для item'a, доступного для нажатия -->
+    <style name="SelectableItem">
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+    </style>
+
+    <!-- Стиль иконки, доступной для нажатия -->
+    <style name="ActiveIcon">
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/active_icon</item>
+        <item name="android:tintMode">src_in</item>
+    </style>
+
+    <!-- Стиль иконки, доступной для нажатия -->
+    <style name="LightActiveIcon">
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:tintMode">src_in</item>
+    </style>
+
+    <!-- Стиль иконки, недоступной для нажатия -->
+    <style name="InactiveIcon">
+        <item name="android:tint">@color/inactive_icon</item>
+        <item name="android:tintMode">src_in</item>
+        <item name="android:enabled">false</item>
+    </style>
+</resources>

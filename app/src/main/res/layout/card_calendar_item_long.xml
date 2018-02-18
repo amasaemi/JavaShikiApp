@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="model"
+            type="com.amasaemi.javashikiapp.modules.list.ui.models.CalendarCardModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{model.cardClick}"
+        style="@style/CardRootLayout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/size_92"
+            android:layout_height="@dimen/size_139"
+            android:background="@color/grey_100"
+            android:scaleType="centerCrop"
+            android:src="@{model.poster}"
+            tools:src="@drawable/test_small_poster"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/size_4"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TitleCardHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_2"
+                android:gravity="center"
+                android:text="@{model.ruName ?? model.enName}"
+                tools:text="Стальная тревога"/>
+
+            <TextView
+                android:id="@+id/en_name"
+                style="@style/TitleCardSubheader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{model.enName}"
+                android:visibility="@{(model.ruName == null) ? View.INVISIBLE : View.VISIBLE }"
+                tools:text="Full metal panic!" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16"
+                android:gravity="center"
+                android:text="@{model.basicInfo}"
+                android:textColor="@color/black_54"
+                android:textSize="@dimen/font_11"
+                android:visibility="@{(model.basicInfo == null) ? View.GONE : View.VISIBLE }"
+                tools:text="ТВ сериал  •  Онгоинг" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/size_2"
+                android:text="@{model.airedOn}"
+                android:textColor="@color/black_54"
+                android:textSize="@dimen/font_11"
+                android:visibility="@{(model.airedOn == null) ? View.INVISIBLE : View.VISIBLE }"
+                tools:text="•  Начало показа: Февраль 2004  •" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/size_2"
+                android:text="@{model.nextEpisode}"
+                android:textColor="@color/black_54"
+                android:textSize="@dimen/font_11"
+                android:visibility="@{(model.nextEpisode == null) ? View.INVISIBLE : View.VISIBLE }"
+                tools:text="Эпизод: 196  •  В эфире с: 16:30" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

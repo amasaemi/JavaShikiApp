@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="model"
+            type="com.amasaemi.javashikiapp.modules.list.ui.models.CalendarDelimiterModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200">
+
+        <ImageView
+            style="@style/InactiveIcon"
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            android:layout_margin="@dimen/size_16"
+            android:src="@drawable/icon_calendar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:text="@{model.date}"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/font_18" />
+    </FrameLayout>
+</layout>
