@@ -5,11 +5,12 @@ import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.data.services.RanobeService;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
+import com.arellomobile.mvp.InjectViewState;
 
 /**
  * Created by Alex on 01.02.2018.
  */
-
+@InjectViewState
 public class RanobeListPresenter extends BaseListPresenter<TitleListItemResponse> implements ShikiTitleListPresenter {
     // сервис
     private RanobeService mService = new RanobeService();
@@ -34,7 +35,7 @@ public class RanobeListPresenter extends BaseListPresenter<TitleListItemResponse
 
     @Override
     public void findTitlesByParams(SearchingParams params) {
-        mCurrentPage = 0;
+        mCurrentPage = 1;
         if (params != null) mParams = params;
 
         clearAdapter();

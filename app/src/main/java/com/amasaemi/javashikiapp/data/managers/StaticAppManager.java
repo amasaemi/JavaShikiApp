@@ -2,6 +2,7 @@ package com.amasaemi.javashikiapp.data.managers;
 
 import android.net.Uri;
 
+import com.amasaemi.javashikiapp.data.network.pojo.sup.Image;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -24,6 +25,8 @@ public class StaticAppManager {
     // настройки
     // стиль списков
     private int listStyle = SimpleRecyclerAdapter.STYLE_LONG;
+    // качество изображения списков
+    private int listImageQuality = Image.QUALITY_LOW;
     // анимированное переключение фрагментов
     private boolean animateFragmentChange = false;
     // стратегия в отношении хранения картинок в постоянной памяти
@@ -104,6 +107,14 @@ public class StaticAppManager {
 
     public void setAnimateFragmentChange(boolean animateFragmentChange) {
         this.animateFragmentChange = animateFragmentChange;
+    }
+
+    public int getListImageQuality() {
+        return listImageQuality;
+    }
+
+    public void setListImageQuality(int listImageQuality) {
+        this.listImageQuality = listImageQuality;
     }
 
     class UserAuthInfo {

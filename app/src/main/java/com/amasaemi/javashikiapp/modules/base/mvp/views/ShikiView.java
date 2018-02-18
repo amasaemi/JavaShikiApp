@@ -8,7 +8,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 /**
  * Created by Alex on 31.01.2018.
  */
-@StateStrategyType(SkipStrategy.class)
 public interface ShikiView extends MvpView {
     /**
      * Метод управляет состоянием индикатора загрузки

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Подсказки в SearchBar -->
+    <string-array name="finding_hints">
+        <item>Введите название аниме</item>
+        <item>Введите название манги</item>
+        <item>Введите название ранобэ</item>
+        <item>Введите имя пользователя</item>
+        <item>Введите название клуба</item>
+    </string-array>
+
     <!-- Заголовки ListActivity -->
     <string-array name="list_activity_titles">
         <item>Аниме</item>
@@ -42,7 +51,7 @@
 
     <string-array name="status">
         <item>Анонс</item>
-        <item>Онгоинг</item>
+        <item>Выходит</item>
         <item>Вышло</item>
     </string-array>
 

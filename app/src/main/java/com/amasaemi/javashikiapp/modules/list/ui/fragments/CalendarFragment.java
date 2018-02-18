@@ -13,6 +13,7 @@ import com.amasaemi.javashikiapp.data.network.pojo.res.CalendarResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.DoubleRecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
+import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
@@ -58,7 +59,7 @@ public class CalendarFragment extends BaseListFragment implements ShikiListView<
     }
 
     @Override
-    public BaseListPresenter getPresenter() {
+    public ShikiPresenter getPresenter() {
         return mPresenter;
     }
 
@@ -69,7 +70,7 @@ public class CalendarFragment extends BaseListFragment implements ShikiListView<
         // id ресурса заголовка
         int headerLayout = R.layout.card_calendar_delimiter;
         // id ресурса обычного элемента
-        int itemLayout = (listStyleIsShort()) ? R.layout.card_simple_short : R.layout.card_calendar_item_long;
+        int itemLayout = listStyleIsShort() ? R.layout.card_simple_short : R.layout.card_calendar_item_long;
         // назначаем адаптер
         createRecyclerViewAdapter(new DoubleRecyclerAdapter(headerLayout, itemLayout));
     }
@@ -87,12 +88,6 @@ public class CalendarFragment extends BaseListFragment implements ShikiListView<
     @Override
     public void clearAdapter() {
         ((DoubleRecyclerAdapter) mBinding.container.getAdapter()).clearItems();
-    }
-
-    @Override
-    public void showRetrySnackbar(Runnable action) {
-        Snackbar.make(mBinding.container, R.string.error_retry, Snackbar.LENGTH_SHORT)
-                .setAction(R.string.label_retry, (_bar) -> action.run()).show();
     }
 
     private class CalendarParser {

@@ -1,11 +1,20 @@
 package com.amasaemi.javashikiapp.modules.list.ui.fragments;
 
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 
+import com.amasaemi.javashikiapp.R;
+import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
+import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
+import com.amasaemi.javashikiapp.modules.list.mvp.presenters.MangaListPresenter;
+import com.amasaemi.javashikiapp.modules.list.mvp.presenters.RanobeListPresenter;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
@@ -13,10 +22,8 @@ import java.util.List;
  * Created by Alex on 04.02.2018.
  */
 
-public class RanobeListFragment extends BaseListFragment implements ShikiListView<TitleListItemResponse> {
+public class RanobeListFragment extends BaseListTitleFragment {
     public static final String TAG = RanobeListFragment.class.getSimpleName();
-
-    private static final RanobeListFragment ourInstance = new RanobeListFragment();
 
     public static RanobeListFragment getInstance(Bundle bundle) {
         RanobeListFragment fragment = new RanobeListFragment();
@@ -24,33 +31,34 @@ public class RanobeListFragment extends BaseListFragment implements ShikiListVie
         return fragment;
     }
 
+    @InjectPresenter
+    RanobeListPresenter mPresenter;
+
     @Override
-    protected BaseListPresenter getPresenter() {
-        return null;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.list_menu_search).getActionView();
+        searchView.setQueryHint(getResources().getStringArray(R.array.finding_hints)[2]);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                onBackPressed();
+
+                // выполняем поисковой запрос
+                mPresenter.findTitlesByParams(new SearchingParams(query));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     @Override
-    public void fillAdapter(List<TitleListItemResponse> list) {
-
-    }
-
-    @Override
-    public void clearAdapter() {
-
-    }
-
-    @Override
-    public void showRetrySnackbar(Runnable action) {
-
-    }
-
-    @Override
-    protected void setupRecyclerView() {
-
-    }
-
-    @Override
-    public void initialFragment() {
-
+    protected ShikiTitleListPresenter getPresenter() {
+        return mPresenter;
     }
 }

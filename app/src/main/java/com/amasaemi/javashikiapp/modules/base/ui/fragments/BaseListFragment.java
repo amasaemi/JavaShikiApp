@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
+import com.amasaemi.javashikiapp.utils.ErrorReport;
 
 /**
  * Created by Alex on 31.01.2018.
@@ -32,6 +34,8 @@ public abstract class BaseListFragment extends BaseFragment {
     private final String SCROLL_LISTENER_LOADING = "slloading";
 
     protected FragmentBaseListBinding mBinding;
+    // LayoutManager для RecyclerView
+    private RecyclerView.LayoutManager mLayoutManager;
     // сохраняем последнюю позицию recyclerview
     private Parcelable mListPos;
     // храним стиль текущего элемента адаптера
@@ -59,17 +63,6 @@ public abstract class BaseListFragment extends BaseFragment {
         mBinding.container.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         // количество элементов, которые хранятся в памяти без пересоздания
         mBinding.container.setItemViewCacheSize(100);
-        // проверяем, пересоздан ли фрагмент
-        // и если да, то восстанавливаем информацию по позиции recyclerview,
-        // предыдущее значение количества позиций в адаптере RecyclerView и маркер загрузки
-        if (savedInstanceState != null) {
-            mListPos = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
-            mScrollListenerPreviousItemCount = savedInstanceState.getInt(SCROLL_LISTENER_ITEM_COUNT, 0);
-            mScrollListenerLoading = savedInstanceState.getBoolean(SCROLL_LISTENER_LOADING, false);
-        }
-        // TODO: 01.02.2018 Перенести в конкретный фрагмент
-        // вешаем слушатель конца списка
-//        setRecyclerScrollListener(() -> mPresenter.loadNextPage(), 4);
         // создаем адаптер
         setupRecyclerView();
         // ставим маркер о том, что фрагмент создан и будет запущен впервый раз
@@ -80,38 +73,55 @@ public abstract class BaseListFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // восстанавливаем позицию recyclerview
-        if (mListPos != null)
-            mBinding.container.getLayoutManager().onRestoreInstanceState(mListPos);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        // если текущий фрагмент виден и не проинициализирован - инициализируем его
+        if (isVisibleToUser && getView() != null)
+            initialFragment();
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        // проверяем, пересоздан ли фрагмент
+        // и если да, то восстанавливаем информацию по позиции recyclerview,
+        // предыдущее значение количества позиций в адаптере RecyclerView и маркер загрузки
+        if (savedInstanceState != null) {
+            mListPos = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
+            if (mListPos != null)
+                mLayoutManager.onRestoreInstanceState(mListPos);
+
+            mScrollListenerPreviousItemCount = savedInstanceState.getInt(SCROLL_LISTENER_ITEM_COUNT, 0);
+            mScrollListenerLoading = savedInstanceState.getBoolean(SCROLL_LISTENER_LOADING, false);
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        // если метод не вызвался раньше, чем создался фрагмент
         if (mBinding != null) {
-            // сохраняем позицию recyclerview
-            outState.putParcelable(RECYCLER_VIEW_POS, mBinding.container.getLayoutManager().onSaveInstanceState());
             // сохраняем предыдущее значение количества позиций в адаптере RecyclerView
             outState.putInt(SCROLL_LISTENER_ITEM_COUNT, mScrollListenerPreviousItemCount);
             // сохраняем маркер загрузки
             outState.putBoolean(SCROLL_LISTENER_LOADING, mScrollListenerLoading);
+            // сохраняем позицию recyclerview
+            outState.putParcelable(RECYCLER_VIEW_POS, mLayoutManager.onSaveInstanceState());
         }
     }
 
     /**
      * Метод настраивает действие при достижении recyclerview'ом конца списка
      * @param endlessAction - действие, совершаемое при достижении конца списка
-     * @param visibleThreshold - опережающее количество элементов, для срабатывания дейсвия
      * подгрузки следующего списка
      */
-    protected final void setRecyclerScrollListener(Runnable endlessAction, int visibleThreshold) {
+    protected final void serRecyclerEndlessListener(Runnable endlessAction) {
         mBinding.container.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int totalItemCount = 0;
             int lastVisibleItem = 0;
+            int visibleThreshold = 4;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -150,26 +160,21 @@ public abstract class BaseListFragment extends BaseFragment {
      * Метод пересоздает менеджер для recyclerview
      */
     protected final void changeRecyclerManager() {
-        mBinding.container.setVisibility(View.INVISIBLE);
+        // сохраняем новое состояние списка
+        new PreferencesManager(getActivity())
+                .saveListStyle(!listStyleIsShort() ? SimpleRecyclerAdapter.STYLE_SHORT : SimpleRecyclerAdapter.STYLE_LONG);
 
-        int firstItemPos;
-        if (mBinding.container.getLayoutManager() instanceof LinearLayoutManager)
-            firstItemPos = ((LinearLayoutManager) mBinding.container.getLayoutManager()).findLastVisibleItemPosition();
-        else if (mBinding.container.getLayoutManager() instanceof GridLayoutManager)
-            firstItemPos = ((GridLayoutManager) mBinding.container.getLayoutManager()).findLastVisibleItemPosition();
-        else // TODO: 31.01.2018 Включить поддержку третьего менеджера для списка новостей
-            throw new NullPointerException("Unsupported RecyclerView LayoutManager");
+        stateVisibilityContainer(false);
+        mListPos = mLayoutManager.onSaveInstanceState();
 
         setupRecyclerViewLayoutManager(null);
         setupRecyclerView();
 
-        mBinding.container.scrollToPosition(firstItemPos);
-        mBinding.container.setVisibility(View.VISIBLE);
+        // восстанавливаем список
+        initialFragment();
 
-        mShortListStyleNow = listStyleIsShort();
-        // сохраняем новое состояние списка
-        new PreferencesManager(getActivity())
-                .saveListStyle((listStyleIsShort()) ? SimpleRecyclerAdapter.STYLE_LONG : SimpleRecyclerAdapter.STYLE_SHORT);
+        mLayoutManager.onRestoreInstanceState(mListPos);
+        stateVisibilityContainer(true);
     }
 
     /**
@@ -191,40 +196,39 @@ public abstract class BaseListFragment extends BaseFragment {
         if (cardCount == null)
             cardCount = new int[] { 2, 3, 4, 1, 1, 2, 4, 5, 6, 1, 2, 3 };
 
-        RecyclerView.LayoutManager manager;
         if (getOrientation() == Configuration.ORIENTATION_PORTRAIT) {
             if (listStyleIsShort()) {
                 if (getScreenSize() < 5.5)
-                    manager = getGridLayoutManager(cardCount[0]);
+                    mLayoutManager = getGridLayoutManager(cardCount[0]);
                 else if (getScreenSize() < 7.7)
-                    manager = getGridLayoutManager(cardCount[1]);
+                    mLayoutManager = getGridLayoutManager(cardCount[1]);
                 else
-                    manager = getGridLayoutManager(cardCount[2]);
+                    mLayoutManager = getGridLayoutManager(cardCount[2]);
             } else {
                 if (getScreenSize() < 7.7)
-                    manager = new LinearLayoutManager(getActivity());
+                    mLayoutManager = new LinearLayoutManager(getActivity());
                 else
-                    manager = getGridLayoutManager(cardCount[5]);
+                    mLayoutManager = getGridLayoutManager(cardCount[5]);
             }
         } else {
             if (listStyleIsShort()) {
                 if (getScreenSize() < 6)
-                    manager = getGridLayoutManager(cardCount[6]);
+                    mLayoutManager = getGridLayoutManager(cardCount[6]);
                 else if (getScreenSize() < 8)
-                    manager = getGridLayoutManager(cardCount[7]);
+                    mLayoutManager = getGridLayoutManager(cardCount[7]);
                 else
-                    manager = getGridLayoutManager(cardCount[8]);
+                    mLayoutManager = getGridLayoutManager(cardCount[8]);
             } else {
                 if (getScreenSize() < 5.5)
-                    manager = getGridLayoutManager(cardCount[9]);
+                    mLayoutManager = getGridLayoutManager(cardCount[9]);
                 else if (getScreenSize() < 7.7)
-                    manager = getGridLayoutManager(cardCount[10]);
+                    mLayoutManager = getGridLayoutManager(cardCount[10]);
                 else
-                    manager = getGridLayoutManager(cardCount[11]);
+                    mLayoutManager = getGridLayoutManager(cardCount[11]);
             }
         }
-
-        mBinding.container.setLayoutManager(manager);
+        // присваиваем новый менеджер для RecyclerView
+        mBinding.container.setLayoutManager(mLayoutManager);
     }
 
     /**
@@ -252,7 +256,7 @@ public abstract class BaseListFragment extends BaseFragment {
      * Метод возвращает презентер конкретного фрагмента
      * @return
      */
-    protected abstract BaseListPresenter getPresenter();
+    protected abstract ShikiPresenter getPresenter();
 
     /**
      * Метод назначает адаптер для recyclerView
@@ -266,10 +270,7 @@ public abstract class BaseListFragment extends BaseFragment {
      * Метод инициализирует фрагмент в случае первого запуска
      */
     public void initialFragment() {
-        if (getPresenter().hasInitialized() && (mFragmentIsFirstRun || mShortListStyleNow != listStyleIsShort())) {
-            if (mShortListStyleNow != listStyleIsShort())
-                setupRecyclerViewLayoutManager(null);
-
+        if (getPresenter() != null && getPresenter().hasInitialized() && (mFragmentIsFirstRun || mShortListStyleNow != listStyleIsShort())) {
             getPresenter().loadOrRestoreData();
             mFragmentIsFirstRun = false;
             mShortListStyleNow = listStyleIsShort();
@@ -286,8 +287,14 @@ public abstract class BaseListFragment extends BaseFragment {
     }
 
     @Override
+    public void showRetrySnackbar(Runnable action) {
+        Snackbar.make(mBinding.container, R.string.error_retry, Snackbar.LENGTH_SHORT)
+                .setAction(R.string.label_retry, (_bar) -> action.run()).show();
+    }
+
+    @Override
     public void stateVisibilityContainer(Boolean state) {
         stateLoadIndicator(false);
-        mBinding.container.setVisibility((state) ? View.VISIBLE : View.INVISIBLE);
+        mBinding.container.setVisibility(state ? View.VISIBLE : View.INVISIBLE);
     }
 }

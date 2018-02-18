@@ -44,6 +44,10 @@ public class SearchingParams {
         mSearch = search;
     }
 
+    public SearchingParams(String search) {
+        mSearch = search;
+    }
+
     public Order getOrder() {
         return mOrder;
     }

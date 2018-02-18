@@ -58,6 +58,7 @@ public class PreferencesManager {
      */
     public void saveListStyle(int style) {
         mPreferences.edit().putInt(LIST_STYLE, style).apply();
+        StaticAppManager.getInstance().setListStyle(style);
     }
 
     public void saveSettings() {

@@ -10,6 +10,7 @@ public abstract class SimpleShortCardModel {
     protected int id;
 
     public Runnable cardClick;
+    public Runnable menuClick;
     public String ruName;
     public String enName;
     public Uri poster;

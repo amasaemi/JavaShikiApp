@@ -49,7 +49,7 @@ public class ListActivity extends BaseActivity {
      */
     private void initControlViews() {
         setSupportActionBar(mBinding.toolbar);
-        // задаем начальынй заголовок
+        // задаем начальный заголовок
         setTitle(mBinding.fragmentContainer.getAdapter().getPageTitle(0));
         // слушатель смены страниц для обновления title
         mBinding.fragmentContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -132,8 +132,6 @@ public class ListActivity extends BaseActivity {
     }
 
     private class FragmentViewerAdapter extends FragmentPagerAdapter {
-        private BaseFragment[] mFragments = new BaseFragment[8];
-
         private FragmentViewerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -141,48 +139,15 @@ public class ListActivity extends BaseActivity {
         @Override
         public BaseFragment getItem(int pos) {
             switch (pos) {
-                case 0: {
-                    if (mFragments[0] == null)
-                        mFragments[0] = AnimeListFragment.getInstance(null);
-                    return mFragments[0];
-                }
-                case 1: {
-                    if (mFragments[1] == null)
-                        mFragments[1] = MangaListFragment.getInstance(null);
-                    return mFragments[1];
-                }
-                case 2: {
-                    if (mFragments[2] == null)
-                        mFragments[2] = RanobeListFragment.getInstance(null);
-                    return mFragments[2];
-                }
-                case 3: {
-                    if (mFragments[3] == null)
-                        mFragments[3] = CalendarFragment.getInstance(null);
-                    return mFragments[3];
-                }
-                case 4: {
-                    if (mFragments[4] == null)
-                        mFragments[4] = NewsFragment.getInstance(null);
-                    return mFragments[4];
-                }
-                case 5: {
-                    if (mFragments[5] == null)
-                        mFragments[5] = CommunityFragment.getInstance(null);
-                    return mFragments[5];
-                }
-                case 6: {
-                    if (mFragments[6] == null)
-                        mFragments[6] = SettingsFragment.getInstance(null);
-                    return mFragments[6];
-                }
-                case 7: {
-                    if (mFragments[7] == null)
-                        mFragments[7] = AboutFragment.getInstance(null);
-                    return mFragments[7];
-                }
-
-                default: throw new NullPointerException(pos + " is not valid index of adapter");
+                case 0: return AnimeListFragment.getInstance(null);
+                case 1: return MangaListFragment.getInstance(null);
+                case 2: return RanobeListFragment.getInstance(null);
+                case 3: return CalendarFragment.getInstance(null);
+                case 4: return NewsFragment.getInstance(null);
+                case 5: return CommunityFragment.getInstance(null);
+                case 6: return SettingsFragment.getInstance(null);
+                case 7: return AboutFragment.getInstance(null);
+                default: throw new NullPointerException(String.format("%d is not valid index of adapter", pos));
             }
         }
 
@@ -193,7 +158,7 @@ public class ListActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return mFragments.length;
+            return 8;
         }
     }
 }

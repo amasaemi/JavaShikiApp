@@ -16,7 +16,7 @@ public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>
     // маркер готовности презентера
     protected boolean mPresenterIsReady = false;
     // текущая страница
-    protected int mCurrentPage = 0;
+    protected int mCurrentPage = 1;
     // список текущих элементов
     protected final List<T> mList = new LinkedList<T>();
 
@@ -38,12 +38,12 @@ public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>
      * @param list
      */
     protected final void fillAdapter(List<T> list) {
-        getViewState().stateLoadIndicator(false);
-
         if (!list.isEmpty()) {
             mList.addAll(list);
             getViewState().fillAdapter(list);
         }
+
+        getViewState().stateVisibilityContainer(!mList.isEmpty());
     }
 
     /**

@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.amasaemi.javashikiapp.data.managers.StaticAppManager;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.Kind;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.Status;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
@@ -101,6 +102,18 @@ public class TitleListItemResponse {
     }
 
     /**
+     * Метод вернет постер, в зависимости от настроек качества
+     * @return
+     */
+    public Uri getPoster() {
+        switch (StaticAppManager.getInstance().getListImageQuality()) {
+            case Image.QUALITY_MIDDLE: return getPreviewPoster();
+            case Image.QUALITY_HIGH: return getOriginalPoster();
+            default: return getSmallPoster();
+        }
+    }
+
+    /**
      * Метод вернет постер оригинального размера
      * @return
      */
@@ -178,6 +191,8 @@ public class TitleListItemResponse {
         } catch (ParseException pe) {
             ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
             return null;
+        } catch (NullPointerException npe) {
+            return null;
         }
     }
 
@@ -204,13 +219,26 @@ public class TitleListItemResponse {
     public TitleType getTitleType() {
         switch (getKind()) {
             case TV:
+            case MOVIE:
+            case OVA:
+            case ONA:
+            case SPECIAL:
+            case MUSIC:
                 return TitleType.ANIME;
             case MANGA:
+            case MANHUA:
+            case MANHWA:
+            case DOUJIN:
+            case ONE_SHOT:
                 return TitleType.MANGA;
             case NOVEL:
                 return TitleType.RANOBE;
             default:
                 return TitleType.NONE;
         }
+    }
+
+    public boolean isOngoing() {
+        return getStatus() == Status.ONGOING;
     }
 }

@@ -8,6 +8,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Optional;
 
 public class Image {
+    // качество изображения
+    public static final int QUALITY_HIGH = 2;
+    public static final int QUALITY_MIDDLE = 1;
+    public static final int QUALITY_LOW = 0;
+
     private final String SHIKIMORI_BASE_REFERENCE = "https://shikimori.org";
     private final Uri SHIKIMORI_NULL_REFERENCE = Uri.parse("https://shikimori.orgnull");
     private final Uri PLACEHOLDER = Uri.parse(String.format("drawable://%d", R.drawable.img_load_failed));

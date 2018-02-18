@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.amasaemi.javashikiapp.modules.list.ui.models.CalendarCardModel" />
+            type="com.amasaemi.javashikiapp.modules.list.ui.models.ListCardModel" />
     </data>
 
     <LinearLayout
@@ -76,11 +76,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/size_1"
-                android:text="@{model.nextEpisode}"
+                android:text="@{model.episodes}"
                 android:textColor="@color/black_54"
                 android:textSize="@dimen/font_12"
-                android:visibility="@{(model.nextEpisode == null) ? View.INVISIBLE : View.VISIBLE }"
-                tools:text="Эпизод: 196  •  В эфире с: 16:30" />
+                android:visibility="@{(model.episodes == null) ? View.INVISIBLE : View.VISIBLE }"
+                tools:text="Количество эпизодов: 196" />
         </LinearLayout>
     </LinearLayout>
 </layout>

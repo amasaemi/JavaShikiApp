@@ -86,8 +86,7 @@ public enum Kind {
                 return context.getResources().getStringArray(R.array.manga_kind)[this.ordinal() - 6];
 
             case NOVEL:
-                // return context.getString(R.string.caption_ranobe)
-                return ""; // TODO: 01.02.2018 брать из ресурсов
+                return context.getString(R.string.caption_ranobe);
 
             default:
                 return context.getString(R.string.none);
