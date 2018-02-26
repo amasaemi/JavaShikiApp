@@ -60,15 +60,15 @@
     <!-- END Список подразделов и заголовков -->
 
     <!-- Поля -->
-    <string name="field.anime_aired_on">"Начало показа: %1$s"</string>
-    <string name="field.manga_aired_on">"Начало выхода: %1$s"</string>
+    <!--<string name="field.anime_aired_on">"Начало показа: %1$s"</string>-->
+    <!--<string name="field.manga_aired_on">"Начало выхода: %1$s"</string>-->
     <string name="field.rating">"Возрастной рейтинг: "</string>
     <string name="field.genres">"Жанры: "</string>
-    <string name="field.next_episode">"Эпизод: %1$s"</string>
-    <string name="field.airtime">"Эфирное время: %1$s"</string>
-    <string name="field.episodes">"Количество эпизодов: %1$s"</string>
-    <string name="field.episodes_ongoing">"Эпизодов вышло: %1$s из %2$s"</string>
-    <string name="field.chapters">"Количество глав: %1$s"</string>
+    <!--<string name="field.next_episode">"Эпизод: %1$s"</string>-->
+    <!--<string name="field.airtime">"Эфирное время: %1$s"</string>-->
+    <!--<string name="field.episodes">"Количество эпизодов: %1$s"</string>-->
+    <!--<string name="field.episodes_ongoing">"Эпизодов вышло: %1$s из %2$s"</string>-->
+    <!--<string name="field.chapters">"Количество глав: %1$s"</string>-->
     <string name="field.episodes_seen">"Эпизодов просмотрено: "</string>
     <string name="field.chapters_read">"Глав прочитано: "</string>
     <string name="field.work_position">"Роль: "</string>
@@ -80,6 +80,16 @@
     <string name="field.age">"Возраст: "</string>
     <string name="field.location">"Откуда: "</string>
     <!-- END Поля -->
+
+    <!-- Составные поля -->
+    <string name="combine_field.base_info">%1$s • &lt;span style="color:%3$s">%2$s&lt;/span></string>
+    <string name="combine_field.anime_airing_on">• Начало показа: %1$s •</string>
+    <string name="combine_field.manga_airing_on">• Начало выхода: %1$s •</string>
+    <string name="combine_field.next_episode">Эпизод: %1$s • Эфирное время: %2$s</string>
+    <string name="combine_field.episodes">"Количество эпизодов: %1$s"</string>
+    <string name="combine_field.episodes_ongoing">"Эпизодов вышло: %1$s из %2$s"</string>
+    <string name="combine_field.chapters">"Количество глав: %1$s"</string>
+    <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->
     <string name="status.list_empty">Список элементов пуст</string>

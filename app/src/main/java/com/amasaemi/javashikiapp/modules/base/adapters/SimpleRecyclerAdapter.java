@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amasaemi.javashikiapp.BR;
-import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter.ViewHolderListItem;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.RecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
 import com.amasaemi.javashikiapp.utils.ErrorReport;

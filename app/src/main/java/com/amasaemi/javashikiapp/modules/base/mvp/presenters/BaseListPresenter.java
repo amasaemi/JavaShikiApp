@@ -1,9 +1,7 @@
 package com.amasaemi.javashikiapp.modules.base.mvp.presenters;
 
-import com.amasaemi.javashikiapp.data.services.interfaces.BaseNetworkService;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.utils.ErrorReport;
-import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.LinkedList;
@@ -29,15 +27,15 @@ public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>
      * Метод устанавливает и возвращает следующую по счету страницу
      * @return
      */
-    protected int setNextPage() {
-        return ++mCurrentPage;
+    protected final void setNextPage() {
+        ++mCurrentPage;
     }
 
     /**
      * Метод заполняет адаптер
      * @param list
      */
-    protected final void fillAdapter(List<T> list) {
+    protected void fillAdapter(List<T> list) {
         if (!list.isEmpty()) {
             mList.addAll(list);
             getViewState().fillAdapter(list);

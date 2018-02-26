@@ -1,13 +1,17 @@
 package com.amasaemi.javashikiapp.data.network.pojo.sup;
+
 import android.net.Uri;
 
 import com.amasaemi.javashikiapp.R;
+import com.amasaemi.javashikiapp.utils.ConstantManager;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Optional;
+/**
+ * Created by Alex on 22.02.2018.
+ */
 
-public class Image {
+public class AvatarImage {
     // качество изображения
     public static final int QUALITY_HIGH = 2;
     public static final int QUALITY_MIDDLE = 1;
@@ -17,34 +21,27 @@ public class Image {
     private final Uri SHIKIMORI_NULL_REFERENCE = Uri.parse("https://shikimori.orgnull");
     private final Uri PLACEHOLDER = Uri.parse(String.format("drawable://%d", R.drawable.img_load_failed));
 
-    @SerializedName("original")
+    @SerializedName("x160")
     @Expose
     private String original;
 
-    @SerializedName("preview")
+    @SerializedName("x148")
     @Expose
     private String preview;
 
-    @SerializedName("x96")
+    @SerializedName("x64")
     @Expose
     private String small;
 
-    @SerializedName("x48")
-    @Expose
-    private String smallest;
-
     public Uri getOriginal() {
-        Uri imageLink = Uri.parse(SHIKIMORI_BASE_REFERENCE + original);
-        return (!imageLink.equals(SHIKIMORI_NULL_REFERENCE)) ? imageLink : PLACEHOLDER;
+        return (original.contains("missing")) ? PLACEHOLDER : Uri.parse(original);
     }
 
     public Uri getPreview() {
-        Uri imageLink = Uri.parse(SHIKIMORI_BASE_REFERENCE + preview);
-        return (!imageLink.equals(SHIKIMORI_NULL_REFERENCE)) ? imageLink : PLACEHOLDER;
+        return (preview.contains("missing")) ? PLACEHOLDER : Uri.parse(preview);
     }
 
     public Uri getSmall() {
-        Uri imageLink = Uri.parse(SHIKIMORI_BASE_REFERENCE + small);
-        return (!imageLink.equals(SHIKIMORI_NULL_REFERENCE)) ? imageLink : PLACEHOLDER;
+        return (small.contains("missing")) ? PLACEHOLDER : Uri.parse(small);
     }
 }

@@ -20,14 +20,14 @@
     <!-- Заголовок на карточке тайтла -->
     <style name="TitleCardHeader" parent="Line">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">@dimen/font_18</item>
+        <item name="android:textSize">@dimen/font_16</item>
         <item name="android:textColor">@color/black_87</item>
         <item name="android:maxLines">2</item>
     </style>
 
     <!-- Подзаголовок на карточке тайтла -->
     <style name="TitleCardSubheader" parent="Line">
-        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textSize">@dimen/font_14</item>
         <item name="android:textColor">@color/black_87</item>
     </style>
 

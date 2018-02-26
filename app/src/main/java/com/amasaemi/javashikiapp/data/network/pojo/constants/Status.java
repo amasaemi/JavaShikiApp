@@ -43,4 +43,17 @@ public enum Status {
                 return context.getString(R.string.none);
         }
     }
+
+    public String getStatusColor() {
+        switch (this) {
+            case ANONS:
+                return "#ca4929";
+            case ONGOING:
+                return "#1d78b7";
+            case RELEASED:
+                return "#419541";
+            default:
+                return "#444444";
+        }
+    }
 }

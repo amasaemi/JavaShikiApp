@@ -27,8 +27,7 @@ public class ShikiDataBindingAdapters {
                 .apply(new RequestOptions()
                         .circleCrop()
                         .diskCacheStrategy(StaticAppManager.getInstance().getDiscCacheStrategy())
-                        .skipMemoryCache(StaticAppManager.getInstance().skipMemoryCacheStrategy())
-                        .error(R.drawable.img_load_failed))
+                        .skipMemoryCache(StaticAppManager.getInstance().skipMemoryCacheStrategy()))
                 .into(view);
     }
 

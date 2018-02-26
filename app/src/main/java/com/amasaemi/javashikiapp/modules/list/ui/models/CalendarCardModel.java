@@ -1,6 +1,8 @@
 package com.amasaemi.javashikiapp.modules.list.ui.models;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.managers.ActivityManager;
@@ -15,7 +17,10 @@ import com.amasaemi.javashikiapp.utils.DateParser;
  */
 
 public class CalendarCardModel extends SimpleShortCardModel implements DoubleRecyclerAdapter.ItemModel {
-    public String basicInfo;
+    private final String AIRED_ON_DATE_PATTERN = "dd MMMM yyyy";
+    private final String AIRTIME_DATE_PATTERN = "HH:mm";
+
+    public Spanned basicInfo;
     public String airedOn;
     public String nextEpisode;
 
@@ -26,12 +31,13 @@ public class CalendarCardModel extends SimpleShortCardModel implements DoubleRec
         ruName = model.getAnime().getRuName();
         enName = model.getAnime().getEnName();
         poster = model.getAnime().getPoster();
-        basicInfo = String.format("%s  •  %s", model.getAnime().getKind().toLocalString(context),
-                                                model.getAnime().getStatus().toLocalString(context));
-        airedOn = String.format("•  %s  •", context.getString(R.string.field_anime_aired_on,
-                DateParser.parse("dd MMMM yyyy", model.getAnime().getAiredOn(), context.getString(R.string.status_unknown))));
-        nextEpisode = String.format("%s  •  %s", context.getString(R.string.field_next_episode, model.getNextEpisode()),
-                context.getString(R.string.field_airtime, DateParser.parse("HH:mm", model.getNextEpisodeAt(),
-                        context.getString(R.string.status_unknown))));
+        basicInfo = Html.fromHtml(context.getString(R.string.combine_field_base_info,
+                model.getAnime().getKind().toLocalString(context),
+                model.getAnime().getStatus().toLocalString(context),
+                model.getAnime().getStatus().getStatusColor()));
+        airedOn = context.getString(R.string.combine_field_anime_airing_on,
+                DateParser.parse(AIRED_ON_DATE_PATTERN, model.getAnime().getAiredOn(), context.getString(R.string.status_unknown)));
+        nextEpisode = context.getString(R.string.combine_field_next_episode, model.getNextEpisode(),
+                DateParser.parse(AIRTIME_DATE_PATTERN, model.getNextEpisodeAt(), context.getString(R.string.status_unknown)));
     }
 }

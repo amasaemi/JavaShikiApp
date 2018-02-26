@@ -1,6 +1,8 @@
 package com.amasaemi.javashikiapp.modules.list.ui.models;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.managers.ActivityManager;
@@ -15,7 +17,9 @@ import com.amasaemi.javashikiapp.utils.DateParser;
  */
 
 public class ListCardModel extends SimpleShortCardModel implements ViewModel {
-    public String basicInfo;
+    private final String AIRED_ON_DATE_PATTERN = "dd MMMM yyyy";
+
+    public Spanned basicInfo;
     public String airedOn;
     public String episodes;
 
@@ -26,26 +30,28 @@ public class ListCardModel extends SimpleShortCardModel implements ViewModel {
         ruName = model.getRuName();
         enName = model.getEnName();
         poster = model.getPoster();
-        basicInfo = String.format("%s  •  %s", model.getKind().toLocalString(context),
-                model.getStatus().toLocalString(context));
+        basicInfo = Html.fromHtml(context.getString(R.string.combine_field_base_info,
+                model.getKind().toLocalString(context),
+                model.getStatus().toLocalString(context),
+                model.getStatus().getStatusColor()));
 
         if (model.getTitleType() == TitleType.ANIME) {
-            airedOn = String.format("•  %s  •", context.getString(R.string.field_anime_aired_on,
-                    DateParser.parse("dd MMMM yyyy", model.getAiredOn(), context.getString(R.string.status_unknown))));
+            airedOn = context.getString(R.string.combine_field_anime_airing_on,
+                    DateParser.parse(AIRED_ON_DATE_PATTERN, model.getAiredOn(), context.getString(R.string.status_unknown)));
         } else {
-            airedOn = String.format("•  %s  •", context.getString(R.string.field_manga_aired_on,
-                    DateParser.parse("dd MMMM yyyy", model.getAiredOn(), context.getString(R.string.status_unknown))));
+            airedOn = context.getString(R.string.combine_field_manga_airing_on,
+                    DateParser.parse(AIRED_ON_DATE_PATTERN, model.getAiredOn(), context.getString(R.string.status_unknown)));
         }
 
         if (model.getTitleType() == TitleType.MANGA || model.getTitleType() == TitleType.RANOBE) {
-            episodes = context.getString(R.string.field_chapters,
+            episodes = context.getString(R.string.combine_field_chapters,
                     (model.getEpisodes()[0] == 0) ? "?" : model.getEpisodes()[0]);
         } else if (model.isOngoing()) {
-            episodes = context.getString(R.string.field_episodes_ongoing,
+            episodes = context.getString(R.string.combine_field_episodes_ongoing,
                     (model.getEpisodes()[1] == 0) ? "?" : model.getEpisodes()[1],
                     (model.getEpisodes()[0] == 0) ? "?" : model.getEpisodes()[0]);
         } else {
-            episodes = context.getString(R.string.field_episodes,
+            episodes = context.getString(R.string.combine_field_episodes,
                     (model.getEpisodes()[0] == 0) ? "?" : model.getEpisodes()[0]);
         }
     }

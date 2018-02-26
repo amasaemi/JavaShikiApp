@@ -19,10 +19,7 @@ import com.amasaemi.javashikiapp.data.managers.StaticAppManager;
 import com.amasaemi.javashikiapp.databinding.FragmentBaseListBinding;
 import com.amasaemi.javashikiapp.modules.base.adapters.DoubleRecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
-import com.amasaemi.javashikiapp.utils.ErrorReport;
 
 /**
  * Created by Alex on 31.01.2018.
@@ -65,6 +62,13 @@ public abstract class BaseListFragment extends BaseFragment {
         mBinding.container.setItemViewCacheSize(100);
         // создаем адаптер
         setupRecyclerView();
+        // настраиваем цветовую схему у swiperefresh
+        mBinding.loadIndicator.setColorScheme(
+                R.color.refresh_1,
+                R.color.refresh_2,
+                R.color.refresh_3,
+                R.color.refresh_4
+        );
         // ставим маркер о том, что фрагмент создан и будет запущен впервый раз
         mFragmentIsFirstRun = true;
         // если текущий фрагмент виден - инициализируем его
