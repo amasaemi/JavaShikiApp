@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.amasaemi.javashikiapp.modules.base.ui.customs.swiperefresh.SwipeRefreshLayout
+        android:id="@+id/load_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="@dimen/size_300"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/size_16"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_shiki_light"
+                    android:padding="@dimen/size_16"/>
+
+                <LinearLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/background_framed">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/label.input"
+                        android:layout_marginTop="@dimen/size_16"
+                        android:layout_marginStart="@dimen/size_16"
+                        android:textAllCaps="true"
+                        android:textColor="@color/orange_800"
+                        android:textSize="@dimen/font_21"/>
+
+                    <Button
+                        android:id="@+id/auth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:text="@string/label.enter"
+                        android:layout_gravity="end"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored" />
+
+                    <Button
+                        android:id="@+id/registration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.registration"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="-8dp"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored" />
+
+                    <Button
+                        android:id="@+id/about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/section.about"
+                        android:textColor="@color/active_icon"
+                        android:layout_gravity="center"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.amasaemi.javashikiapp.modules.base.ui.customs.swiperefresh.SwipeRefreshLayout>
+</layout>

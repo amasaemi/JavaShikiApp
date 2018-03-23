@@ -27,7 +27,7 @@ public class PreferencesManager {
      * Метод сохраняет настройки доступа в хранилище
      * @param userProfile - профиль текущего пользователя
      */
-    public void saveAccessData(StaticAppManager.ShortUserProfile userProfile) {
+    public void saveAccessData(StaticAppManager.UserProfileInfo userProfile) {
         mPreferences.edit()
                 .putString(USER_PROFILE, new Gson().toJson(userProfile))
                 .apply();
@@ -39,9 +39,9 @@ public class PreferencesManager {
     public boolean loadAccessData() {
         StaticAppManager.getInstance().setCurrentUser(
                 new Gson().fromJson(mPreferences.getString(USER_PROFILE, null),
-                        StaticAppManager.ShortUserProfile.class));
+                        StaticAppManager.UserProfileInfo.class));
 
-        return StaticAppManager.getInstance().hasAuth();
+        return StaticAppManager.getInstance().profileHasAvailable();
     }
 
     /**

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/black_54"
+                    app:layout_collapseMode="parallax"
+                    tools:src="@drawable/test_small_poster" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_4"
+                    app:layout_collapseMode="parallax">
+
+                    <ImageView
+                        android:id="@+id/poster"
+                        android:layout_width="@dimen/size_130"
+                        android:layout_height="@dimen/size_192"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/test_small_poster" />
+
+                    <TextView
+                        android:id="@+id/ru_name"
+                        style="@style/TitleInfoHeader"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/size_4"
+                        android:layout_marginStart="@dimen/size_4"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/poster"
+                        app:layout_constraintTop_toTopOf="@id/poster"
+                        tools:text="Стальная тревога" />
+
+                    <TextView
+                        android:id="@+id/en_name"
+                        style="@style/TitleInfoSubheader"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="@id/ru_name"
+                        app:layout_constraintRight_toLeftOf="@id/poster"
+                        app:layout_constraintTop_toBottomOf="@id/ru_name"
+                        tools:text="Full metal panic!" />
+
+                    <TextView
+                        android:id="@+id/jp_name"
+                        style="@style/TitleInfoSubheader"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_4"
+                        app:layout_constraintLeft_toLeftOf="@id/ru_name"
+                        app:layout_constraintRight_toLeftOf="@id/poster"
+                        app:layout_constraintTop_toBottomOf="@id/en_name"
+                        tools:text="フルメタル・パニック！" />
+
+                    <RatingBar
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:isIndicator="true"
+                        android:scaleX="0.6"
+                        android:scaleY="0.6"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        app:layout_constraintStart_toStartOf="@id/ru_name"
+                        app:layout_constraintTop_toBottomOf="@+id/jp_name"
+                        tools:rating="4.5" />
+                </android.support.constraint.ConstraintLayout>
+
+                <!--<android.support.v7.widget.Toolbar-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--app:layout_collapseMode="pin"-->
+                    <!--app:navigationIcon="?homeAsUpIndicator"/>-->
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_frame">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_8"
+                    android:src="?homeAsUpIndicator"
+                    style="@style/SelectableLayout"/>
+
+                <TextView
+                    style="@style/SelectableLayout"
+                    android:layout_width="@dimen/size_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/blue_300"
+                    android:gravity="center"
+                    android:text="@string/caption.add_in_my_list"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_8"
+                    android:src="@drawable/icon_menu"
+                    android:tint="@color/grey_600"
+                    style="@style/SelectableLayout"/>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <!--Добавить иконку "в избранное"-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_16"
+                android:columnCount="2">
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:text="@string/field.kind" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:gravity="end"
+                    tools:text="ТВ сериал"/>
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:text="@string/field.status" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:gravity="end"
+                    tools:text="Онгоинг"/>
+
+                <View
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:background="@color/grey_200"/>
+
+                <LinearLayout
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/size_12"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Фев 11, 2018"/>
+
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content">
+
+                        <SeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <SeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:progress="100"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Март 11, 2018"/>
+                </LinearLayout>
+            </GridLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

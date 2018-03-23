@@ -21,7 +21,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_scrollFlags="scroll|enterAlways"/>
+                    app:layout_scrollFlags="scroll|snap|enterAlways"/>
 
                 <include
                     layout="@layout/view_divider"/>
@@ -31,7 +31,7 @@
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView
@@ -43,6 +43,6 @@
             app:headerLayout="@layout/layout_navigation_header"
             app:menu="@menu/menu_navigation_main"
             app:itemIconTint="@color/menu_selectors_icon"
-            app:itemTextColor="@color/menu_selectors_text" />/>
+            app:itemTextColor="@color/menu_selectors_text" />
     </android.support.v4.widget.DrawerLayout>
 </layout>

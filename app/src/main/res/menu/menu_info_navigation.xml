@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation.description"
+        android:enabled="true"
+        android:icon="@drawable/icon_description"
+        android:title="@string/caption.description"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navigation.key_figures"
+        android:enabled="true"
+        android:icon="@drawable/icon_people"
+        android:title="@string/caption.key_figure"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navigation.discuss"
+        android:enabled="true"
+        android:icon="@drawable/icon_forum"
+        android:title="@string/caption.discussion"
+        app:showAsAction="always" />
+</menu>

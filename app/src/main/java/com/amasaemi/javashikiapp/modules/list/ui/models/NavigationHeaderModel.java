@@ -9,7 +9,6 @@ import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.managers.ActivityManager;
 import com.amasaemi.javashikiapp.data.managers.PreferencesManager;
 import com.amasaemi.javashikiapp.data.managers.StaticAppManager;
-import com.amasaemi.javashikiapp.data.network.pojo.sup.Image;
 import com.amasaemi.javashikiapp.modules.auth.ui.activities.AuthActivity;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
 
@@ -25,7 +24,7 @@ public class NavigationHeaderModel implements ViewModel {
     public Runnable avatarClick;
     public Runnable logoutClick;
 
-    public NavigationHeaderModel(Context context, StaticAppManager.ShortUserProfile userProfile) {
+    public NavigationHeaderModel(Context context, StaticAppManager.UserProfileInfo userProfile) {
         if (userProfile != null) {
             username = userProfile.getLogin();
             avatar = userProfile.getAvatar();
@@ -35,7 +34,7 @@ public class NavigationHeaderModel implements ViewModel {
         }
 
         avatarClick = () -> {
-            if (StaticAppManager.getInstance().hasAuth())
+            if (StaticAppManager.getInstance().profileHasAvailable())
                 ActivityManager.startUserActivity(context, StaticAppManager.getInstance().getCurrentUser().getId());
         };
         logoutClick = () -> {

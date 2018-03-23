@@ -4,7 +4,7 @@
         <color
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:color="@color/colorPrimary" />
+            android:color="@color/grey_100" />
     </item>
 
 

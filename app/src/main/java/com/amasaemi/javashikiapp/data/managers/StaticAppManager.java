@@ -2,6 +2,8 @@ package com.amasaemi.javashikiapp.data.managers;
 
 import android.net.Uri;
 
+import com.amasaemi.javashikiapp.data.network.pojo.res.AuthResponse;
+import com.amasaemi.javashikiapp.data.network.pojo.res.UserInfoResponse;
 import com.amasaemi.javashikiapp.data.network.pojo.sup.Image;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -18,9 +20,9 @@ public class StaticAppManager {
     }
 
     // текущая авторизационная информация о пользователе
-    private UserAuthInfo curUserAuthInfo;
-    // краткий профиль текущего пользователя
-    private ShortUserProfile curUserProfile;
+    private UserProfileInfo curUserProfileInfo;
+    // авторизационная информация пользователя
+    private UserAuthInfo mUserAuthInfo;
 
     // настройки
     // стиль списков
@@ -32,49 +34,30 @@ public class StaticAppManager {
     // стратегия в отношении хранения картинок в постоянной памяти
     private DiskCacheStrategy discCacheStrategy = DiskCacheStrategy.RESOURCE;
     // стратегия хранения картинок в оперативной памяти (false - хранить, true - не хранить)
-    private boolean skipMemoryCacheStrategy = false;
+    private boolean skipMemoryCacheStrategy = true;
 
-    /**
-     * Метод возвращает профиль текущего пользователя
-     * @return
-     */
-    public ShortUserProfile getCurrentUser() {
-        return curUserProfile;
+    public UserAuthInfo getUserAuthInfo() {
+        return mUserAuthInfo;
     }
 
-    /**
-     * Метод настраивает профиль авторизированного пользователя
-     * @param userProfile
-     */
-    public void setCurrentUser(ShortUserProfile userProfile) {
-        this.curUserProfile = curUserProfile;
+    public void setUserAuthInfo(UserAuthInfo userAuthInfo) {
+        mUserAuthInfo = userAuthInfo;
     }
 
-    /**
-     * Метод вернет true, если текущий пользователь авторизирован в приложении
-     * @return
-     */
-    public boolean hasAuth() {
-        return (curUserProfile != null) ? (curUserProfile.getId() != -1)
-                : getUserLogin() != null && getUserToken() != null;
+    public UserProfileInfo getCurrentUser() {
+        return curUserProfileInfo;
     }
 
-    /**
-     * Метод вернет логин текущего пользователя
-     * @return
-     */
-    public String getUserLogin() {
-        return (curUserProfile != null) ? curUserProfile.getLogin()
-                : (curUserAuthInfo != null) ? curUserAuthInfo.getLogin() : null;
+    public void setCurrentUser(UserProfileInfo curUserProfileInfo) {
+        this.curUserProfileInfo = curUserProfileInfo;
     }
 
-    /**
-     * Метод вернет токен текущего пользователя
-     * @return
-     */
-    public String getUserToken() {
-        return (curUserProfile != null) ? curUserProfile.getToken()
-                : (curUserAuthInfo != null) ? curUserAuthInfo.getToken() : null;
+    public boolean profileHasAvailable() {
+        return (curUserProfileInfo != null) && curUserProfileInfo.hasAvailable();
+    }
+
+    public boolean authTokenHasAvailable() {
+        return (getUserAuthInfo() != null) && getUserAuthInfo().hasAvailable();
     }
 
     public int getListStyle() {
@@ -117,46 +100,29 @@ public class StaticAppManager {
         this.listImageQuality = listImageQuality;
     }
 
-    class UserAuthInfo {
-        private String login;
-        private String token;
-
-        public UserAuthInfo(String login, String token) {
-            this.login = login;
-            this.token = token;
-        }
-
-        public String getLogin() {
-            return login;
-        }
-
-        public String getToken() {
-            return token;
-        }
-    }
-
-    public class ShortUserProfile {
+    public static class UserProfileInfo {
+        // id пользователя
         private int id = -1;
+        // логин и ник пользователя
         private String login;
-        private String token;
+        // аватар пользователя
         private Uri avatar;
-        private String name;
-        private String sex;
-        private String birth;
+        // доступ к токенам пользователя
+        private UserAuthInfo userTokenInfo;
 
-        public ShortUserProfile(int id, String login, String token, Uri avatar, String name, String sex, String birth) {
+        public UserProfileInfo(UserInfoResponse response, UserAuthInfo authInfo) {
+            this.id = response.getId();
+            this.login = response.getNickname();
+            this.avatar = response.getAvatar();
+            this.userTokenInfo = authInfo;
+        }
+
+        public UserProfileInfo(int id, String login, String authToken, String refreshToken, Uri avatar, int tokenLeftAt) {
             this.id = id;
             this.login = login;
-            this.token = token;
             this.avatar = avatar;
-            this.name = name;
-            this.sex = sex;
-            this.birth = birth;
+            this.userTokenInfo = new UserAuthInfo(authToken, refreshToken, tokenLeftAt);
         }
-
-        // TODO: 01.02.2018 Доделать второй конструктор
-//        constructor(userAuthInfo: UserAuthInfo, response: UserInfoResponse)
-//                : this(response.id, userAuthInfo.userLogin, userAuthInfo.userToken, response.avatar, response.name, response.sex, response.birthOn)
 
         public int getId() {
             return id;
@@ -166,24 +132,70 @@ public class StaticAppManager {
             return login;
         }
 
-        public String getToken() {
-            return token;
+        public String getAuthToken() {
+            return (userTokenInfo != null) ? userTokenInfo.authToken : null;
+        }
+
+        public String getRefreshToken() {
+            return (userTokenInfo != null) ? userTokenInfo.refreshToken : null;
         }
 
         public Uri getAvatar() {
             return avatar;
         }
 
-        public String getName() {
-            return (name != null) ? name : login;
+        /**
+         * Метод вернет true, если имеются id, логин и оба токена в наличии, а так же время
+         * действия токена тоступа не истекло
+         * @return
+         */
+        private boolean hasAvailable() {
+            return id != -1 && getLogin() != null && getAuthToken() != null && getRefreshToken() != null
+                    && System.currentTimeMillis() > ((userTokenInfo != null) ? userTokenInfo.tokenLeftAt : 0);
+        }
+    }
+
+    public static class UserAuthInfo {
+        // токен авторизации пользователя
+        private String authToken;
+        // токен обновления токена авторизации
+        private String refreshToken;
+        // время окончания действия токена
+        private int tokenLeftAt;
+
+        private UserAuthInfo(String authToken, String refreshToken, int tokenLeftAt) {
+            this.authToken = authToken;
+            this.refreshToken = refreshToken;
+            this.tokenLeftAt = tokenLeftAt;
         }
 
-        public String getSex() {
-            return sex;
+        public UserAuthInfo(AuthResponse response) {
+            this.authToken = response.getAccessToken();
+            this.refreshToken = response.getRefreshToken();
+            this.tokenLeftAt = response.tokenLeftAt();
         }
 
-        public String getBirth() {
-            return birth;
+        public String getAuthToken() {
+            return authToken;
+        }
+
+        public String getRefreshToken() {
+            return refreshToken;
+        }
+
+        public int tokenLeftAt() {
+            return tokenLeftAt;
+        }
+
+
+        /**
+         * Метод вернет true, если имеются id, логин и оба токена в наличии, а так же время
+         * действия токена тоступа не истекло
+         * @return
+         */
+        private boolean hasAvailable() {
+            return getAuthToken() != null && getRefreshToken() != null
+                    && System.currentTimeMillis() > tokenLeftAt;
         }
     }
 }

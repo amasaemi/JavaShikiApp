@@ -64,6 +64,8 @@
     <!--<string name="field.manga_aired_on">"Начало выхода: %1$s"</string>-->
     <string name="field.rating">"Возрастной рейтинг: "</string>
     <string name="field.genres">"Жанры: "</string>
+    <string name="field.kind">Тип</string>
+    <string name="field.status">Статус</string>
     <!--<string name="field.next_episode">"Эпизод: %1$s"</string>-->
     <!--<string name="field.airtime">"Эфирное время: %1$s"</string>-->
     <!--<string name="field.episodes">"Количество эпизодов: %1$s"</string>-->
@@ -86,9 +88,9 @@
     <string name="combine_field.anime_airing_on">• Начало показа: %1$s •</string>
     <string name="combine_field.manga_airing_on">• Начало выхода: %1$s •</string>
     <string name="combine_field.next_episode">Эпизод: %1$s • Эфирное время: %2$s</string>
-    <string name="combine_field.episodes">"Количество эпизодов: %1$s"</string>
-    <string name="combine_field.episodes_ongoing">"Эпизодов вышло: %1$s из %2$s"</string>
-    <string name="combine_field.chapters">"Количество глав: %1$s"</string>
+    <string name="combine_field.episodes">"• Количество эпизодов: %1$s" •</string>
+    <string name="combine_field.episodes_ongoing">"• Эпизодов вышло: %1$s из %2$s" •</string>
+    <string name="combine_field.chapters">"• Количество глав: %1$s" •</string>
     <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->
@@ -104,8 +106,7 @@
 
     <!-- Статусы ошибок -->
     <string name="error.error_loading_info">Ошибка загрузки информации</string>
-    <string name="error.mandatory_empty_field">Поле с логином или паролем пустое</string>
-    <string name="error.invalid_login_or_pass">Ошибка авторизации. Неверный логин или пароль</string>
+    <string name="error.shiki_permission_denied">Ошибка авторизации. Для продолжения повторите авторизацию</string>
     <string name="error.timeout">Превышено время ожидания ответа от сервера. Повторите запрос</string>
     <string name="error.no_internet">Отсутствует соединение с интернетом</string>
     <string name="error.no_shiki_conn">Отсутствует соединение с сервером. Попробуйте переподключиться</string>
@@ -120,10 +121,10 @@
     <!-- Надписи на элементах управления -->
     <string name="label.ok">OK</string>
     <string name="label.reconnection">Переподключиться</string>
-    <string name="label.enter">Войти</string>
-    <string name="label.enter_no_auth">Продолжить без авторизации</string>
-    <string name="label.login">Логин</string>
-    <string name="label.pass">Пароль</string>
+    <string name="label.input">Вход</string>
+    <string name="label.enter">Авторизация</string>
+    <string name="label.registration">Создать аккаунт</string>
+    <!--<string name="label.enter_no_auth">Продолжить без авторизации</string>-->
     <string name="label.guest">Гость</string>
     <string name="label.restore_pass"><a href="https://shikimori.org/users/password/new">Забыли пароль?</a></string>
     <string name="label.show_all">Показать полностью</string>

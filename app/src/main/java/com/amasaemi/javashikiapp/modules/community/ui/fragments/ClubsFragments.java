@@ -97,9 +97,8 @@ public class ClubsFragments extends BaseListFragment implements ShikiListView<Cl
     protected void setupRecyclerView() {
         // устанавливаем менеджер recyclerView
         setupRecyclerViewLayoutManager(new int[] {1, 2, 3, 1, 2, 3, 2, 3, 4, 2, 3, 4});
-        int itemLayout = listStyleIsShort() ? R.layout.card_community_long : R.layout.card_community_long;
         // назначаем адаптер
-        createRecyclerViewAdapter(new SimpleRecyclerAdapter<CommunityCardModel>(itemLayout));
+        createRecyclerViewAdapter(new SimpleRecyclerAdapter<CommunityCardModel>(R.layout.card_community_long));
     }
 
     /**

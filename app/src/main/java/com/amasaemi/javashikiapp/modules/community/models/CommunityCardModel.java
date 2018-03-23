@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.amasaemi.javashikiapp.data.managers.ActivityManager;
-import com.amasaemi.javashikiapp.data.network.pojo.constants.CommunityType;
 import com.amasaemi.javashikiapp.data.network.pojo.res.ClubsListResponse;
-import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.data.network.pojo.res.UserListResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
 
@@ -31,8 +29,7 @@ public class CommunityCardModel implements ViewModel {
 
     public CommunityCardModel(Context context, ClubsListResponse model) {
         this.id = model.getId();
-        this.cardClick = () -> ActivityManager.startUserActivity(context, model.getId());
-//        this.cardClick = () -> ActivityManager.startClubActivity(context, model.getId());
+        this.cardClick = () -> ActivityManager.startClubActivity(context, model.getId());
         this.title = model.getName();
         this.avatar = model.getPoster();
     }

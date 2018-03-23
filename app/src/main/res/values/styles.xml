@@ -10,6 +10,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SplashScreen" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <!-- Заголовок окна описания тайтла -->
+    <style name="TitleInfoHeader" parent="Line">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_21</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <!-- Подзаголовок окна описания тайтла -->
+    <style name="TitleInfoSubheader" parent="Line">
+        <item name="android:textColor">@color/grey_50</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
     <!-- Общий стиль линии -->
     <style name="Line">

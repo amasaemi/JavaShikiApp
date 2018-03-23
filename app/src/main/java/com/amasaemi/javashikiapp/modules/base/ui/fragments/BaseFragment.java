@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiView;
+import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
 import com.arellomobile.mvp.MvpFragment;
 
 /**
@@ -27,13 +28,10 @@ public abstract class BaseFragment extends MvpFragment implements ShikiView {
     }
 
     @Override
-    final public void showDialog(String title, String message) {
+    public void showDialog(String title, String message) {
         stateLoadIndicator(false);
 
-        new AlertDialog.Builder(getActivity())
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(R.string.label_ok, (di, i) -> di.dismiss());
+        ((BaseActivity) getActivity()).showDialog(title, message).create().show();
     }
 
     public boolean onBackPressed() {
