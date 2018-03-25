@@ -3,6 +3,8 @@ package com.amasaemi.javashikiapp.data.managers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.amasaemi.javashikiapp.data.network.pojo.sup.Image;
+import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
 import com.google.gson.Gson;
 
 /**
@@ -11,15 +13,12 @@ import com.google.gson.Gson;
 
 public class PreferencesManager {
     private final String APP_PREFERENCES = "app_preferences";
-    private final String USER_PROFILE = "user_profile";
-    private final String LIST_STYLE = "list_style";
-    // контекст приложения
-    private Context mContext;
+    private final String USER_AUTH_TOKENS = "user_tokens";
+    private final String USER_SETTINGS = "user_settings";
     // доступ к хранилищю значений
     private SharedPreferences mPreferences;
 
     public PreferencesManager(Context context) {
-        mContext = context;
         mPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
@@ -27,9 +26,9 @@ public class PreferencesManager {
      * Метод сохраняет настройки доступа в хранилище
      * @param userProfile - профиль текущего пользователя
      */
-    public void saveAccessData(StaticAppManager.UserProfileInfo userProfile) {
+    public void saveAccessData(StaticAppManager.Tokens userProfile) {
         mPreferences.edit()
-                .putString(USER_PROFILE, new Gson().toJson(userProfile))
+                .putString(USER_AUTH_TOKENS, new Gson().toJson(userProfile))
                 .apply();
     }
 
@@ -37,36 +36,34 @@ public class PreferencesManager {
      * Метод загружает настройки доступа из хранилища
      */
     public boolean loadAccessData() {
-        StaticAppManager.getInstance().setCurrentUser(
-                new Gson().fromJson(mPreferences.getString(USER_PROFILE, null),
-                        StaticAppManager.UserProfileInfo.class));
+        StaticAppManager.getInstance().setUserTokens(new Gson().fromJson(mPreferences.getString(USER_AUTH_TOKENS, null),
+                StaticAppManager.Tokens.class));
 
-        return StaticAppManager.getInstance().profileHasAvailable();
+        return StaticAppManager.getInstance().tokensHasAvailable();
     }
 
     /**
      * Метод удаляет сохраненные настройки доступа из хранилища
      */
     public void forgetAccessData() {
-        mPreferences.edit().remove(USER_PROFILE).apply();
-        StaticAppManager.getInstance().setCurrentUser(null);
+        mPreferences.edit().remove(USER_AUTH_TOKENS).apply();
+        StaticAppManager.getInstance().forgotUser();
     }
 
     /**
-     * Метод сохраняет настройку отображения списка
-     * @param style - стиль списка (0 - длинные карточки, 1 - короткие карточки)
+     * Метод сохраняет все настройки приложения
      */
-    public void saveListStyle(int style) {
-        mPreferences.edit().putInt(LIST_STYLE, style).apply();
-        StaticAppManager.getInstance().setListStyle(style);
-    }
-
     public void saveSettings() {
-        // TODO: 01.02.2018 Сохранять все текущие настройки
-        // TODO: 01.02.2018 в SAM создать класс, хранящий все настройки
+        mPreferences.edit()
+                .putString(USER_SETTINGS, new Gson().toJson(StaticAppManager.getInstance().getUserSettings().getStoredSettings()))
+                .apply();
     }
 
+    /**
+     * Метод загружает все настройки приложения
+     */
     public void loadSettings() {
-        StaticAppManager.getInstance().setListStyle(mPreferences.getInt(LIST_STYLE, 0));
+        StaticAppManager.getInstance().setUserSettings(new Gson().fromJson(mPreferences.getString(USER_SETTINGS, null),
+                StaticAppManager.Settings.StoredSettings.class));
     }
 }

@@ -14,28 +14,20 @@ import com.amasaemi.javashikiapp.modules.list.ui.activities.ListActivity;
  * Created by Alex on 26.02.2018.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseAuthActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PreferencesManager preferencesManager = new PreferencesManager(this);
-        // загружаем настройки приложения
-        preferencesManager.loadSettings();
-        // загружаем данные авторизации и если данные отсутствуют - переходим на экран авторизации
-        if (preferencesManager.loadAccessData()) {
+        if (StaticAppManager.getInstance().tokensHasAvailable()) {
             // проверяем верность сохраненных данных
             new UserService().getCurrentUser((response) -> {
-                    if (response.getNickname().equals(StaticAppManager.getInstance().getCurrentUser().getLogin())) {
-                        startActivity(new Intent(this, ListActivity.class));
-                    } else {
-                        preferencesManager.forgetAccessData();
-                        startActivity(new Intent(this, AuthActivity.class));
-                    }
-                }, (t) -> {
-                    preferencesManager.forgetAccessData();
-                    startActivity(new Intent(this, AuthActivity.class));
-                });
+                instanceUserProfile(response);
+                startActivity(new Intent(this, ListActivity.class));
+            }, (t) -> {
+                forgotCurrentUser();
+                startActivity(new Intent(this, AuthActivity.class));
+            });
         } else {
             startActivity(new Intent(this, AuthActivity.class));
         }

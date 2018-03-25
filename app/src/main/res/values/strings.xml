@@ -62,8 +62,8 @@
     <!-- Поля -->
     <!--<string name="field.anime_aired_on">"Начало показа: %1$s"</string>-->
     <!--<string name="field.manga_aired_on">"Начало выхода: %1$s"</string>-->
-    <string name="field.rating">"Возрастной рейтинг: "</string>
-    <string name="field.genres">"Жанры: "</string>
+    <string name="field.rating">Рейтинг</string>
+    <string name="field.users_list">В списках пользователей</string>
     <string name="field.kind">Тип</string>
     <string name="field.status">Статус</string>
     <!--<string name="field.next_episode">"Эпизод: %1$s"</string>-->
@@ -91,6 +91,7 @@
     <string name="combine_field.episodes">"• Количество эпизодов: %1$s" •</string>
     <string name="combine_field.episodes_ongoing">"• Эпизодов вышло: %1$s из %2$s" •</string>
     <string name="combine_field.chapters">"• Количество глав: %1$s" •</string>
+    <string name="combine_field.episode_length">Продолжительность эпизода: %1$s мин</string>
     <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->

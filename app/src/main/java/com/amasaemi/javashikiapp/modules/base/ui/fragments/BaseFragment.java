@@ -1,9 +1,5 @@
 package com.amasaemi.javashikiapp.modules.base.ui.fragments;
 
-import android.databinding.ViewDataBinding;
-import android.support.v7.app.AlertDialog;
-
-import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiView;
 import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
 import com.arellomobile.mvp.MvpFragment;

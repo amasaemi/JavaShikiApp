@@ -26,10 +26,10 @@ public abstract class BaseNetworkService {
     // httpClient с заголовками и логгированием
     protected final OkHttpClient mHttpClient = new OkHttpClient.Builder()
             .addInterceptor((chain) -> {
-                if (StaticAppManager.getInstance().authTokenHasAvailable()) {
+                if (StaticAppManager.getInstance().tokensHasAvailable()) {
                     return chain.proceed(chain.request().newBuilder()
                             .addHeader(USER_AGENT, ConstantManager.APP_NAME)
-                            .addHeader(HEADER_AUTH, "Bearer " + StaticAppManager.getInstance().getUserAuthInfo().getAuthToken())
+                            .addHeader(HEADER_AUTH, "Bearer " + StaticAppManager.getInstance().getUserTokens().getAccessToken())
                             .build());
                 } else {
                     return chain.proceed(chain.request().newBuilder()

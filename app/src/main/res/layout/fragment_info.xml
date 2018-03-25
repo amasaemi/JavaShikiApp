@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -89,10 +90,10 @@
                 </android.support.constraint.ConstraintLayout>
 
                 <!--<android.support.v7.widget.Toolbar-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="?attr/actionBarSize"-->
-                    <!--app:layout_collapseMode="pin"-->
-                    <!--app:navigationIcon="?homeAsUpIndicator"/>-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--app:layout_collapseMode="pin"-->
+                <!--app:navigationIcon="?homeAsUpIndicator"/>-->
             </android.support.design.widget.CollapsingToolbarLayout>
 
             <LinearLayout
@@ -101,11 +102,11 @@
                 android:background="@drawable/background_frame">
 
                 <ImageView
+                    style="@style/SelectableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/size_8"
-                    android:src="?homeAsUpIndicator"
-                    style="@style/SelectableLayout"/>
+                    android:src="?homeAsUpIndicator" />
 
                 <TextView
                     style="@style/SelectableLayout"
@@ -119,12 +120,12 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    style="@style/SelectableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/size_8"
                     android:src="@drawable/icon_menu"
-                    android:tint="@color/grey_600"
-                    style="@style/SelectableLayout"/>
+                    android:tint="@color/grey_600" />
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -137,68 +138,216 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size_16"
-                android:columnCount="2">
+                android:columnCount="2"
+                android:padding="@dimen/size_16">
 
                 <TextView
+                    style="@style/BaseFieldsInfoFont"
                     android:layout_columnWeight="1"
                     android:text="@string/field.kind" />
 
                 <TextView
+                    style="@style/BaseFieldsInfoFont"
                     android:layout_columnWeight="1"
                     android:gravity="end"
-                    tools:text="ТВ сериал"/>
+                    tools:text="ТВ сериал" />
 
                 <TextView
+                    style="@style/BaseFieldsInfoFont"
                     android:layout_columnWeight="1"
-                    android:layout_marginTop="@dimen/size_8"
+                    android:layout_marginTop="@dimen/size_12"
                     android:text="@string/field.status" />
 
                 <TextView
+                    style="@style/BaseFieldsInfoFont"
                     android:layout_columnWeight="1"
-                    android:layout_marginTop="@dimen/size_8"
+                    android:layout_marginTop="@dimen/size_12"
                     android:gravity="end"
-                    tools:text="Онгоинг"/>
+                    tools:text="Онгоинг" />
+
+                <!-- Жанры -->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_columnSpan="2"-->
+                    <!--android:layout_marginTop="@dimen/size_8"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/grey_300"-->
+                        <!--android:padding="@dimen/size_1"-->
+                        <!--tools:text="Хентай" />-->
+                <!--</LinearLayout>-->
 
                 <View
-                    android:layout_columnSpan="2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_1"
+                    android:layout_columnSpan="2"
+                    android:layout_marginBottom="@dimen/size_4"
                     android:layout_marginTop="@dimen/size_12"
-                    android:background="@color/grey_200"/>
+                    android:background="@color/grey_200" />
 
                 <LinearLayout
-                    android:layout_columnSpan="2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/size_12"
-                    android:orientation="horizontal">
+                    android:layout_columnSpan="2"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_12">
 
                     <TextView
+                        style="@style/BaseFieldsInfoFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Фев 11, 2018"/>
+                        tools:text="Фев 11, 2018" />
 
                     <FrameLayout
-                        android:layout_weight="1"
                         android:layout_width="@dimen/size_0"
-                        android:layout_height="wrap_content">
-
-                        <SeekBar
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
                         <SeekBar
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:progress="100"/>
+                            android:enabled="false"/>
+
+                        <SeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:progress="100"
+                            android:enabled="false"/>
                     </FrameLayout>
 
                     <TextView
+                        style="@style/BaseFieldsInfoFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Март 11, 2018"/>
+                        tools:layout_editor_absoluteX="134dp"
+                        tools:layout_editor_absoluteY="177dp"
+                        tools:text="Март 11, 2018" />
                 </LinearLayout>
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/font_11"
+                    tools:text="Продолжительность эпизода: 24 мин" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1"
+                    android:layout_columnSpan="2"
+                    android:layout_marginBottom="@dimen/size_12"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:background="@color/grey_200" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:text="@string/caption.episodes" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:gravity="end"
+                    tools:text="24" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:text="@string/field.rating" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:gravity="end"
+                    tools:text="PG-13" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:text="@string/caption.studio" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:gravity="end"
+                    tools:text="Kyoto Animation" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1"
+                    android:layout_columnSpan="2"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:layout_marginBottom="@dimen/size_12"
+                    android:background="@color/grey_200" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/BaseFieldsInfoFont"
+                        android:textSize="@dimen/font_13"
+                        android:maxLines="4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Cосукэ Сагара (相良 宗介) — семнадцатилетний военный специалист, работающий на секретную организацию «Мифрил», — был назначен телохранителем одной из «шепчущих» по имени Канамэ Тидори (千鳥 かなめ). Для успешного выпо.."/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.show_all"
+                        android:layout_gravity="end"
+                        android:fontFamily="sans-serif-medium"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1"
+                    android:layout_columnSpan="2"
+                    android:layout_marginBottom="@dimen/size_12"
+                    android:background="@color/grey_200" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:text="@string/field.users_list" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:text="@string/caption.video" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:text="@string/caption.related" />
+
+                <TextView
+                    style="@style/BaseFieldsInfoFont"
+                    android:layout_columnSpan="2"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:text="@string/caption.similar" />
             </GridLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

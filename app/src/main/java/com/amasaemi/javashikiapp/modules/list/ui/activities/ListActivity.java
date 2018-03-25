@@ -76,7 +76,7 @@ public class ListActivity extends BaseActivity {
         // настраиваем header у navigationDrawer
         LayoutNavigationHeaderBinding header = DataBindingUtil.bind(mBinding.listNavigation.getHeaderView(0));
         // настраиваем заголовок относительно того, авторизован пользователь, или по "гостевому" сценарию
-        header.setModel(new NavigationHeaderModel(this, StaticAppManager.getInstance().getCurrentUser()));
+        header.setModel(new NavigationHeaderModel(this, StaticAppManager.getInstance().getUserProfile()));
         // настраиваем меню navigation view
         mBinding.listNavigation.setNavigationItemSelectedListener((menuItem) -> {
             mBinding.drawerLayout.closeDrawers();

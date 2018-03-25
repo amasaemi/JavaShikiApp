@@ -106,7 +106,7 @@ public class TitleListItemResponse {
      * @return
      */
     public Uri getPoster() {
-        switch (StaticAppManager.getInstance().getListImageQuality()) {
+        switch (StaticAppManager.getInstance().getUserSettings().getListImageQuality()) {
             case Image.QUALITY_MIDDLE: return getPreviewPoster();
             case Image.QUALITY_HIGH: return getOriginalPoster();
             default: return getSmallPoster();

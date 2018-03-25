@@ -24,18 +24,18 @@ public class NavigationHeaderModel implements ViewModel {
     public Runnable avatarClick;
     public Runnable logoutClick;
 
-    public NavigationHeaderModel(Context context, StaticAppManager.UserProfileInfo userProfile) {
+    public NavigationHeaderModel(Context context, StaticAppManager.Profile userProfile) {
         if (userProfile != null) {
             username = userProfile.getLogin();
-            avatar = userProfile.getAvatar();
+            avatar = Uri.parse(userProfile.getAvatar());
         } else {
             username = context.getString(R.string.label_guest);
             avatar = GUESS_AVATAR;
         }
 
         avatarClick = () -> {
-            if (StaticAppManager.getInstance().profileHasAvailable())
-                ActivityManager.startUserActivity(context, StaticAppManager.getInstance().getCurrentUser().getId());
+            if (StaticAppManager.getInstance().getUserProfile().hasAvailable())
+                ActivityManager.startUserActivity(context, StaticAppManager.getInstance().getUserProfile().getId());
         };
         logoutClick = () -> {
             new PreferencesManager(context).forgetAccessData();

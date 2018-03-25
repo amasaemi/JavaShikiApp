@@ -42,6 +42,6 @@ public class DeactiveViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(item, StaticAppManager.getInstance().isAnimateFragmentChange());
+        super.setCurrentItem(item, StaticAppManager.getInstance().getUserSettings().hasAnimateSwapFragments());
     }
 }

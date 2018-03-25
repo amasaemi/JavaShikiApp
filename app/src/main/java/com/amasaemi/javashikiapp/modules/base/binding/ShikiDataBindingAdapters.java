@@ -26,8 +26,8 @@ public class ShikiDataBindingAdapters {
                 .load(url)
                 .apply(new RequestOptions()
                         .circleCrop()
-                        .diskCacheStrategy(StaticAppManager.getInstance().getDiscCacheStrategy())
-                        .skipMemoryCache(StaticAppManager.getInstance().skipMemoryCacheStrategy()))
+                        .diskCacheStrategy(StaticAppManager.getInstance().getUserSettings().getDiscCacheStrategy())
+                        .skipMemoryCache(StaticAppManager.getInstance().getUserSettings().hasSkipMemoryCacheStrategy()))
                 .into(view);
     }
 
@@ -36,8 +36,8 @@ public class ShikiDataBindingAdapters {
         Glide.with(view.getContext())
                 .load(url)
                 .apply(new RequestOptions()
-                        .diskCacheStrategy(StaticAppManager.getInstance().getDiscCacheStrategy())
-                        .skipMemoryCache(StaticAppManager.getInstance().skipMemoryCacheStrategy())
+                        .diskCacheStrategy(StaticAppManager.getInstance().getUserSettings().getDiscCacheStrategy())
+                        .skipMemoryCache(StaticAppManager.getInstance().getUserSettings().hasSkipMemoryCacheStrategy())
                         .error(R.drawable.img_load_failed))
                 .into(view);
     }

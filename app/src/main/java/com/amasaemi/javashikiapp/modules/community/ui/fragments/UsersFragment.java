@@ -8,14 +8,12 @@ import android.view.MenuInflater;
 import android.view.View;
 
 import com.amasaemi.javashikiapp.R;
-import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
 import com.amasaemi.javashikiapp.data.network.pojo.res.UserListResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
 import com.amasaemi.javashikiapp.modules.community.models.CommunityCardModel;
 import com.amasaemi.javashikiapp.modules.community.mvp.presenters.UsersPresenter;
-import com.amasaemi.javashikiapp.modules.list.ui.models.ListCardModel;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.LinkedList;
@@ -41,7 +39,7 @@ public class UsersFragment extends BaseListFragment implements ShikiListView<Use
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        serRecyclerEndlessListener(() -> getPresenter().loadNextPage());
+        setRecyclerEndlessListener(() -> getPresenter().loadNextPage());
     }
 
     @Override

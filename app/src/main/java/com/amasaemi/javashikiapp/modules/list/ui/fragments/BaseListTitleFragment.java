@@ -27,7 +27,7 @@ public abstract class BaseListTitleFragment extends BaseListFragment implements 
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         // вешаем слушатель конца списка
-        serRecyclerEndlessListener(() -> getPresenter().loadNextPage());
+        setRecyclerEndlessListener(() -> getPresenter().loadNextPage());
     }
 
     @Override

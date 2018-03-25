@@ -60,8 +60,6 @@ public abstract class BaseListFragment extends BaseFragment {
         mBinding.container.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         // количество элементов, которые хранятся в памяти без пересоздания
         mBinding.container.setItemViewCacheSize(100);
-        // создаем адаптер
-        setupRecyclerView();
         // настраиваем цветовую схему у swiperefresh
         mBinding.loadIndicator.setColorScheme(
                 R.color.refresh_1,
@@ -72,8 +70,11 @@ public abstract class BaseListFragment extends BaseFragment {
         // ставим маркер о том, что фрагмент создан и будет запущен впервый раз
         mFragmentIsFirstRun = true;
         // если текущий фрагмент виден - инициализируем его
-        if (getUserVisibleHint())
+        if (getUserVisibleHint()) {
+            // создаем адаптер
+            setupRecyclerView();
             initialFragment();
+        }
     }
 
     @Override
@@ -81,8 +82,11 @@ public abstract class BaseListFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         // если текущий фрагмент виден и не проинициализирован - инициализируем его
-        if (isVisibleToUser && getView() != null)
+        if (isVisibleToUser && getView() != null) {
+            // создаем адаптер
+            setupRecyclerView();
             initialFragment();
+        }
     }
 
     @Override
@@ -121,7 +125,7 @@ public abstract class BaseListFragment extends BaseFragment {
      * @param endlessAction - действие, совершаемое при достижении конца списка
      * подгрузки следующего списка
      */
-    protected final void serRecyclerEndlessListener(Runnable endlessAction) {
+    protected final void setRecyclerEndlessListener(Runnable endlessAction) {
         mBinding.container.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int totalItemCount = 0;
             int lastVisibleItem = 0;
@@ -165,8 +169,8 @@ public abstract class BaseListFragment extends BaseFragment {
      */
     protected final void changeRecyclerManager() {
         // сохраняем новое состояние списка
-        new PreferencesManager(getActivity())
-                .saveListStyle(!listStyleIsShort() ? SimpleRecyclerAdapter.STYLE_SHORT : SimpleRecyclerAdapter.STYLE_LONG);
+        StaticAppManager.getInstance().getUserSettings()
+                .setListStyle(listStyleIsShort() ? SimpleRecyclerAdapter.STYLE_LONG : SimpleRecyclerAdapter.STYLE_SHORT);
 
         stateVisibilityContainer(false);
         mListPos = mLayoutManager.onSaveInstanceState();
@@ -282,7 +286,7 @@ public abstract class BaseListFragment extends BaseFragment {
     }
 
     protected boolean listStyleIsShort() {
-        return StaticAppManager.getInstance().getListStyle() == SimpleRecyclerAdapter.STYLE_SHORT;
+        return StaticAppManager.getInstance().getUserSettings().getListStyle() == SimpleRecyclerAdapter.STYLE_SHORT;
     }
 
     @Override

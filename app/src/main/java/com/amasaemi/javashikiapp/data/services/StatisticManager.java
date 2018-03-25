@@ -26,7 +26,7 @@ public class StatisticManager extends BaseNetworkService {
             .client(mHttpClient).build().create(StatisticApi.class);
 
     public void commitEvent(String event) {
-        mStatisticApi.commitEvent("s3da79sj6ip9", StaticAppManager.getInstance().getCurrentUser().getLogin(),
+        mStatisticApi.commitEvent("s3da79sj6ip9", StaticAppManager.getInstance().getUserProfile().getLogin(),
                 String.format("%s, %s, %s", Build.MANUFACTURER, Build.MODEL, Build.VERSION.CODENAME), event,
                 new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date()));
     }

@@ -44,10 +44,7 @@ public class AuthActivity extends BaseActivity {
         );
         // обработчик нажатия по кнопки авторизации
         mBinding.auth.setOnClickListener(view -> {
-//            createAuthDialog();
-
-            startActivity(new Intent(this, ListActivity.class));
-            this.finish();
+            createAuthDialog();
         });
         // обработчик нажатия по кнопке регистрации
         mBinding.registration.setOnClickListener(view -> {
@@ -90,7 +87,7 @@ public class AuthActivity extends BaseActivity {
                 if (url.startsWith("https://shikimori.org/oauth/authorize/")) {
                     if (authDialog != null) authDialog.dismiss();
 
-                    String authKey = url.substring(50, url.length());
+                    String authKey = url.substring(38, url.length());
                     auth(authKey);
                 } else if (url.equals("https://shikimori.org/oauth/authorize")) {
                     if (authDialog != null) authDialog.dismiss();
@@ -107,39 +104,40 @@ public class AuthActivity extends BaseActivity {
 
     private void auth(String authKey) {
         new AuthService().getAccessToken(authKey, (response) -> {
-                // проверить успешность авторизации
-                StaticAppManager.getInstance().setUserAuthInfo(new StaticAppManager.UserAuthInfo(response));
-                checkAuth();
-            }, (throwable) -> {
-                hasStartAuthDialog(false);
-                showDialog(getString(R.string.status_error), throwable.getMessage())
-                        .create().show();
-            });
+            // проверить успешность авторизации
+            StaticAppManager.getInstance().setUserTokens(response);
+
+            checkAuth();
+        }, (throwable) -> {
+            hasStartAuthDialog(false);
+            showDialog(getString(R.string.status_error), throwable.getMessage()).create().show();
+        });
     }
 
     private void checkAuth() {
         new UserService().getCurrentUser((response) -> {
-                // записываем авторизационные данные пользователя
-                StaticAppManager.getInstance().setCurrentUser(
-                        new StaticAppManager.UserProfileInfo(response, StaticAppManager.getInstance().getUserAuthInfo()));
-                // сохраняем новые авторизационные данные
-                new PreferencesManager(this).saveAccessData(StaticAppManager.getInstance().getCurrentUser());
+            // сохраняем новые авторизационные данные
+            new PreferencesManager(this).saveAccessData(StaticAppManager.getInstance().getUserTokens());
+            // записываем данные пользователя
+            StaticAppManager.getInstance().setUserProfile(response);
 
-                startActivity(new Intent(this, ListActivity.class));
-                this.finish();
-            }, (t) -> {
-                // скорее всего тут будет истекший токен
-                new AuthService().refreshToken(StaticAppManager.getInstance().getCurrentUser().getRefreshToken(), (response) -> {
-                            // сохраняем новые токены
-                            StaticAppManager.getInstance().setUserAuthInfo(new StaticAppManager.UserAuthInfo(response));
-                            // снова делаем проверку
-                            checkAuth();
-                        },
-                        (throwable) -> {
-                            showDialog(getString(R.string.status_error), throwable.getMessage())
-                                    .create().show();
-                        });
-            });
+            startActivity(new Intent(this, ListActivity.class));
+            this.finish();
+        }, (t) -> {
+            // скорее всего тут будет истекший токен
+            refreshToken();
+        });
+    }
+
+    private void refreshToken() {
+        new AuthService().refreshToken(StaticAppManager.getInstance().getUserTokens().getRefreshToken(), (response) -> {
+            // сохраняем новые токены
+            StaticAppManager.getInstance().setUserTokens(response);
+            // снова делаем проверку
+            checkAuth();
+        }, (throwable) -> {
+            showDialog(getString(R.string.status_error), throwable.getMessage()).create().show();
+        });
     }
 
     private void hasStartAuthDialog(boolean state) {

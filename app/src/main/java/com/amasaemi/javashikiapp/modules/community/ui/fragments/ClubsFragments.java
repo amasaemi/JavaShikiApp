@@ -10,15 +10,12 @@ import android.view.View;
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.res.ClubsListResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
 import com.amasaemi.javashikiapp.modules.community.models.CommunityCardModel;
 import com.amasaemi.javashikiapp.modules.community.mvp.presenters.ClubsPresenter;
-import com.amasaemi.javashikiapp.modules.list.ui.fragments.AnimeListFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class ClubsFragments extends BaseListFragment implements ShikiListView<Cl
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        serRecyclerEndlessListener(() -> getPresenter().loadNextPage());
+        setRecyclerEndlessListener(() -> getPresenter().loadNextPage());
     }
 
     @Override
