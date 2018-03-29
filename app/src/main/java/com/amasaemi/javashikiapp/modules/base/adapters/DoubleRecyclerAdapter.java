@@ -63,7 +63,7 @@ public final class DoubleRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
             holder.getBinding().setVariable(BR.model, mList.get(position));
         } catch (Exception ex) {
             Log.e(this.getClass().getSimpleName(), ex.getMessage());
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), ex.getMessage()));
+            ErrorReport.sendReport(ex);
         }
     }
 

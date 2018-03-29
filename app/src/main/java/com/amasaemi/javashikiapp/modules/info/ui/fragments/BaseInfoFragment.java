@@ -1,25 +1,142 @@
 package com.amasaemi.javashikiapp.modules.info.ui.fragments;
 
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupMenu;
+
+import com.amasaemi.javashikiapp.R;
+import com.amasaemi.javashikiapp.data.network.pojo.res.TitleInfoResponse;
+import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
+import com.amasaemi.javashikiapp.databinding.FragmentInfoBinding;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
+import com.amasaemi.javashikiapp.modules.info.ui.activities.TitleInfoActivity;
+import com.amasaemi.javashikiapp.modules.info.ui.models.TitleInfoModel;
+import com.amasaemi.javashikiapp.modules.info.mvp.views.ShikiInfoView;
+import com.amasaemi.javashikiapp.modules.info.ui.dialogs.RateDialog;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.stfalcon.frescoimageviewer.ImageViewer;
+
+import java.util.List;
 
 /**
  * Created by Alex on 14.03.2018.
  */
 
-public class BaseInfoFragment extends BaseFragment {
+public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfoView {
+    protected FragmentInfoBinding mBinding;
+    // id тайтла, с которым работаем
+    private int mTitleId = -1;
+    // модель текущего тайтла
+    private TitleInfoModel mTitleModel;
+    // кастомное всплывающее меню
+    private PopupMenu mMenu;
+    // диалог с настройками тайтла в списке пользователя
+    private RateDialog mRateDialog;
 
+    @Nullable
     @Override
-    public void stateLoadIndicator(Boolean state) {
-
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
-    public void showRetrySnackbar(Runnable action) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        mTitleId = getArguments().getInt(TitleInfoActivity.TITLE_ID, -1);
+    }
+
+    @Override
+    public final void setTitleInfo(TitleInfoResponse response) throws NullPointerException {
+        new Thread(() -> {
+            mBinding.setModel(mTitleModel);
+            // если описание не пустое, включаем кнопку "показать описание полностью"
+            mBinding.showAllButton.setVisibility((mTitleModel.emptyDescription) ? View.GONE : View.VISIBLE);
+            // назначаем слушатель на кнопку "показать описание полностью"
+            mBinding.showAllButton.setOnClickListener((view) -> {
+                mBinding.descriptionTextView.setMaxLines(500);
+                view.setVisibility(View.GONE);
+            });
+            // настраиваем RateDialog
+            // TODO: 29.03.2018 настроить ratedialog
+
+            stateVisibilityContainer(true);
+        }).run();
+    }
+
+    @Override
+    public final void setExternalLinksMenu(List<TitleInfoResponse.ExternalLinksResponse> response) {
+        new Thread(() -> {
+            // TODO: 25.03.2018
+        }).run();
+    }
+
+    @Override
+    public final void setVideosMenu(List<TitleInfoResponse.VideoResponse> response) {
+        new Thread(() -> {
+            // TODO: 25.03.2018
+        }).run();
+    }
+
+    @Override
+    public final void setRelatedMenu(List<TitleInfoResponse.RelatedResponse> response) {
+        new Thread(() -> {
+            // TODO: 25.03.2018
+        }).run();
+    }
+
+    @Override
+    public final void setSimilarMenu(List<TitleListItemResponse> response) {
+        new Thread(() -> {
+            // TODO: 25.03.2018
+        }).run();
+    }
+
+    @Override
+    public final void setScreenshotsMenu(List<TitleInfoResponse.ScreenhostResponse> response) {
+        new Thread(() -> {
+            mBinding.poster.setOnClickListener((view) -> {
+                view.setEnabled(false);
+
+                Fresco.initialize(view.getContext());
+                new ImageViewer.Builder(view.getContext(), response)
+                        .setStartPosition(0)
+                        // TODO: 29.03.2018 добавить функционал "поделиться изображением"
+                        //.setOverlayView()
+                        .setOnDismissListener(() -> {
+                            Fresco.shutDown();
+                            view.setEnabled(true);
+                        })
+                        .setFormatter((screenshots) -> ((TitleInfoResponse.ScreenhostResponse) screenshots).getOriginal())
+                        .show();
+            });
+        }).run();
+    }
+
+    @Override
+    public final void stateLoadIndicator(Boolean state) {
+        mBinding.loadIndicator.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void stateVisibilityContainer(Boolean state) {
+        stateLoadIndicator(false);
 
+        mBinding.container.setVisibility(state ? View.VISIBLE : View.GONE);
+        // TODO: 25.03.2018 добавить emptyView
+    }
+
+    @Override
+    public void showRetrySnackbar(Runnable action) {
+        // TODO: 29.03.2018 исправить надписи
+        Snackbar.make(mBinding.getRoot(), R.string.error_retry, Snackbar.LENGTH_SHORT)
+                .setAction(R.string.label_retry, (view) -> action.run())
+                .show();
     }
 }

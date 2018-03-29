@@ -7,7 +7,7 @@ import android.view.MenuInflater;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
+import com.amasaemi.javashikiapp.modules.list.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.list.mvp.presenters.AnimeListPresenter;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 

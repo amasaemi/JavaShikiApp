@@ -48,7 +48,7 @@ public class CalendarResponse {
         try {
             return new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).parse(nextEpisodeAt);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         }
     }

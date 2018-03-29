@@ -1,6 +1,7 @@
 package com.amasaemi.javashikiapp.modules.community.models;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.net.Uri;
 
 import com.amasaemi.javashikiapp.data.managers.ActivityManager;
@@ -12,7 +13,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
  * Created by Alex on 22.02.2018.
  */
 
-public class CommunityCardModel implements ViewModel {
+public class CommunityCardModel extends BaseObservable implements ViewModel {
     protected int id;
 
     public Runnable cardClick;

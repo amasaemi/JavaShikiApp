@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 
 import com.amasaemi.javashikiapp.data.network.pojo.constants.Kind;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.Rating;
+import com.amasaemi.javashikiapp.data.network.pojo.constants.Related;
+import com.amasaemi.javashikiapp.data.network.pojo.constants.Role;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.Status;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
 import com.amasaemi.javashikiapp.data.network.pojo.sup.Image;
+import com.amasaemi.javashikiapp.utils.ConstantManager;
 import com.amasaemi.javashikiapp.utils.ErrorReport;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -102,7 +105,7 @@ public class TitleInfoResponse {
 
     @SerializedName("score")
     @Expose
-    private String score;
+    private float score;
 
     @SerializedName("description")
     @Expose
@@ -249,6 +252,14 @@ public class TitleInfoResponse {
     }
 
     /**
+     * Метод вернет оценку тайтла
+     * @return
+     */
+    public float getScore() {
+        return score;
+    }
+
+    /**
      * Метод вернет массив элементов, где
      * [0] - количество всех эпизодов / глав
      * [1] - если онгоинг - количество вышедших серий, иначе 0 / количество томов
@@ -296,7 +307,7 @@ public class TitleInfoResponse {
         try {
             return new SimpleDateFormat(AIRED_ON_DATE_PATTERN, Locale.getDefault()).parse(airedOn);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         }
     }
@@ -311,7 +322,7 @@ public class TitleInfoResponse {
         try {
             return new SimpleDateFormat(AIRED_ON_DATE_PATTERN, Locale.getDefault()).parse(releasedOn);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         }
     }
@@ -324,7 +335,7 @@ public class TitleInfoResponse {
         try {
             return new SimpleDateFormat(NEXT_EP_DATE_PATTERN, Locale.getDefault()).parse(nextEpisodeAt);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         }
     }
@@ -347,6 +358,14 @@ public class TitleInfoResponse {
         if (studios != null && !studios.isEmpty()) returnedStudios.addAll(studios);
         if (publishers != null && !publishers.isEmpty()) returnedStudios.addAll(publishers);
         return (!returnedStudios.isEmpty()) ? returnedStudios : null;
+    }
+
+    /**
+     * Метод вернет возрастной рейтинг
+     * @return
+     */
+    public Rating getRating() {
+        return rating;
     }
 
     /**
@@ -474,22 +493,145 @@ public class TitleInfoResponse {
     }
 
     public class ScreenhostResponse {
-        // TODO: 01.02.2018
+        @SerializedName("original")
+        @Expose
+        private String original;
+
+        @SerializedName("preview")
+        @Expose
+        private String preview;
+
+        public String getOriginal() {
+            if (original.startsWith(ConstantManager.SHIKI_BASE_WITHOUT_DELIMITER))
+                return original;
+            else
+                return ConstantManager.SHIKI_BASE_WITHOUT_DELIMITER + original;
+        }
+
+        public String getPreview() {
+            if (preview.startsWith(ConstantManager.SHIKI_BASE_WITHOUT_DELIMITER))
+                return preview;
+            else
+                return ConstantManager.SHIKI_BASE_WITHOUT_DELIMITER + preview;
+        }
     }
 
     public class ExternalLinksResponse {
-        // TODO: 01.02.2018
+        @SerializedName("id")
+        @Expose
+        private int id;
+
+        @SerializedName("kind")
+        @Expose
+        private String kind;
+
+        @SerializedName("url")
+        @Expose
+        private String url;
+
+        public String getKind() {
+            return kind;
+        }
+
+        public String getUrl() {
+            return url;
+        }
     }
 
     public class VideoResponse {
-        // TODO: 01.02.2018
+        @SerializedName("id")
+        @Expose
+        private int id;
+
+        @SerializedName("image_url")
+        @Expose
+        private String imageUrl;
+
+        @SerializedName("player_url")
+        @Expose
+        private String url;
+
+        @SerializedName("name")
+        @Expose
+        private String title;
+
+        @SerializedName("kind")
+        @Expose
+        private String kind;
+
+        @SerializedName("hosting")
+        @Expose
+        private String hosting;
+
+        public String getPoster() {
+            return imageUrl;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getTitle() {
+            return (title == null || title.isEmpty()) ? null : title;
+        }
+
+        public String getKind() {
+            switch (kind) {
+                case "op": return "opening";
+                case "ed": return "ending";
+                case "pv": return "promotional video";
+                case "other": return "other";
+                default: return "video";
+            }
+        }
+
+        public String getHostingColor() {
+            try {
+                switch (hosting) {
+                    case "vk": return "#BBDEFB";
+                    case "youtube": return "#FFCDD2";
+                    case "smotret_anime": return "#C8E6C9";
+                    default: return "#FFE0B2";
+                }
+            } catch (NullPointerException npe) {
+                return "#FFE0B2";
+            }
+        }
     }
 
     public class RelatedResponse {
-        // TODO: 01.02.2018
+        @SerializedName("relation")
+        @Expose
+        private Related relation;
+
+        @SerializedName("anime")
+        @Expose
+        private TitleListItemResponse anime;
+
+        @SerializedName("manga")
+        @Expose
+        private TitleListItemResponse manga;
+
+        public Related getRelation() {
+            return relation;
+        }
+
+        public TitleListItemResponse getTitle() {
+            return (anime != null) ? anime : manga;
+        }
+
+        public TitleType getTitleType() {
+            return (anime != null) ? anime.getTitleType() : (manga != null) ? manga.getTitleType() : TitleType.NONE;
+        }
     }
 
-    public class RolesResponse {
-        // TODO: 01.02.2018
+    public class RolesResponse extends TitleInfoResponse {
+        @SerializedName("role")
+        @Expose
+        private Role role;
+
+        public Role getRole() {
+            return role;
+        }
     }
 }

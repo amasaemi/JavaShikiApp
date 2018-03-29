@@ -7,16 +7,9 @@ import android.view.MenuInflater;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
-import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
-import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
-import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
-import com.amasaemi.javashikiapp.modules.list.mvp.presenters.MangaListPresenter;
+import com.amasaemi.javashikiapp.modules.list.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.list.mvp.presenters.RanobeListPresenter;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
 
 /**
  * Created by Alex on 04.02.2018.

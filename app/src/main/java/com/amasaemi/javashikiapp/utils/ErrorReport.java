@@ -5,7 +5,7 @@ package com.amasaemi.javashikiapp.utils;
  */
 
 public class ErrorReport {
-    public static void sendReport(String errorMessage) {
+    public static void sendReport(Throwable t) {
         // TODO: 31.01.2018 Добавить отправку письма
     }
 

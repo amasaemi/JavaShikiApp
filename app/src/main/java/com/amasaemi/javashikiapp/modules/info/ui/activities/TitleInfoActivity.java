@@ -31,36 +31,34 @@ public class TitleInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DataBindingUtil.setContentView(this, R.layout.fragment_info);
-//
-//        // если активность была создана по ошибке - закрываем ее
-//        if (savedInstanceState == null && getIntent() == null) {
-//            Log.e(TAG, "Created activity without input information");
-//            finish();
-//        }
-//
-//        DeactiveViewPager fragmentContainer = new DeactiveViewPager(this);
-//        // цепляем адаптер для просмотра страниц
-//        fragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
-//        // назначаем view для активности
-//        setContentView(fragmentContainer);
-//
-//        try {
-//            // получаем тип тайтла
-//            mTitleType = TitleType.valueOf(getIntent().getData().getQueryParameter(TITLE_TYPE));
-//            // получаем id тайтла. Если формат id тайтла имеет символы не равные цифру - обрезаем первый (буквенный) символ
-//            try {
-//                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
-//            } catch (NumberFormatException nfe) {
-//                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
-//            }
-//
-//            mBundle = new Bundle();
-//            mBundle.putInt(TITLE_ID, mTitleId);
-//            mBundle.putString(TITLE_TYPE, mTitleType.name());
-//        } catch (NullPointerException npe) {
-//            // TODO: 12.03.2018 обработать ошибку
-//        }
+        // если активность была создана по ошибке - закрываем ее
+        if (savedInstanceState == null && getIntent() == null) {
+            Log.e(TAG, "Created activity without input information");
+            finish();
+        }
+
+        DeactiveViewPager fragmentContainer = new DeactiveViewPager(this);
+        // цепляем адаптер для просмотра страниц
+        fragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
+        // назначаем view для активности
+        setContentView(fragmentContainer);
+
+        try {
+            // получаем тип тайтла
+            mTitleType = TitleType.valueOf(getIntent().getData().getQueryParameter(TITLE_TYPE));
+            // получаем id тайтла. Если формат id тайтла имеет символы не равные цифру - обрезаем первый (буквенный) символ
+            try {
+                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
+            } catch (NumberFormatException nfe) {
+                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
+            }
+
+            mBundle = new Bundle();
+            mBundle.putInt(TITLE_ID, mTitleId);
+            mBundle.putString(TITLE_TYPE, mTitleType.name());
+        } catch (NullPointerException npe) {
+            // TODO: 12.03.2018 обработать ошибку
+        }
     }
 
     private class FragmentViewerAdapter extends FragmentPagerAdapter {

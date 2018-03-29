@@ -20,6 +20,7 @@
     <string name="caption.character_description">Описание персонажа</string>
     <string name="caption.roles_in_title">Роли в тайтлах</string>
     <string name="caption.related">Связанное</string>
+    <string name="caption.franchise">Франшиза</string>
     <string name="caption.similar">Похожее</string>
     <string name="caption.description">Описание</string>
     <string name="caption.add_in_my_list">Добавить в список</string>
@@ -27,6 +28,10 @@
     <string name="caption.profile">Профиль</string>
     <string name="caption.status">Статус</string>
     <string name="caption.episodes">Эпизоды</string>
+    <string name="caption.chapters">Главы</string>
+    <string name="caption.episodes_aired">Эпизодов вышло</string>
+    <string name="caption.next_ep">Следующий эпизод</string>
+    <string name="caption.airtime">Эфирное время</string>
     <string name="caption.rating">Оценка</string>
     <string name="caption.studio">Студия</string>
     <string name="caption.publisher">Издательство</string>

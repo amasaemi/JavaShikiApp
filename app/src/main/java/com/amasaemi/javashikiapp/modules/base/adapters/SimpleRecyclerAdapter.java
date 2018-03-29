@@ -52,7 +52,7 @@ public final class SimpleRecyclerAdapter<T extends ViewModel> extends RecyclerVi
             holder.getBinding().setVariable(BR.model, mList.get(position));
         } catch (Exception ex) {
             Log.e(this.getClass().getSimpleName(), ex.getMessage());
-            ErrorReport.sendReport(ex.getMessage());
+            ErrorReport.sendReport(ex);
         }
     }
 

@@ -80,4 +80,24 @@
         <item>Ваншот</item>
         <item>Додзинси</item>
     </string-array>
+
+    <string-array name="related">
+        <item>Адаптация</item>
+        <item>Обобщение</item>
+        <item>Продолжение</item>
+        <item>Альтернативная история</item>
+        <item>Прочее</item>
+        <item>Ответвление от оригинала</item>
+        <item>Другая история</item>
+        <item>Aльтернативная вселенная</item>
+        <item>Изначальная история</item>
+        <item>Предыстория</item>
+        <item>Общий персонаж</item>
+    </string-array>
+
+    <string-array name="role">
+        <item>Главная роль</item>
+        <item>Второстепенная роль</item>
+        <item>Другое</item>
+    </string-array>
 </resources>

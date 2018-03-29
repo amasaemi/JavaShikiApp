@@ -2,7 +2,6 @@ package com.amasaemi.javashikiapp.modules.list.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,9 +11,7 @@ import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.res.CalendarResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.DoubleRecyclerAdapter;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
 import com.amasaemi.javashikiapp.modules.list.mvp.presenters.CalendarPresenter;

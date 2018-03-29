@@ -189,7 +189,7 @@ public class TitleListItemResponse {
         try {
             return new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).parse(airedOn);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         } catch (NullPointerException npe) {
             return null;
@@ -206,7 +206,7 @@ public class TitleListItemResponse {
         try {
             return new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).parse(releasedOn);
         } catch (ParseException pe) {
-            ErrorReport.sendReport(String.format("%s %s", this.getClass().getSimpleName(), pe.getMessage()));
+            ErrorReport.sendReport(pe);
             return null;
         }
     }

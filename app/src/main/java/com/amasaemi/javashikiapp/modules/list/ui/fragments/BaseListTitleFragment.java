@@ -9,7 +9,7 @@ import android.view.View;
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.SimpleRecyclerAdapter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
+import com.amasaemi.javashikiapp.modules.list.mvp.presenters.ShikiTitleListPresenter;
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiListView;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
 import com.amasaemi.javashikiapp.modules.list.ui.models.ListCardModel;

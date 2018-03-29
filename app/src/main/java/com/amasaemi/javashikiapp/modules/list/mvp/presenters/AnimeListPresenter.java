@@ -4,7 +4,6 @@ import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.data.services.AnimeService;
 import com.amasaemi.javashikiapp.modules.base.mvp.presenters.BaseListPresenter;
-import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiTitleListPresenter;
 import com.arellomobile.mvp.InjectViewState;
 
 /**

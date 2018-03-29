@@ -1,6 +1,7 @@
-package com.amasaemi.javashikiapp.modules.base.mvp.presenters;
+package com.amasaemi.javashikiapp.modules.list.mvp.presenters;
 
 import com.amasaemi.javashikiapp.data.network.pojo.req.SearchingParams;
+import com.amasaemi.javashikiapp.modules.base.mvp.presenters.ShikiPresenter;
 
 /**
  * Created by Alex on 01.02.2018.

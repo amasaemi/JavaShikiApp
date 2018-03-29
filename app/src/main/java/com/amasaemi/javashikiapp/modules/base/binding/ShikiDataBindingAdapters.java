@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.managers.StaticAppManager;
@@ -40,5 +41,10 @@ public class ShikiDataBindingAdapters {
                         .skipMemoryCache(StaticAppManager.getInstance().getUserSettings().hasSkipMemoryCacheStrategy())
                         .error(R.drawable.img_load_failed))
                 .into(view);
+    }
+
+    @BindingAdapter("parselableText")
+    public static void parselableText(TextView view, String text) {
+        // TODO: 26.03.2018 пропарсить avesomeText'ом
     }
 }

@@ -17,8 +17,6 @@ import com.amasaemi.javashikiapp.data.managers.PreferencesManager;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    // ключ, необходимый для сохранения и возобновления последнего фрагмента активности
-    protected final String LAST_POS = "lastpos";
     // бандл, через который передаем информацию на фрагмент
     protected Bundle mBundle;
 

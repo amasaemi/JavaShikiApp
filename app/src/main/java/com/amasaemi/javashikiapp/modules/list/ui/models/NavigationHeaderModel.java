@@ -3,6 +3,7 @@ package com.amasaemi.javashikiapp.modules.list.ui.models;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.net.Uri;
 
 import com.amasaemi.javashikiapp.R;
@@ -16,7 +17,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
  * Created by Alex on 04.02.2018.
  */
 
-public class NavigationHeaderModel implements ViewModel {
+public class NavigationHeaderModel extends BaseObservable implements ViewModel {
     private final Uri GUESS_AVATAR = Uri.parse(String.format("drawable://%d", R.drawable.img_load_failed));
 
     public String username;
