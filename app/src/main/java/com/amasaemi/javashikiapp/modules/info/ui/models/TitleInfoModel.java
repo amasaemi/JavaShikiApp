@@ -24,7 +24,7 @@ import java.util.Locale;
 public class TitleInfoModel extends BaseObservable implements ViewModel {
     private final String DATE_PATTERN = "dd MMM yyyy";
     private final String AIRTIME_PATTERN = "EEEE, HH:mm";
-    private final String FULL_DATE_PATTERN = "EEEE, dd MMM yyyy";
+    private final String FULL_DATE_PATTERN = "dd MMMM yyyy";
 
     private Uri mUrl;
 
@@ -40,10 +40,9 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
     public String duration;
     public String kind;
     public Spanned status;
-    public String startAired;
-    public String startAiredFull;
-    public String finishAired;
-    public String finishAiredFull;
+    public String season;
+    public String airedStart;
+    public String airedFinish;
     public String ageRating;
     public float rating;
     public String description;
@@ -146,20 +145,22 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
             this.status = Html.fromHtml("?");
         }
         try {
-            this.startAired = DateParser.parseSeason(response.getAiredOn(), context.getResources().getStringArray(R.array.age_time));
-            this.startAiredFull = DateParser.parse(FULL_DATE_PATTERN, response.getAiredOn(), "?");
+            this.season = DateParser.parseSeason(response.getAiredOn(), context.getResources().getStringArray(R.array.age_time));
         } catch (Exception e) {
             ErrorReport.sendReport(e);
-            this.startAired = "?";
-            this.startAiredFull = "?";
+            this.season = "?";
         }
         try {
-            this.finishAired = DateParser.parseSeason(response.getReleasedOn(), context.getResources().getStringArray(R.array.age_time));
-            this.finishAiredFull = DateParser.parse(FULL_DATE_PATTERN, response.getReleasedOn(), "?");
+            this.airedStart = DateParser.parse(FULL_DATE_PATTERN, response.getAiredOn(), "?");
         } catch (Exception e) {
             ErrorReport.sendReport(e);
-            this.finishAired = "?";
-            this.finishAiredFull = "?";
+            this.airedStart = "?";
+        }
+        try {
+            this.airedFinish = DateParser.parse(FULL_DATE_PATTERN, response.getReleasedOn(), "?");
+        } catch (Exception e) {
+            ErrorReport.sendReport(e);
+            this.airedFinish = "?";
         }
         try {
             this.ageRating = response.getRating().toLocalString(context);

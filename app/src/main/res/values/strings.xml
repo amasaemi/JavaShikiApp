@@ -64,6 +64,7 @@
     <string name="caption.manga">Манга</string>
     <string name="caption.ranobe">Ранобэ</string>
     <string name="caption.no_description">Нет описания</string>
+    <string name="caption.duration">Продолжительность эпизода</string>
     <!-- END Список подразделов и заголовков -->
 
     <!-- Поля -->
@@ -73,6 +74,7 @@
     <string name="field.users_list">В списках пользователей</string>
     <string name="field.kind">Тип</string>
     <string name="field.status">Статус</string>
+    <string name="field.season">Сезон</string>
     <!--<string name="field.next_episode">"Эпизод: %1$s"</string>-->
     <!--<string name="field.airtime">"Эфирное время: %1$s"</string>-->
     <!--<string name="field.episodes">"Количество эпизодов: %1$s"</string>-->
@@ -101,10 +103,11 @@
     <string name="combine_field.episode_length">Продолжительность эпизода: %1$s мин</string>
     <string name="combine_field.share_anime">Рекомендую посмотреть «%1$s»\n%2$s\nЗапись опубликована через приложение ShikiApp</string>
     <string name="combine_field.share_manga">Рекомендую прочитать «%1$s»\n%2$s\nЗапись опубликована через приложение ShikiApp</string>
-    <string name="combine_field.duration">Продолжительность эпизода: %1$s мин</string>
+    <string name="combine_field.duration">%1$s мин</string>
     <string name="combine_field.next_ep_date">"Дата следующего эпизода: %1$s"</string>
     <string name="combine_field.start_airing">"Начало показа: %1$s"</string>
     <string name="combine_field.finish_airing">"Окончание показа: %1$s"</string>
+    <string name="combine_field.airtime">"C %1$s по %2$s"</string>
     <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->

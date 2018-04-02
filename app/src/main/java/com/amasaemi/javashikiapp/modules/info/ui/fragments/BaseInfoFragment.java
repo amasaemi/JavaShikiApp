@@ -91,14 +91,10 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
                 mBinding.descriptionTextView.setMaxLines(500);
                 view.setVisibility(View.GONE);
             });
-            // слушатель на нажатии на дату начала показа
-            mBinding.startAiringField.setOnClickListener((btn) -> { Toast.makeText(btn.getContext(),
-                    btn.getContext().getString(R.string.combine_field_start_airing, mTitleModel.startAiredFull),
-                    Toast.LENGTH_SHORT).show(); });
-            // слушатель на нажатии на дату окончания показа
-            mBinding.finishAiringField.setOnClickListener((btn) -> { Toast.makeText(btn.getContext(),
-                    btn.getContext().getString(R.string.combine_field_finish_airing, mTitleModel.finishAiredFull),
-                    Toast.LENGTH_SHORT).show(); });
+            // слушатель на нажатии на сезон
+            mBinding.seasonField.setOnClickListener((btn) -> Toast.makeText(btn.getContext(),
+                    btn.getContext().getString(R.string.combine_field_airtime, mTitleModel.airedStart, mTitleModel.airedFinish),
+                    Toast.LENGTH_SHORT).show());
             // подробная информация о выходе следующего эпизода
             if (mTitleModel.nextEpisode != null)
                 mBinding.airtimeField.setOnClickListener((btn) -> Toast.makeText(btn.getContext(),
