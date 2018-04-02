@@ -87,15 +87,7 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
                 mBinding.descriptionTextView.setMaxLines(500);
                 view.setVisibility(View.GONE);
             });
-            // слушатель на нажатии на сезон
-            mBinding.seasonField.setOnClickListener((btn) -> Toast.makeText(btn.getContext(),
-                    btn.getContext().getString(R.string.combine_field_airtime, mTitleModel.airedStart, mTitleModel.airedFinish),
-                    Toast.LENGTH_SHORT).show());
-            // подробная информация о выходе следующего эпизода
-            if (mTitleModel.nextEpisode != null)
-                mBinding.airtimeField.setOnClickListener((btn) -> Toast.makeText(btn.getContext(),
-                        btn.getContext().getString(R.string.combine_field_next_ep_date, mTitleModel.nextEpisode),
-                        Toast.LENGTH_SHORT).show());
+
             // настраиваем RateDialog
             // TODO: 29.03.2018 настроить ratedialog
 

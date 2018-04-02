@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -78,8 +79,21 @@ public class AnimeInfoFragment extends BaseInfoFragment {
     public void setTitleInfo(TitleInfoResponse response) {
         super.setTitleInfo(response);
         // подсказки при клике на "возрастной рейтинг"
-        mBinding.ratingField.setOnClickListener((btn) -> {
-            Toast.makeText(btn.getContext(), response.getRating().getRatingHint(btn.getContext()), Toast.LENGTH_SHORT).show(); });
+        mBinding.ratingField.setOnClickListener((btn) -> Snackbar.make(mBinding.container,
+                response.getRating().getRatingHint(btn.getContext()), Snackbar.LENGTH_SHORT).show());
+        // подробная информация о выходе следующего эпизода
+        if (mTitleModel.nextEpisode != null)
+            mBinding.airtimeField.setOnClickListener((btn) -> Snackbar.make(mBinding.container,
+                    btn.getContext().getString(R.string.combine_field_next_ep_date, mTitleModel.nextEpisode),
+                    Snackbar.LENGTH_SHORT).show());
+        // слушатель на нажатии на сезон
+        if (response.isReleased() || response.isOngoing()) {
+            String mess = (response.isOngoing())
+                    ? getString(R.string.combine_field_anime_ongoing_airtime, mTitleModel.airedStart, mTitleModel.airedFinish)
+                    : getString(R.string.combine_field_anime_released_airtime, mTitleModel.airedStart, mTitleModel.airedFinish);
+            mBinding.seasonField.setOnClickListener((btn) -> Snackbar.make(mBinding.container,
+                    mess, Snackbar.LENGTH_SHORT).show());
+        }
     }
 
     @Override

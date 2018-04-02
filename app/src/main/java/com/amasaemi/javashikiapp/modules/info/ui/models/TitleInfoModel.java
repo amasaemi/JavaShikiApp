@@ -22,9 +22,8 @@ import java.util.Locale;
  */
 
 public class TitleInfoModel extends BaseObservable implements ViewModel {
-    private final String DATE_PATTERN = "dd MMM yyyy";
     private final String AIRTIME_PATTERN = "EEEE, HH:mm";
-    private final String FULL_DATE_PATTERN = "dd MMMM yyyy";
+    private final String FULL_DATE_PATTERN = "dd MMM yyyy";
 
     private Uri mUrl;
 
@@ -47,7 +46,7 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
     public float rating;
     public String description;
     public List<TitleInfoResponse.Genre> genres;
-    public String studios = "";
+    public String studios;
     public boolean hasAnimeOngoing;
     public int inUsersListCount;
     public int bestStarringCount;
@@ -107,7 +106,7 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
         }
 
         try {
-            this.nextEpisode = DateParser.parse(DATE_PATTERN, response.getNextEpisodeAt(), null);
+            this.nextEpisode = DateParser.parse(FULL_DATE_PATTERN, response.getNextEpisodeAt(), null);
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.nextEpisode = null;

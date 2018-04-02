@@ -321,7 +321,7 @@ public class TitleInfoResponse {
     public Date getReleasedOn() {
         try {
             return new SimpleDateFormat(AIRED_ON_DATE_PATTERN, Locale.getDefault()).parse(releasedOn);
-        } catch (ParseException pe) {
+        } catch (NullPointerException | ParseException pe) {
             ErrorReport.sendReport(pe);
             return null;
         }
@@ -334,7 +334,7 @@ public class TitleInfoResponse {
     public Date getNextEpisodeAt() {
         try {
             return new SimpleDateFormat(NEXT_EP_DATE_PATTERN, Locale.getDefault()).parse(nextEpisodeAt);
-        } catch (ParseException pe) {
+        } catch (NullPointerException | ParseException pe) {
             ErrorReport.sendReport(pe);
             return null;
         }
@@ -374,6 +374,22 @@ public class TitleInfoResponse {
      */
     public boolean isOngoing() {
         return ongoing;
+    }
+
+    /**
+     * Метод возвращает статус анонса
+     * @return
+     */
+    public boolean isAnons() {
+        return anons;
+    }
+
+    /**
+     * Метод возвращает статус релиза
+     * @return
+     */
+    public boolean isReleased() {
+        return !isOngoing() && !isAnons();
     }
 
     /**

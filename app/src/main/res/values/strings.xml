@@ -107,7 +107,12 @@
     <string name="combine_field.next_ep_date">"Дата следующего эпизода: %1$s"</string>
     <string name="combine_field.start_airing">"Начало показа: %1$s"</string>
     <string name="combine_field.finish_airing">"Окончание показа: %1$s"</string>
-    <string name="combine_field.airtime">"C %1$s по %2$s"</string>
+    <string name="combine_field.anime_released_airtime">"Аниме выходило с %1$s по %2$s"</string>
+    <string name="combine_field.anime_ongoing_airtime">"Аниме выходит с %1$s по %2$s"</string>
+    <string name="combine_field.manga_released_airtime">"Манга выходила с %1$s по %2$s"</string>
+    <string name="combine_field.manga_ongoing_airtime">"Манга выходит с %1$s по %2$s"</string>
+    <string name="combine_field.ranobe_released_airtime">"Ранобэ выходило с %1$s по %2$s"</string>
+    <string name="combine_field.ranobe_ongoing_airtime">"Ранобэ выходит с %1$s по %2$s"</string>
     <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->
