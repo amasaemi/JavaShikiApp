@@ -27,7 +27,7 @@ import java.util.List;
  * Created by Alex on 02.02.2018.
  */
 
-public class CalendarFragment extends BaseListFragment implements ShikiListView<CalendarResponse> {
+public final class CalendarFragment extends BaseListFragment implements ShikiListView<CalendarResponse> {
     public static final String TAG = CalendarFragment.class.getSimpleName();
 
     public static CalendarFragment getInstance(Bundle bundle) {

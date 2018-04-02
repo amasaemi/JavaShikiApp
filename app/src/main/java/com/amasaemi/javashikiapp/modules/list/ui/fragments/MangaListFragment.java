@@ -15,7 +15,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
  * Created by Alex on 04.02.2018.
  */
 
-public class MangaListFragment extends BaseListTitleFragment {
+public final class MangaListFragment extends BaseListTitleFragment {
     public static final String TAG = MangaListFragment.class.getSimpleName();
 
     public static MangaListFragment getInstance(Bundle bundle) {

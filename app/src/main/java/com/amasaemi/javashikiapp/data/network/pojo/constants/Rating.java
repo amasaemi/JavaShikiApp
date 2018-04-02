@@ -58,4 +58,19 @@ public enum Rating {
                 return context.getString(com.amasaemi.javashikiapp.R.string.none);
         }
     }
+
+    public String getRatingHint(Context context) {
+        switch (this) {
+            case G:
+            case PG:
+            case PG_13:
+            case R:
+            case R_PLUS:
+            case RX:
+                return context.getResources().getStringArray(com.amasaemi.javashikiapp.R.array.rating_hints)[this.ordinal()];
+
+            default:
+                return context.getString(com.amasaemi.javashikiapp.R.string.none);
+        }
+    }
 }

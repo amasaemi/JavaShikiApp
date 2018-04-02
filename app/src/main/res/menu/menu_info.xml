@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_title.share"
+        android:title="@string/label.share"/>
+
+    <item
+        android:id="@+id/menu_title.browser"
+        android:title="@string/label.open_in_brows"/>
+
+    <item
+        android:id="@+id/menu_title.more_source"
+        android:title="@string/label.other_source">
+
+        <menu/>
+    </item>
+</menu>

@@ -17,20 +17,12 @@ public class ClubsPresenter extends BaseListPresenter<ClubsListResponse> {
     // поисковой запрос
     private String mQuery;
 
-    public ClubsPresenter() {
-        mPresenterIsReady = true;
-    }
-
     @Override
     public void loadOrRestoreData() {
-        if (mPresenterIsReady) {
-            if (!mList.isEmpty())
-                getViewState().fillAdapter(mList);
-            else
-                getClubsList();
-        } else {
-            throw new NullPointerException(String.format("%s presenter is not ready", this.getClass().getSimpleName()));
-        }
+        if (!mList.isEmpty())
+            getViewState().fillAdapter(mList);
+        else
+            getClubsList();
     }
 
     public void getClubsList(String query) {

@@ -64,6 +64,15 @@
         <item>Rx</item>
     </string-array>
 
+    <string-array name="rating_hints">
+        <item>G - Без возрастных ограничений</item>
+        <item>PG - Рекомендуется просмотр в присутствии родителей</item>
+        <item>PG-13 - Детям до 13 лет просмотр не желателен</item>
+        <item>R-17 - Лицам до 17 лет обязательно присутствие взрослого</item>
+        <item>R+ - Лицам до 17 лет просмотр запрещен</item>
+        <item>Rx - Хентай</item>
+    </string-array>
+
     <string-array name="anime_kind">
         <item>ТВ сериал</item>
         <item>Фильм</item>
@@ -99,5 +108,31 @@
         <item>Главная роль</item>
         <item>Второстепенная роль</item>
         <item>Другое</item>
+    </string-array>
+
+    <string-array name="anime_external_links">
+        <item>Официальный сайт</item>
+        <item>Википедия</item>
+        <item>Anime News Network</item>
+        <item>Anime DB</item>
+        <item>My Anime List</item>
+        <item>World Art</item>
+        <item>Kage Project</item>
+    </string-array>
+
+    <string-array name="manga_external_links">
+        <item>Официальный сайт</item>
+        <item>Википедия</item>
+        <item>Anime News Network</item>
+        <item>My Anime List</item>
+        <item>Readmanga</item>
+        <item>РуРанобэ</item>
+    </string-array>
+
+    <string-array name="age_time">
+        <item>Зима</item>
+        <item>Весна</item>
+        <item>Лето</item>
+        <item>Осень</item>
     </string-array>
 </resources>

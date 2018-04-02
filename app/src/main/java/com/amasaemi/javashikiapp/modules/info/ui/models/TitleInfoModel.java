@@ -3,10 +3,14 @@ package com.amasaemi.javashikiapp.modules.info.ui.models;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.net.Uri;
+import android.text.Html;
+import android.text.Spanned;
 
+import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleInfoResponse;
 import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
+import com.amasaemi.javashikiapp.utils.DateParser;
 import com.amasaemi.javashikiapp.utils.ErrorReport;
 
 import java.text.SimpleDateFormat;
@@ -18,8 +22,11 @@ import java.util.Locale;
  */
 
 public class TitleInfoModel extends BaseObservable implements ViewModel {
-    private final String DATE_PATTERN = "MMM dd, yyyy";
-    private final String AIRTIME_PATTERN = "HH:mm";
+    private final String DATE_PATTERN = "dd MMM yyyy";
+    private final String AIRTIME_PATTERN = "EEEE, HH:mm";
+    private final String FULL_DATE_PATTERN = "EEEE, dd MMM yyyy";
+
+    private Uri mUrl;
 
     public int id;
     public String ruName;
@@ -30,16 +37,21 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
     public int[] episodes;
     public String nextEpisode;
     public String airtime;
-    public int duration;
+    public String duration;
     public String kind;
-    public String status;
+    public Spanned status;
     public String startAired;
+    public String startAiredFull;
     public String finishAired;
+    public String finishAiredFull;
     public String ageRating;
     public float rating;
     public String description;
     public List<TitleInfoResponse.Genre> genres;
-    public String studios;
+    public String studios = "";
+    public boolean hasAnimeOngoing;
+    public int inUsersListCount;
+    public int bestStarringCount;
 
     public boolean emptyDescription;
 
@@ -96,24 +108,26 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
         }
 
         try {
-            this.nextEpisode = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(response.getNextEpisodeAt());
+            this.nextEpisode = DateParser.parse(DATE_PATTERN, response.getNextEpisodeAt(), null);
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.nextEpisode = null;
         }
 
         try {
-            this.airtime = new SimpleDateFormat(AIRTIME_PATTERN, Locale.getDefault()).format(response.getNextEpisodeAt());
+            StringBuilder airtimeBuilder = new StringBuilder(DateParser.parse(AIRTIME_PATTERN, response.getNextEpisodeAt(), "-"));
+            airtimeBuilder.replace(0, 1, String.valueOf(airtimeBuilder.charAt(0)).toUpperCase());
+            this.airtime = airtimeBuilder.toString();
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.airtime = null;
         }
 
         try {
-            this.duration = response.getDuration();
+            this.duration = String.format(context.getString(R.string.combine_field_duration), response.getDuration());
         } catch (Exception e) {
             ErrorReport.sendReport(e);
-            this.duration = 0;
+            this.duration = "?";
         }
 
         try {
@@ -124,22 +138,28 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
         }
 
         try {
-            this.status = response.getStatus().toLocalString(context);
+            this.status = Html.fromHtml(String.format("<span style=\"color:%s\">%s</span>",
+                    response.getStatus().getStatusColor(),
+                    response.getStatus().toLocalString(context)));
         } catch (Exception e) {
             ErrorReport.sendReport(e);
-            this.status = "?";
+            this.status = Html.fromHtml("?");
         }
         try {
-            this.startAired = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(response.getAiredOn());
+            this.startAired = DateParser.parseSeason(response.getAiredOn(), context.getResources().getStringArray(R.array.age_time));
+            this.startAiredFull = DateParser.parse(FULL_DATE_PATTERN, response.getAiredOn(), "?");
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.startAired = "?";
+            this.startAiredFull = "?";
         }
         try {
-            this.finishAired = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(response.getReleasedOn());
+            this.finishAired = DateParser.parseSeason(response.getReleasedOn(), context.getResources().getStringArray(R.array.age_time));
+            this.finishAiredFull = DateParser.parse(FULL_DATE_PATTERN, response.getReleasedOn(), "?");
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.finishAired = "?";
+            this.finishAiredFull = "?";
         }
         try {
             this.ageRating = response.getRating().toLocalString(context);
@@ -148,7 +168,7 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
             this.ageRating = "?";
         }
         try {
-            this.rating = response.getScore();
+            this.rating = response.getScore() / 2;
         } catch (Exception e) {
             ErrorReport.sendReport(e);
             this.rating = 0.0f;
@@ -168,10 +188,36 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
         }
 
         try {
-            this.studios = response.getStudios().subList(0,1).toString();
+            StringBuilder studios = new StringBuilder();
+
+            for (TitleInfoResponse.Studio studio : response.getStudios()){
+                studios.append(studio.getStudioName());
+                studios.append(", ");
+            }
+
+            studios.deleteCharAt(studios.length() - 2);
+            this.studios = studios.toString();
         } catch (Exception e) {
             ErrorReport.sendReport(e);
-            this.studios = "-";
+            this.studios = "?";
+        }
+
+        try {
+            for (TitleInfoResponse.TitleRate rate : response.getRatesStatuses()) {
+                this.inUsersListCount += rate.getValue();
+            }
+        } catch (Exception e) {
+            ErrorReport.sendReport(e);
+            this.inUsersListCount = 0;
+        }
+
+        try {
+            for (TitleInfoResponse.TitleRate rate : response.getRatesScores().subList(0, 2)) {
+                this.bestStarringCount += rate.getValue();
+            }
+        } catch (Exception e) {
+            ErrorReport.sendReport(e);
+            this.bestStarringCount = 0;
         }
 
         try {
@@ -181,6 +227,14 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
             this.titleType = TitleType.NONE;
         }
 
-        emptyDescription = (description != null) && description.equals("Нет описания");
+        hasAnimeOngoing = titleType == TitleType.ANIME && response.isOngoing();
+
+        emptyDescription = description == null;
+
+        mUrl = response.getUrl();
+    }
+
+    public Uri getUrl() {
+        return mUrl;
     }
 }

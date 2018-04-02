@@ -8,7 +8,7 @@ import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
  * Created by Alex on 04.02.2018.
  */
 
-public class SettingsFragment extends BaseFragment {
+public final class SettingsFragment extends BaseFragment {
     public static final String TAG = SettingsFragment.class.getSimpleName();
 
     private static final SettingsFragment ourInstance = new SettingsFragment();

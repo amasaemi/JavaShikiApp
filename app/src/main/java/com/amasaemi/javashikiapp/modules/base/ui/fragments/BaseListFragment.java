@@ -116,7 +116,7 @@ public abstract class BaseListFragment extends BaseFragment {
             // сохраняем маркер загрузки
             outState.putBoolean(SCROLL_LISTENER_LOADING, mScrollListenerLoading);
             // сохраняем позицию recyclerview
-            outState.putParcelable(RECYCLER_VIEW_POS, mLayoutManager.onSaveInstanceState());
+//            outState.putParcelable(RECYCLER_VIEW_POS, mLayoutManager.onSaveInstanceState());
         }
     }
 
@@ -278,7 +278,7 @@ public abstract class BaseListFragment extends BaseFragment {
      * Метод инициализирует фрагмент в случае первого запуска
      */
     public void initialFragment() {
-        if (getPresenter() != null && getPresenter().hasInitialized() && (mFragmentIsFirstRun || mShortListStyleNow != listStyleIsShort())) {
+        if (getPresenter() != null && (mFragmentIsFirstRun || mShortListStyleNow != listStyleIsShort())) {
             getPresenter().loadOrRestoreData();
             mFragmentIsFirstRun = false;
             mShortListStyleNow = listStyleIsShort();

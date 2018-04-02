@@ -11,17 +11,10 @@ import java.util.List;
  * Created by Alex on 01.02.2018.
  */
 public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>> implements ShikiPresenter {
-    // маркер готовности презентера
-    protected boolean mPresenterIsReady = false;
     // текущая страница
     protected int mCurrentPage = 1;
     // список текущих элементов
     protected final List<T> mList = new LinkedList<T>();
-
-    @Override
-    public boolean hasInitialized() {
-        return mPresenterIsReady;
-    }
 
     /**
      * Метод устанавливает и возвращает следующую по счету страницу
@@ -55,6 +48,6 @@ public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>
     protected void parseError(Throwable t) {
         getViewState().stateLoadIndicator(false);
         // TODO: 01.02.2018 пропарсить ошибку, и в зависимости от ошибки вывести snackBar или диалог
-        ErrorReport.parseError(t);
+        ErrorReport.sendReport(t);
     }
 }

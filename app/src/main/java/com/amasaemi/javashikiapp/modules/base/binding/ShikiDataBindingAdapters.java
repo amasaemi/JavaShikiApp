@@ -46,5 +46,6 @@ public class ShikiDataBindingAdapters {
     @BindingAdapter("parselableText")
     public static void parselableText(TextView view, String text) {
         // TODO: 26.03.2018 пропарсить avesomeText'ом
+        view.setText(text);
     }
 }

@@ -12,6 +12,7 @@ import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
 import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
 import com.amasaemi.javashikiapp.modules.base.ui.customs.DeactiveViewPager;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
+import com.amasaemi.javashikiapp.modules.info.ui.fragments.AnimeInfoFragment;
 
 /**
  * Created by Alex on 12.03.2018.
@@ -26,6 +27,8 @@ public class TitleInfoActivity extends BaseActivity {
     private int mTitleId = 0;
     // тип текущего тайтла
     private TitleType mTitleType = TitleType.NONE;
+    // контейнер фрагментов
+    private DeactiveViewPager mFragmentContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,11 +40,12 @@ public class TitleInfoActivity extends BaseActivity {
             finish();
         }
 
-        DeactiveViewPager fragmentContainer = new DeactiveViewPager(this);
+        mFragmentContainer = new DeactiveViewPager(this);
+        mFragmentContainer.setId(1648);
         // цепляем адаптер для просмотра страниц
-        fragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
+        mFragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
         // назначаем view для активности
-        setContentView(fragmentContainer);
+        setContentView(mFragmentContainer);
 
         try {
             // получаем тип тайтла
@@ -50,7 +54,7 @@ public class TitleInfoActivity extends BaseActivity {
             try {
                 mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
             } catch (NumberFormatException nfe) {
-                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID));
+                mTitleId = Integer.parseInt(getIntent().getData().getQueryParameter(TITLE_ID).substring(1));
             }
 
             mBundle = new Bundle();
@@ -61,6 +65,14 @@ public class TitleInfoActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Метод меняет текущий фрагмент
+     * @param page номер фрагмента, на который нужно сменить текущий
+     */
+    public void switchPage(int page) {
+        mFragmentContainer.setCurrentItem(page);
+    }
+
     private class FragmentViewerAdapter extends FragmentPagerAdapter {
         private FragmentViewerAdapter(FragmentManager fm) {
             super(fm);
@@ -69,24 +81,25 @@ public class TitleInfoActivity extends BaseActivity {
         @Override
         public BaseFragment getItem(int pos) {
             switch (pos) {
-                case 0:
+                case 0: {
                     switch (mTitleType) {
                         case ANIME:
-//                            return AnimeInfoFragment.getInstance(mBundle);
+                            return AnimeInfoFragment.getInstance(mBundle);
                         case MANGA:
                         case RANOBE:
 //                            return MangaInfoFragment.getInstance(mBundle);
                         default: throw new NullPointerException(String.format("%s is not valid title type", mTitleType.name()));
                     }
-//                case 1: return ActorsFragment.getInstance(null);
-//                case 2: return TopicFragment.getInstance(null);
+                }
+//                case 2: return ActorsFragment.getInstance(null);
+//                case 3: return TopicFragment.getInstance(null);
                 default: throw new NullPointerException(String.format("%d is not valid index of adapter", pos));
             }
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 1;
         }
     }
 }

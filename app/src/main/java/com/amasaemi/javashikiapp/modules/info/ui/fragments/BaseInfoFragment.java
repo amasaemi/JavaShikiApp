@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleInfoResponse;
 import com.amasaemi.javashikiapp.data.network.pojo.res.TitleListItemResponse;
 import com.amasaemi.javashikiapp.databinding.FragmentInfoBinding;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
+import com.amasaemi.javashikiapp.modules.info.mvp.presenters.ShikiTitleInfoPresenter;
 import com.amasaemi.javashikiapp.modules.info.ui.activities.TitleInfoActivity;
 import com.amasaemi.javashikiapp.modules.info.ui.models.TitleInfoModel;
 import com.amasaemi.javashikiapp.modules.info.mvp.views.ShikiInfoView;
@@ -32,13 +34,17 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
     // id тайтла, с которым работаем
     private int mTitleId = -1;
     // модель текущего тайтла
-    private TitleInfoModel mTitleModel;
+    protected TitleInfoModel mTitleModel;
     // кастомное всплывающее меню
-    private PopupMenu mMenu;
+    protected PopupMenu mMenu;
     // диалог с настройками тайтла в списке пользователя
     private RateDialog mRateDialog;
 
-    @Nullable
+    /**
+     * Метод возвращает презентер
+     */
+    protected abstract ShikiTitleInfoPresenter getPresenter();
+
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false);
@@ -48,32 +54,60 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // слушатель кнопки "назад"
+        mBinding.backButton.setOnClickListener((btn) -> getActivity().onBackPressed());
+        // слушатель схлопывания collapsingtoolbar
+        mBinding.appbar.addOnOffsetChangedListener((layout, offset) -> {
+            if (Math.abs(offset) - layout.getTotalScrollRange() == 0) {
+                mBinding.headerToolbar.animate()
+                        .alpha(1)
+                        .start();
+            } else {
+                mBinding.headerToolbar.animate()
+                        .alpha(0)
+                        .start();
+            }
+        });
 
         mTitleId = getArguments().getInt(TitleInfoActivity.TITLE_ID, -1);
+        // загружаем данные либо восстанавливаем их
+        if (savedInstanceState == null) {
+            getPresenter().getTitleById(mTitleId);
+        } else {
+            getPresenter().loadOrRestoreData();
+        }
     }
 
     @Override
-    public final void setTitleInfo(TitleInfoResponse response) throws NullPointerException {
+    public void setTitleInfo(TitleInfoResponse response) {
         new Thread(() -> {
+            mTitleModel = new TitleInfoModel(getActivity(), response);
+            // устанавливаем модель для view
             mBinding.setModel(mTitleModel);
             // если описание не пустое, включаем кнопку "показать описание полностью"
-            mBinding.showAllButton.setVisibility((mTitleModel.emptyDescription) ? View.GONE : View.VISIBLE);
+            mBinding.showAllButton.setVisibility(mTitleModel.emptyDescription ? View.GONE : View.VISIBLE);
             // назначаем слушатель на кнопку "показать описание полностью"
             mBinding.showAllButton.setOnClickListener((view) -> {
                 mBinding.descriptionTextView.setMaxLines(500);
                 view.setVisibility(View.GONE);
             });
+            // слушатель на нажатии на дату начала показа
+            mBinding.startAiringField.setOnClickListener((btn) -> { Toast.makeText(btn.getContext(),
+                    btn.getContext().getString(R.string.combine_field_start_airing, mTitleModel.startAiredFull),
+                    Toast.LENGTH_SHORT).show(); });
+            // слушатель на нажатии на дату окончания показа
+            mBinding.finishAiringField.setOnClickListener((btn) -> { Toast.makeText(btn.getContext(),
+                    btn.getContext().getString(R.string.combine_field_finish_airing, mTitleModel.finishAiredFull),
+                    Toast.LENGTH_SHORT).show(); });
+            // подробная информация о выходе следующего эпизода
+            if (mTitleModel.nextEpisode != null)
+                mBinding.airtimeField.setOnClickListener((btn) -> Toast.makeText(btn.getContext(),
+                        btn.getContext().getString(R.string.combine_field_next_ep_date, mTitleModel.nextEpisode),
+                        Toast.LENGTH_SHORT).show());
             // настраиваем RateDialog
             // TODO: 29.03.2018 настроить ratedialog
 
             stateVisibilityContainer(true);
-        }).run();
-    }
-
-    @Override
-    public final void setExternalLinksMenu(List<TitleInfoResponse.ExternalLinksResponse> response) {
-        new Thread(() -> {
-            // TODO: 25.03.2018
         }).run();
     }
 
@@ -125,7 +159,7 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
     }
 
     @Override
-    public void stateVisibilityContainer(Boolean state) {
+    public final void stateVisibilityContainer(Boolean state) {
         stateLoadIndicator(false);
 
         mBinding.container.setVisibility(state ? View.VISIBLE : View.GONE);
@@ -133,7 +167,7 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
     }
 
     @Override
-    public void showRetrySnackbar(Runnable action) {
+    public final void showRetrySnackbar(Runnable action) {
         // TODO: 29.03.2018 исправить надписи
         Snackbar.make(mBinding.getRoot(), R.string.error_retry, Snackbar.LENGTH_SHORT)
                 .setAction(R.string.label_retry, (view) -> action.run())

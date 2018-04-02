@@ -24,7 +24,7 @@ import com.amasaemi.javashikiapp.modules.community.ui.fragments.UsersFragment;
  * Created by Alex on 04.02.2018.
  */
 
-public class CommunityFragment  extends BaseFragment {
+public final class CommunityFragment  extends BaseFragment {
     public static final String TAG = CommunityFragment.class.getSimpleName();
 
     public static CommunityFragment getInstance(Bundle bundle) {

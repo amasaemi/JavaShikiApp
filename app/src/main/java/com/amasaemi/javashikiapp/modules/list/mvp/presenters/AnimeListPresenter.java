@@ -10,26 +10,18 @@ import com.arellomobile.mvp.InjectViewState;
  * Created by Alex on 01.02.2018.
  */
 @InjectViewState
-public class AnimeListPresenter extends BaseListPresenter<TitleListItemResponse> implements ShikiTitleListPresenter {
+public final class AnimeListPresenter extends BaseListPresenter<TitleListItemResponse> implements ShikiTitleListPresenter {
     // сервис
     private AnimeService mService = new AnimeService();
     // параметры поиска
     private SearchingParams mParams = new SearchingParams();
 
-    public AnimeListPresenter() {
-        mPresenterIsReady = true;
-    }
-
     @Override
     public void loadOrRestoreData() {
-        if (mPresenterIsReady) {
-            if (!mList.isEmpty())
-                getViewState().fillAdapter(mList);
-            else
-                getAnimeList();
-        } else {
-            throw new NullPointerException(String.format("%s presenter is not ready", this.getClass().getSimpleName()));
-        }
+        if (!mList.isEmpty())
+            getViewState().fillAdapter(mList);
+        else
+            getAnimeList();
     }
 
     @Override

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <import type="com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType"/>
+
         <variable
             name="model"
             type="com.amasaemi.javashikiapp.modules.info.ui.models.TitleInfoModel"/>
@@ -28,6 +30,7 @@
             tools:visibility="visible">
 
             <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -142,37 +145,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="?homeAsUpIndicator"
-                        android:padding="@dimen/size_4"
+                        android:layout_margin="@dimen/size_4"
                         style="@style/ActiveIcon"/>
 
                     <TextView
+                        android:id="@+id/header_toolbar"
+                        android:alpha="0"
                         android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/size_8"
+                        android:layout_marginRight="@dimen/size_8"
+                        android:layout_gravity="center"
+                        style="@style/BaseFieldsInfoFont"
+                        android:text="@{model.ruName ?? model.enName}"
+                        tools:text="Стальная тревога"/>
 
-                    <TextView
-                        android:id="@+id/addToFavoriteButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/size_4"
-                        android:paddingBottom="@dimen/size_4"
-                        android:paddingStart="@dimen/size_8"
-                        android:paddingEnd="@dimen/size_8"
-                        android:layout_marginEnd="@dimen/size_12"
-                        android:drawablePadding="@dimen/size_8"
-                        android:gravity="center"
-                        android:text="Избранное"
-                        android:fontFamily="sans-serif-medium"
-                        android:drawableRight="@drawable/icon_like"
-                        android:drawableTint="@color/white"
-                        android:background="@drawable/background_chips"/>
+                    <!-- Like chips -->
+                    <!--<TextView-->
+                        <!--android:id="@+id/addToFavoriteButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="@dimen/size_4"-->
+                        <!--android:paddingBottom="@dimen/size_4"-->
+                        <!--android:paddingStart="@dimen/size_8"-->
+                        <!--android:paddingEnd="@dimen/size_8"-->
+                        <!--android:layout_marginEnd="@dimen/size_8"-->
+                        <!--android:drawablePadding="@dimen/size_8"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="Избранное"-->
+                        <!--android:fontFamily="sans-serif-medium"-->
+                        <!--android:drawableRight="@drawable/icon_like"-->
+                        <!--android:drawableTint="@color/white"-->
+                        <!--android:background="@drawable/background_chips"/>-->
 
                     <ImageView
                         android:id="@+id/menuButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_menu"
-                        android:padding="@dimen/size_4"
+                        android:layout_margin="@dimen/size_4"
                         style="@style/ActiveIcon"/>
                 </LinearLayout>
             </android.support.design.widget.AppBarLayout>
@@ -185,15 +197,17 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/size_16">
+                    android:paddingLeft="@dimen/size_16"
+                    android:paddingRight="@dimen/size_16"
+                    android:paddingBottom="@dimen/size_16"
+                    android:paddingTop="@dimen/size_8">
 
                     <TextView
                         android:id="@+id/kind_title"
                         style="@style/BaseFieldsInfoFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{(model.titleType == TitleType.ANIME) ? @string/field_kind : @string/field_kind}"
-                        android:layout_marginTop="@dimen/size_12"
+                        android:text="@string/field.kind"
                         tools:text="@string/field.kind"/>
 
                     <TextView
@@ -214,7 +228,7 @@
                         style="@style/BaseFieldsInfoFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{(model.titleType == TitleType.ANIME) ? @string/field_status : @string/field_status}"
+                        android:text="@string/field.status"
                         android:layout_marginTop="@dimen/size_12"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
                         app:layout_constraintTop_toBottomOf="@id/kind_title"
@@ -233,88 +247,98 @@
                         app:layout_constraintTop_toTopOf="@id/status_title"
                         tools:text="Онгоинг" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_1"
-                        android:layout_columnSpan="2"
-                        android:layout_marginBottom="@dimen/size_4"
-                        android:layout_marginTop="@dimen/size_12"
-                        android:background="@color/grey_200"
-                        app:layout_constraintTop_toBottomOf="@id/status_field"/>
-
                     <LinearLayout
                         android:id="@+id/airing_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/size_12"
+                        android:orientation="vertical"
                         android:layout_marginTop="@dimen/size_12"
+                        android:layout_marginBottom="@dimen/size_12"
                         app:layout_constraintTop_toBottomOf="@id/status_field">
 
-                        <TextView
-                            style="@style/BaseFieldsInfoFont"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{model.startAired}"
-                            tools:text="Фев 11, 2018" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_1"
+                            android:layout_columnSpan="2"
+                            android:background="@color/grey_200"
+                            android:layout_marginBottom="@dimen/size_4"
+                            app:layout_constraintTop_toBottomOf="@id/status_field"/>
 
-                        <FrameLayout
-                            android:layout_width="@dimen/size_0"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1">
+                            android:orientation="horizontal"
+                            android:padding="@dimen/size_12">
 
-                            <SeekBar
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/start_airing_field"
+                                style="@style/BaseFieldsInfoFont"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:enabled="false" />
+                                android:text="@{model.startAired}"
+                                tools:text="Фев 11, 2018" />
 
-                            <SeekBar
-                                android:layout_width="match_parent"
+                            <FrameLayout
+                                android:layout_width="@dimen/size_0"
                                 android:layout_height="wrap_content"
-                                android:enabled="false"
-                                android:progress="100" />
-                        </FrameLayout>
+                                android:layout_weight="1">
+
+                                <SeekBar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false" />
+
+                                <SeekBar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:progress="100" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/finish_airing_field"
+                                style="@style/BaseFieldsInfoFont"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{model.finishAired}"
+                                tools:text="Мар 11, 2018" />
+                        </LinearLayout>
 
                         <TextView
-                            style="@style/BaseFieldsInfoFont"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/duration_field"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{model.finishAired}"
-                            tools:text="Мар 11, 2018" />
+                            style="@style/BaseFieldsInfoFont"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/font_11"
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/size_8"
+                            android:text="@{String.valueOf(model.duration)}"
+                            android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintTop_toBottomOf="@id/airing_bar"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="Продолжительность эпизода: 24 мин"
+                            tools:visibility="gone"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_1"
+                            android:layout_columnSpan="2"
+                            android:layout_marginTop="@dimen/size_4"
+                            android:background="@color/grey_200"
+                            app:layout_constraintTop_toBottomOf="@id/duration_field"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/duration_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/BaseFieldsInfoFont"
-                        android:layout_gravity="center"
-                        android:textSize="@dimen/font_11"
-                        android:gravity="center"
-                        android:text="@{model.duration}"
-                        app:layout_constraintTop_toBottomOf="@id/airing_bar"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:text="Продолжительность эпизода: 24 мин" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_1"
-                        android:layout_columnSpan="2"
-                        android:layout_marginBottom="@dimen/size_4"
-                        android:layout_marginTop="@dimen/size_12"
-                        android:background="@color/grey_200"
-                        app:layout_constraintTop_toBottomOf="@id/duration_field"/>
 
                     <TextView
                         android:id="@+id/episodes_title"
                         style="@style/BaseFieldsInfoFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_24"
+                        android:layout_marginTop="@dimen/size_12"
                         android:text="@{(model.titleType == TitleType.ANIME) ? @string/caption_episodes : @string/caption_chapters}"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
-                        app:layout_constraintTop_toBottomOf="@id/duration_field"
+                        app:layout_constraintTop_toBottomOf="@id/airing_bar"
                         tools:text="@string/caption.episodes"/>
 
                     <TextView
@@ -324,7 +348,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
-                        android:text="@{model.episodes[0]}"
+                        android:text="@{String.valueOf(model.episodes[0])}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/episodes_title"
                         app:layout_constraintTop_toTopOf="@id/episodes_title"
@@ -338,7 +362,7 @@
                         android:layout_marginTop="@dimen/size_12"
                         android:layout_marginStart="@dimen/size_8"
                         android:text="@string/caption.episodes_aired"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.episodes == null || model.episodes[1] == 0) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{(!model.hasAnimeOngoing || model.episodes == null || model.episodes[1] == 0) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
                         app:layout_constraintTop_toBottomOf="@id/episodes_title"/>
 
@@ -349,38 +373,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
-                        android:text="@{model.episodes[1]}"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.episodes == null || model.episodes[1] == 0) ? View.GONE : View.VISIBLE}"
+                        android:text="@{String.valueOf(model.episodes[1])}"
+                        android:visibility="@{(!model.hasAnimeOngoing || model.episodes == null || model.episodes[1] == 0) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/episodes_aired_title"
                         app:layout_constraintTop_toTopOf="@id/episodes_aired_title"
                         tools:text="8" />
-
-                    <TextView
-                        android:id="@+id/next_ep_title"
-                        style="@style/BaseFieldsInfoFont"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/caption.next_ep"
-                        android:layout_marginTop="@dimen/size_12"
-                        android:layout_marginStart="@dimen/size_8"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.nextEpisode == null) ? View.GONE : View.VISIBLE}"
-                        app:layout_constraintStart_toStartOf="@id/kind_title"
-                        app:layout_constraintTop_toBottomOf="@id/episodes_aired_title"/>
-
-                    <TextView
-                        android:id="@+id/next_ep_field"
-                        style="@style/BaseFieldsInfoFont"
-                        android:layout_width="@dimen/size_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/size_8"
-                        android:gravity="end"
-                        android:text="@{model.nextEpisode}"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.nextEpisode == null) ? View.GONE : View.VISIBLE}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/next_ep_title"
-                        app:layout_constraintTop_toTopOf="@id/next_ep_title"
-                        tools:text="Фев 16, 2018" />
 
                     <TextView
                         android:id="@+id/airtime_title"
@@ -390,9 +388,9 @@
                         android:text="@string/caption.airtime"
                         android:layout_marginTop="@dimen/size_12"
                         android:layout_marginStart="@dimen/size_8"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.airtime == null) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{(!model.hasAnimeOngoing || model.airtime == null) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
-                        app:layout_constraintTop_toBottomOf="@id/next_ep_title"/>
+                        app:layout_constraintTop_toBottomOf="@id/episodes_aired_title"/>
 
                     <TextView
                         android:id="@+id/airtime_field"
@@ -402,11 +400,11 @@
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
                         android:text="@{model.airtime}"
-                        android:visibility="@{(model.titleType != TitleType.ANIME || model.airtime == null) ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{(!model.hasAnimeOngoing || model.airtime == null) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/airtime_title"
                         app:layout_constraintTop_toTopOf="@id/airtime_title"
-                        tools:text="18:30" />
+                        tools:text="Суббота, 18:30" />
 
                     <TextView
                         android:id="@+id/rating_title"
@@ -414,7 +412,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/size_12"
-                        android:text="@{(model.titleType == TitleType.ANIME) ? @string/field_rating : @string/field_rating}"
+                        android:text="@string/field.rating"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
                         app:layout_constraintTop_toBottomOf="@id/airtime_title"
                         tools:text="@string/field.rating"/>
@@ -426,7 +424,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
-                        android:text="@{model.rating}"
+                        android:text="@{model.ageRating}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/rating_title"
                         app:layout_constraintTop_toTopOf="@id/rating_title"
@@ -458,13 +456,66 @@
                         app:layout_constraintTop_toTopOf="@id/studio_title"
                         tools:text="Kyoto Animation, Gainax" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_1"
+                        android:layout_marginTop="@dimen/size_12"
+                        android:background="@color/grey_200"
+                        app:layout_constraintTop_toBottomOf="@id/studio_field"/>
+
+                    <TextView
+                        android:id="@+id/in_list_title"
+                        style="@style/BaseFieldsInfoFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_24"
+                        android:text="@string/caption.in_user_list"
+                        app:layout_constraintStart_toStartOf="@id/kind_title"
+                        app:layout_constraintTop_toBottomOf="@id/studio_title"/>
+
+                    <TextView
+                        android:id="@+id/in_list_field"
+                        style="@style/BaseFieldsInfoFont"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:gravity="end"
+                        android:text="@{String.valueOf(model.inUsersListCount)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/in_list_title"
+                        app:layout_constraintTop_toTopOf="@id/in_list_title"
+                        tools:text="12057" />
+
+                    <TextView
+                        android:id="@+id/best_starring_title"
+                        style="@style/BaseFieldsInfoFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_12"
+                        android:text="@string/caption.best_starring"
+                        app:layout_constraintStart_toStartOf="@id/kind_title"
+                        app:layout_constraintTop_toBottomOf="@id/in_list_title"/>
+
+                    <TextView
+                        android:id="@+id/best_starring_field"
+                        style="@style/BaseFieldsInfoFont"
+                        android:layout_width="@dimen/size_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:gravity="end"
+                        android:text="@{String.valueOf(model.bestStarringCount)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/best_starring_title"
+                        app:layout_constraintTop_toTopOf="@id/best_starring_title"
+                        tools:text="8476" />
+
                     <LinearLayout
                         android:id="@+id/description_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/size_12"
                         android:orientation="vertical"
-                        app:layout_constraintTop_toBottomOf="@id/studio_title">
+                        app:layout_constraintTop_toBottomOf="@id/best_starring_title">
 
                         <View
                             android:layout_width="match_parent"
@@ -479,7 +530,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="4"
                             android:textSize="@dimen/font_13"
-                            app:parselableText="@{model.description}"
+                            app:parselableText="@{model.description ?? @string/caption_no_description}"
                             tools:text="Cосукэ Сагара (相良 宗介) — семнадцатилетний военный специалист, работающий на секретную организацию «Мифрил», — был назначен телохранителем одной из «шепчущих» по имени Канамэ Тидори (千鳥 かなめ). Для успешного выпо.." />
 
                         <Button
@@ -488,6 +539,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
+                            android:layout_marginBottom="-12dp"
                             android:visibility="@{model.emptyDescription ? View.GONE : View.VISIBLE}"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/label.show_all" />
@@ -495,6 +547,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_1"
+                            android:layout_marginTop="@dimen/size_12"
                             android:background="@color/grey_200"/>
 
                         <TextView
@@ -502,7 +555,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/caption.video"
-                            android:padding="@dimen/size_8"
+                            android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"
@@ -518,7 +571,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/caption.related"
-                            android:padding="@dimen/size_8"
+                            android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"
@@ -534,7 +587,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/caption.similar"
-                            android:padding="@dimen/size_8"
+                            android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"
@@ -550,7 +603,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/caption.key_figure"
-                            android:padding="@dimen/size_8"
+                            android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"
@@ -566,7 +619,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/caption.discussion"
-                            android:padding="@dimen/size_8"
+                            android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"

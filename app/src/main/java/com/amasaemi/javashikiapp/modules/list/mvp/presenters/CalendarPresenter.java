@@ -9,23 +9,15 @@ import com.arellomobile.mvp.InjectViewState;
  * Created by Alex on 01.02.2018.
  */
 @InjectViewState
-public class CalendarPresenter extends BaseListPresenter<CalendarResponse> {
+public final class CalendarPresenter extends BaseListPresenter<CalendarResponse> {
     private AnimeService mService = new AnimeService();
-
-    public CalendarPresenter() {
-        mPresenterIsReady = true;
-    }
 
     @Override
     public void loadOrRestoreData() {
-        if (mPresenterIsReady) {
-            if (!mList.isEmpty())
-                getViewState().fillAdapter(mList);
-            else
-                getCalendar();
-        } else {
-            throw new NullPointerException(String.format("%s presenter is not ready", this.getClass().getSimpleName()));
-        }
+        if (!mList.isEmpty())
+            getViewState().fillAdapter(mList);
+        else
+            getCalendar();
     }
 
     private void getCalendar() {

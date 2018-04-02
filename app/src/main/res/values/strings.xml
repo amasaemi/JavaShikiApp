@@ -28,9 +28,10 @@
     <string name="caption.profile">Профиль</string>
     <string name="caption.status">Статус</string>
     <string name="caption.episodes">Эпизоды</string>
+    <string name="caption.in_user_list">В списках пользователей</string>
+    <string name="caption.best_starring">Оценили на 8 и выше</string>
     <string name="caption.chapters">Главы</string>
     <string name="caption.episodes_aired">Эпизодов вышло</string>
-    <string name="caption.next_ep">Следующий эпизод</string>
     <string name="caption.airtime">Эфирное время</string>
     <string name="caption.rating">Оценка</string>
     <string name="caption.studio">Студия</string>
@@ -62,6 +63,7 @@
     <string name="caption.anime">Аниме</string>
     <string name="caption.manga">Манга</string>
     <string name="caption.ranobe">Ранобэ</string>
+    <string name="caption.no_description">Нет описания</string>
     <!-- END Список подразделов и заголовков -->
 
     <!-- Поля -->
@@ -93,10 +95,16 @@
     <string name="combine_field.anime_airing_on">• Начало показа: %1$s •</string>
     <string name="combine_field.manga_airing_on">• Начало выхода: %1$s •</string>
     <string name="combine_field.next_episode">Эпизод: %1$s • Эфирное время: %2$s</string>
-    <string name="combine_field.episodes">"• Количество эпизодов: %1$s" •</string>
+    <string name="combine_field.episodes">• Количество эпизодов: %1$s •</string>
     <string name="combine_field.episodes_ongoing">"• Эпизодов вышло: %1$s из %2$s" •</string>
-    <string name="combine_field.chapters">"• Количество глав: %1$s" •</string>
+    <string name="combine_field.chapters">• Количество глав: %1$s •</string>
     <string name="combine_field.episode_length">Продолжительность эпизода: %1$s мин</string>
+    <string name="combine_field.share_anime">Рекомендую посмотреть «%1$s»\n%2$s\nЗапись опубликована через приложение ShikiApp</string>
+    <string name="combine_field.share_manga">Рекомендую прочитать «%1$s»\n%2$s\nЗапись опубликована через приложение ShikiApp</string>
+    <string name="combine_field.duration">Продолжительность эпизода: %1$s мин</string>
+    <string name="combine_field.next_ep_date">"Дата следующего эпизода: %1$s"</string>
+    <string name="combine_field.start_airing">"Начало показа: %1$s"</string>
+    <string name="combine_field.finish_airing">"Окончание показа: %1$s"</string>
     <!-- END Составные поля -->
 
     <!-- Статусы и состояния -->

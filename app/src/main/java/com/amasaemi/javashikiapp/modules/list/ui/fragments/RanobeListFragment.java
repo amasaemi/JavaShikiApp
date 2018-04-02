@@ -15,7 +15,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
  * Created by Alex on 04.02.2018.
  */
 
-public class RanobeListFragment extends BaseListTitleFragment {
+public final class RanobeListFragment extends BaseListTitleFragment {
     public static final String TAG = RanobeListFragment.class.getSimpleName();
 
     public static RanobeListFragment getInstance(Bundle bundle) {

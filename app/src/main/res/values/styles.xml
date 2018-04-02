@@ -108,9 +108,8 @@
 
     <!-- Стиль шрифта для полей в описании тайтла -->
     <style name="BaseFieldsInfoFont" parent="Line">
-        <item name="android:textSize">@dimen/font_14</item>
+        <item name="android:textSize">@dimen/font_15</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/black_87</item>
-        <item name="android:foreground">?android:selectableItemBackground</item>
     </style>
 </resources>

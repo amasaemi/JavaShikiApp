@@ -10,10 +10,4 @@ public interface ShikiPresenter {
      * иначе загружает данные из интернета)
      */
     void loadOrRestoreData();
-
-    /**
-     * Вернет true, если презентер инициализирован
-     * @return
-     */
-    boolean hasInitialized();
 }

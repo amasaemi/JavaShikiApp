@@ -20,21 +20,12 @@ public class UsersPresenter extends BaseListPresenter<UserListResponse> {
     private UserService mService = new UserService();
     // поисковой запрос
     private String mQuery;
-
-    public UsersPresenter() {
-        mPresenterIsReady = true;
-    }
-
     @Override
     public void loadOrRestoreData() {
-        if (mPresenterIsReady) {
-            if (!mList.isEmpty())
-                getViewState().fillAdapter(mList);
-            else
-                getUsersList();
-        } else {
-            throw new NullPointerException(String.format("%s presenter is not ready", this.getClass().getSimpleName()));
-        }
+        if (!mList.isEmpty())
+            getViewState().fillAdapter(mList);
+        else
+            getUsersList();
     }
 
     public void getUsersList(String query) {

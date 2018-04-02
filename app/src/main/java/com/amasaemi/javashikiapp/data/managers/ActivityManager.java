@@ -60,7 +60,7 @@ public class ActivityManager {
             new AlertDialog.Builder(context)
                     .setTitle(R.string.status_error)
                     .setMessage(R.string.error_activity_not_found)
-                    .setPositiveButton(R.string.label_close, (dialogInterface, i) -> dialogInterface.dismiss())
+                    .setPositiveButton(R.string.label_close, (di, i) -> di.dismiss())
                     .create().show();
         }
     }

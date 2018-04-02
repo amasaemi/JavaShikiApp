@@ -141,11 +141,11 @@ public class TitleInfoResponse {
 
     @SerializedName("rates_scores_stats")
     @Expose
-    private List<TitleRate> ratesScores = null;
+    private List<TitleRate> ratesScores;
 
     @SerializedName("rates_statuses_stats")
     @Expose
-    private List<TitleRate> ratesStatuses = null;
+    private List<TitleRate> ratesStatuses;
 
     @SerializedName("updated_at")
     @Expose
@@ -157,15 +157,15 @@ public class TitleInfoResponse {
 
     @SerializedName("genres")
     @Expose
-    private List<Genre> genres = null;
+    private List<Genre> genres;
 
     @SerializedName("studios")
     @Expose
-    private List<Studio> studios = null;
+    private List<Studio> studios;
 
     @SerializedName("publishers")
     @Expose
-    private List<Studio> publishers = null;
+    private List<Studio> publishers;
 
     @SerializedName("user_rate")
     @Expose
@@ -294,7 +294,7 @@ public class TitleInfoResponse {
      */
     @Nullable
     public String getDescription() {
-        return (!descriptionHtml.contains("Нет описания") ? descriptionHtml : null);
+        return (!descriptionHtml.contains("Нет описания")) ? descriptionHtml : null;
     }
 
     /**
@@ -393,6 +393,30 @@ public class TitleInfoResponse {
     }
 
     /**
+     * Метод возвращает url тайтла
+     * @return
+     */
+    public Uri getUrl() {
+        return Uri.parse(url);
+    }
+
+    /**
+     * Метод возвращает список со статусами пользователей данного тайтла
+     * @return
+     */
+    public List<TitleRate> getRatesStatuses() {
+        return ratesStatuses;
+    }
+
+    /**
+     * Метод возвращает список с оценками пользователей данного тайтла
+     * @return
+     */
+    public List<TitleRate> getRatesScores() {
+        return ratesScores;
+    }
+
+    /**
      * Метод возвращает тип тайтла (аниме, манга, ранобэ, не определено)
      * @return
      */
@@ -400,17 +424,29 @@ public class TitleInfoResponse {
     public TitleType getTitleType() {
         switch (getKind()) {
             case TV:
+            case ONA:
+            case OVA:
+            case SPECIAL:
+            case MOVIE:
+            case MUSIC:
                 return TitleType.ANIME;
+
             case MANGA:
+            case DOUJIN:
+            case MANHUA:
+            case MANHWA:
+            case ONE_SHOT:
                 return TitleType.MANGA;
+
             case NOVEL:
                 return TitleType.RANOBE;
+
             default:
                 return TitleType.NONE;
         }
     }
 
-    class TitleRate {
+    public class TitleRate {
         @SerializedName("name")
         @Expose
         private String name;
@@ -458,7 +494,7 @@ public class TitleInfoResponse {
         }
     }
 
-    class Studio {
+    public class Studio {
         @SerializedName("id")
         @Expose
         private int id;
@@ -492,7 +528,7 @@ public class TitleInfoResponse {
         }
     }
 
-    public class ScreenhostResponse {
+    public static class ScreenhostResponse {
         @SerializedName("original")
         @Expose
         private String original;
@@ -500,6 +536,11 @@ public class TitleInfoResponse {
         @SerializedName("preview")
         @Expose
         private String preview;
+
+        public ScreenhostResponse(Uri original, Uri preview) {
+            this.original = original.toString();
+            this.preview = preview.toString();
+        }
 
         public String getOriginal() {
             if (original.startsWith(ConstantManager.SHIKI_BASE_WITHOUT_DELIMITER))
@@ -516,7 +557,7 @@ public class TitleInfoResponse {
         }
     }
 
-    public class ExternalLinksResponse {
+    public static class ExternalLinksResponse {
         @SerializedName("id")
         @Expose
         private int id;
@@ -538,7 +579,7 @@ public class TitleInfoResponse {
         }
     }
 
-    public class VideoResponse {
+    public static class VideoResponse {
         @SerializedName("id")
         @Expose
         private int id;
@@ -599,7 +640,7 @@ public class TitleInfoResponse {
         }
     }
 
-    public class RelatedResponse {
+    public static class RelatedResponse {
         @SerializedName("relation")
         @Expose
         private Related relation;
@@ -625,7 +666,7 @@ public class TitleInfoResponse {
         }
     }
 
-    public class RolesResponse extends TitleInfoResponse {
+    public static class RolesResponse extends TitleInfoResponse {
         @SerializedName("role")
         @Expose
         private Role role;
