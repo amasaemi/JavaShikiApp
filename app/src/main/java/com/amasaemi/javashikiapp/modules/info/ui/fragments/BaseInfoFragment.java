@@ -3,10 +3,13 @@ package com.amasaemi.javashikiapp.modules.info.ui.fragments;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -58,15 +61,8 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
         mBinding.backButton.setOnClickListener((btn) -> getActivity().onBackPressed());
         // слушатель схлопывания collapsingtoolbar
         mBinding.appbar.addOnOffsetChangedListener((layout, offset) -> {
-            if (Math.abs(offset) - layout.getTotalScrollRange() == 0) {
-                mBinding.headerToolbar.animate()
-                        .alpha(1)
-                        .start();
-            } else {
-                mBinding.headerToolbar.animate()
-                        .alpha(0)
-                        .start();
-            }
+            float alpha = 1 - ((float)(layout.getTotalScrollRange() + offset)) / 100;
+            mBinding.headerToolbar.setAlpha(alpha);
         });
 
         mTitleId = getArguments().getInt(TitleInfoActivity.TITLE_ID, -1);

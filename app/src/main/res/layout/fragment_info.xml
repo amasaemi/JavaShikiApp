@@ -12,7 +12,7 @@
             type="com.amasaemi.javashikiapp.modules.info.ui.models.TitleInfoModel"/>
     </data>
 
-    <android.support.v7.widget.FitWindowsFrameLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -46,7 +46,6 @@
                         android:scaleType="centerCrop"
                         android:tint="@color/black_54"
                         android:src="@{model.poster}"
-                        android:fitsSystemWindows="true"
                         app:layout_collapseMode="parallax"
                         tools:src="@drawable/test_small_poster" />
 
@@ -54,7 +53,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/size_4"
-                        android:layout_marginTop="@dimen/size_24"
                         app:layout_collapseMode="parallax">
 
                         <ImageView
@@ -135,10 +133,8 @@
                 </android.support.design.widget.CollapsingToolbarLayout>
 
                 <LinearLayout
-                    android:id="@+id/keys_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_50"
                     android:padding="@dimen/size_8"
                     android:orientation="horizontal">
 
@@ -635,5 +631,5 @@
                 </android.support.constraint.ConstraintLayout>
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
-    </android.support.v7.widget.FitWindowsFrameLayout>
+    </FrameLayout>
 </layout>
