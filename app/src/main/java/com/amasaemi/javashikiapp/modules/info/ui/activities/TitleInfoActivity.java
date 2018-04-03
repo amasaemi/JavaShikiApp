@@ -13,6 +13,7 @@ import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
 import com.amasaemi.javashikiapp.modules.base.ui.customs.DeactiveViewPager;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
 import com.amasaemi.javashikiapp.modules.info.ui.fragments.AnimeInfoFragment;
+import com.amasaemi.javashikiapp.modules.info.ui.fragments.MangaInfoFragment;
 
 /**
  * Created by Alex on 12.03.2018.
@@ -87,7 +88,7 @@ public class TitleInfoActivity extends BaseActivity {
                             return AnimeInfoFragment.getInstance(mBundle);
                         case MANGA:
                         case RANOBE:
-//                            return MangaInfoFragment.getInstance(mBundle);
+                            return MangaInfoFragment.getInstance(mBundle);
                         default: throw new NullPointerException(String.format("%s is not valid title type", mTitleType.name()));
                     }
                 }

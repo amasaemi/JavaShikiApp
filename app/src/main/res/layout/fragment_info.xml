@@ -294,8 +294,7 @@
                             android:maxLines="3"
                             android:letterSpacing="0.1"
                             android:lineSpacingMultiplier="1.2"
-                            app:genres="@{model.genres}"
-                            android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}" />
+                            app:genres="@{model.genres}"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -321,7 +320,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
-                        android:text="@{String.valueOf(model.episodes[0])}"
+                        android:text="@{(model.episodes[0] != 0) ? String.valueOf(model.episodes[0]) : @string/label_quest_mark}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/episodes_title"
                         app:layout_constraintTop_toTopOf="@id/episodes_title"
@@ -334,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/size_12"
                         android:text="@string/caption.duration"
-                        android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{model.hasAnimeVisible}"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
                         app:layout_constraintTop_toBottomOf="@id/episodes_title" />
 
@@ -346,7 +345,7 @@
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
                         android:text="@{model.duration}"
-                        android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{model.hasAnimeVisible}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/duration_title"
                         app:layout_constraintTop_toTopOf="@id/duration_title"
@@ -371,7 +370,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
-                        android:text="@{String.valueOf(model.episodes[1])}"
+                        android:text="@{(model.episodes[1] != 0) ? String.valueOf(model.episodes[0]) : @string/label_quest_mark}"
                         android:visibility="@{(!model.hasAnimeOngoing || model.episodes == null || model.episodes[1] == 0) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/episodes_aired_title"
@@ -411,7 +410,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/size_12"
                         android:text="@string/field.rating"
-                        android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{model.hasAnimeVisible}"
                         app:layout_constraintStart_toStartOf="@id/kind_title"
                         app:layout_constraintTop_toBottomOf="@id/airtime_title"
                         tools:text="@string/field.rating"/>
@@ -424,7 +423,7 @@
                         android:layout_marginStart="@dimen/size_8"
                         android:gravity="end"
                         android:text="@{model.ageRating}"
-                        android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{model.hasAnimeVisible}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/rating_title"
                         app:layout_constraintTop_toTopOf="@id/rating_title"
@@ -547,7 +546,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_1"
                             android:layout_marginTop="@dimen/size_12"
-                            android:background="@color/grey_200"/>
+                            android:background="@color/grey_200"
+                            android:visibility="@{model.hasAnimeVisible}"/>
 
                         <TextView
                             android:id="@+id/videosButton"
@@ -556,7 +556,7 @@
                             android:text="@string/caption.video"
                             android:padding="@dimen/size_12"
                             android:textSize="@dimen/font_15"
-                            android:visibility="@{(model.titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasAnimeVisible}"
                             android:drawableRight="@drawable/icon_next"
                             android:background="?selectableItemBackground"
                             style="@style/BaseFieldsInfoFont"/>

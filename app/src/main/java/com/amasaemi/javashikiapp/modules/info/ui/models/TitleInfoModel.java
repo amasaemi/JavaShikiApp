@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.net.Uri;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.View;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
@@ -13,9 +14,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
 import com.amasaemi.javashikiapp.utils.DateParser;
 import com.amasaemi.javashikiapp.utils.ErrorReport;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Alex on 25.03.2018.
@@ -51,6 +50,10 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
     public int inUsersListCount;
     public int bestStarringCount;
 
+    public boolean hasOngoing;
+    public boolean hasReleased;
+
+    public int hasAnimeVisible;
     public boolean emptyDescription;
 
     public TitleType titleType;
@@ -227,6 +230,9 @@ public class TitleInfoModel extends BaseObservable implements ViewModel {
             this.titleType = TitleType.NONE;
         }
 
+        hasOngoing = response.isOngoing();
+        hasReleased = response.isReleased();
+        hasAnimeVisible = (titleType == TitleType.ANIME) ? View.VISIBLE : View.GONE;
         hasAnimeOngoing = titleType == TitleType.ANIME && response.isOngoing();
 
         emptyDescription = description == null;

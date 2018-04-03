@@ -27,10 +27,10 @@
     <string name="caption.information">Информация</string>
     <string name="caption.profile">Профиль</string>
     <string name="caption.status">Статус</string>
-    <string name="caption.episodes">Эпизоды</string>
+    <string name="caption.episodes">Количество эпизодов</string>
+    <string name="caption.chapters">Количество глав</string>
     <string name="caption.in_user_list">В списках пользователей</string>
     <string name="caption.best_starring">Оценили на 8 и выше</string>
-    <string name="caption.chapters">Главы</string>
     <string name="caption.episodes_aired">Эпизодов вышло</string>
     <string name="caption.airtime">Эфирное время</string>
     <string name="caption.rating">Оценка</string>
@@ -168,6 +168,7 @@
     <string name="label.write_message">Написать сообщение</string>
     <string name="label.to_list">к списку</string>
     <string name="label.retry">Повторить</string>
+    <string name="label.quest_mark">\?</string>
     <!-- END Надписи на элементах управления -->
 
     <!-- Действия -->
