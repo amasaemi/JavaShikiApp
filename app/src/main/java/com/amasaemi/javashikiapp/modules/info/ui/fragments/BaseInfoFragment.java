@@ -4,14 +4,18 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.PopupMenu;
 
 import com.amasaemi.javashikiapp.R;
@@ -53,8 +57,15 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
 
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        transparentStatusBar();
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false);
         return mBinding.getRoot();
+    }
+
+    private void transparentStatusBar() {
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -62,11 +73,7 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
         super.onViewCreated(view, savedInstanceState);
         // слушатель кнопки "назад"
         mBinding.backButton.setOnClickListener((btn) -> getActivity().onBackPressed());
-        // слушатель схлопывания collapsingtoolbar
-        mBinding.appbar.addOnOffsetChangedListener((layout, offset) -> {
-            float alpha = 1 - ((float)(layout.getTotalScrollRange() + offset)) / 100;
-            mBinding.headerToolbar.setAlpha(alpha);
-        });
+        initToolbarTitle();
         // получаем id тайтла из интента
         mTitleId = getArguments().getInt(TitleInfoActivity.TITLE_ID, -1);
         // загружаем данные либо восстанавливаем их
@@ -75,6 +82,17 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
         } else {
             getPresenter().loadOrRestoreData();
         }
+    }
+
+    private void initToolbarTitle() {
+        // слушатель схлопывания collapsingtoolbar
+        mBinding.appbar.addOnOffsetChangedListener((layout, offset) -> {
+            if (1.5 - ((float)(layout.getTotalScrollRange() + offset)) / 100 >= 0) {
+                float alpha = 1 - ((float)(layout.getTotalScrollRange() + offset)) / 100;
+                mBinding.headerToolbar.setAlpha(alpha);
+                mBinding.statusbarBackground.setAlpha(alpha);
+            }
+        });
     }
 
     @Override
