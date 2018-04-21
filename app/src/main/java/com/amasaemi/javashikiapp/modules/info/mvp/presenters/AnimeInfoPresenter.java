@@ -15,19 +15,18 @@ public final class AnimeInfoPresenter extends BaseInfoPresenter {
         if (mTitleInfo != null) {
             getViewState().setExternalLinksMenu(mTitleExternalLinks);
             getViewState().setScreenshotsMenu(mTitleScreens);
-            getViewState().setRelatedMenu(mTitleRelated);
-            getViewState().setSimilarMenu(mTitleSimilar);
-            getViewState().setVideosMenu(mTitleVideos);
             getViewState().setTitleInfo(mTitleInfo);
-        } else {
+        } else if (mTitleId != -1) {
             getAnime();
+        } else {
+            throw new NullPointerException("Presenter has not initialize");
         }
     }
 
     @Override
     public void getTitleById(int titleId) {
         mTitleId = titleId;
-        getAnime();
+        loadOrRestoreData();
     }
 
     private void getAnime() {
@@ -39,9 +38,6 @@ public final class AnimeInfoPresenter extends BaseInfoPresenter {
             // запрашиваем все остальные данные о тайтле
             getExternalLinks();
             getScreens();
-            getRelated();
-            getSimilar();
-            getVideos();
             // выводим информацию на экран
             getViewState().setTitleInfo(mTitleInfo);
         }, (throwable) -> {
@@ -69,7 +65,7 @@ public final class AnimeInfoPresenter extends BaseInfoPresenter {
             getViewState().setScreenshotsMenu(mTitleScreens);
         }, ErrorReport::sendReport);
     }
-
+/*
     private void getRelated() {
         mAnimeService.getRelated(mTitleId, (response) -> {
             mTitleRelated.clear();
@@ -78,6 +74,7 @@ public final class AnimeInfoPresenter extends BaseInfoPresenter {
         }, ErrorReport::sendReport);
     }
 
+    @Deprecated
     private void getSimilar() {
         mAnimeService.getSimilar(mTitleId, (response) -> {
             mTitleSimilar.clear();
@@ -93,4 +90,5 @@ public final class AnimeInfoPresenter extends BaseInfoPresenter {
             getViewState().setVideosMenu(mTitleVideos);
         }, ErrorReport::sendReport);
     }
+    */
 }

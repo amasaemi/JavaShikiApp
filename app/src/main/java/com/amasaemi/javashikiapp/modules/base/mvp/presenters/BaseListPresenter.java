@@ -14,7 +14,7 @@ public abstract class BaseListPresenter<T> extends MvpPresenter<ShikiListView<T>
     // текущая страница
     protected int mCurrentPage = 1;
     // список текущих элементов
-    protected final List<T> mList = new LinkedList<T>();
+    protected final List<T> mList = new LinkedList<>();
 
     /**
      * Метод устанавливает и возвращает следующую по счету страницу

@@ -13,7 +13,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
  * Created by Alex on 22.02.2018.
  */
 
-public class CommunityCardModel extends BaseObservable implements ViewModel {
+public final class CommunityCardModel extends BaseObservable implements ViewModel {
     protected int id;
 
     public Runnable cardClick;

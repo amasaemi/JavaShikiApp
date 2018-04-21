@@ -15,18 +15,18 @@ public final class MangaInfoPresenter extends BaseInfoPresenter {
         if (mTitleInfo != null) {
             getViewState().setExternalLinksMenu(mTitleExternalLinks);
             getViewState().setScreenshotsMenu(mTitleScreens);
-            getViewState().setRelatedMenu(mTitleRelated);
-            getViewState().setSimilarMenu(mTitleSimilar);
             getViewState().setTitleInfo(mTitleInfo);
-        } else {
+        } else if (mTitleId != -1) {
             getManga();
+        } else {
+            throw new NullPointerException("Presenter has not initialize");
         }
     }
 
     @Override
     public void getTitleById(int titleId) {
         mTitleId = titleId;
-        getManga();
+        loadOrRestoreData();
     }
 
     private void getManga() {
@@ -37,8 +37,6 @@ public final class MangaInfoPresenter extends BaseInfoPresenter {
             mTitleInfo = response;
             // запрашиваем все остальные данные о тайтле
             getExternalLinks();
-            getRelated();
-            getSimilar();
             // добавляем постер манги
             mTitleScreens.clear();
             mTitleScreens.add(new TitleInfoResponse.ScreenhostResponse(mTitleInfo.getOriginalPoster(), mTitleInfo.getPreviewPoster()));
@@ -59,7 +57,7 @@ public final class MangaInfoPresenter extends BaseInfoPresenter {
             getViewState().setExternalLinksMenu(mTitleExternalLinks);
         }, ErrorReport::sendReport);
     }
-
+/*
     private void getRelated() {
         mMangaService.getRelated(mTitleId, (response) -> {
             mTitleRelated.clear();
@@ -75,4 +73,5 @@ public final class MangaInfoPresenter extends BaseInfoPresenter {
             getViewState().setSimilarMenu(mTitleSimilar);
         }, ErrorReport::sendReport);
     }
+    */
 }

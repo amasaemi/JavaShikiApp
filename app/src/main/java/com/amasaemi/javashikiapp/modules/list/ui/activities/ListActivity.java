@@ -1,10 +1,10 @@
 package com.amasaemi.javashikiapp.modules.list.ui.activities;
 
-import android.app.FragmentManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
@@ -29,7 +29,7 @@ import com.amasaemi.javashikiapp.modules.list.ui.models.NavigationHeaderModel;
  * Created by Alex on 04.02.2018.
  */
 
-public class ListActivity extends BaseActivity {
+public final class ListActivity extends BaseActivity {
     // доступ к view
     private ActivityListBinding mBinding;
 
@@ -39,7 +39,7 @@ public class ListActivity extends BaseActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_list);
         // цепляем адаптер для просмотра страниц
-        mBinding.fragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
+        mBinding.fragmentContainer.setAdapter(new FragmentViewerAdapter(getSupportFragmentManager()));
         // инициализируем элементы управления
         initControlViews();
     }

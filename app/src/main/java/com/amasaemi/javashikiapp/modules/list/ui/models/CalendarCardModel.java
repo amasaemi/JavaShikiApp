@@ -16,7 +16,7 @@ import com.amasaemi.javashikiapp.utils.DateParser;
  * Created by Alex on 02.02.2018.
  */
 
-public class CalendarCardModel extends SimpleShortCardModel implements DoubleRecyclerAdapter.ItemModel {
+public final class CalendarCardModel extends SimpleShortCardModel implements DoubleRecyclerAdapter.ItemModel {
     private final String AIRED_ON_DATE_PATTERN = "dd MMMM yyyy";
     private final String AIRTIME_DATE_PATTERN = "HH:mm";
 
@@ -25,12 +25,8 @@ public class CalendarCardModel extends SimpleShortCardModel implements DoubleRec
     public String nextEpisode;
 
     public CalendarCardModel(Context context, CalendarResponse model) {
-        id = model.getAnime().getId();
+        super(model, () -> ActivityManager.startTitleInfoActivity(context, model.getAnime().getId(), TitleType.ANIME), null);
 
-        cardClick = () -> ActivityManager.startTitleInfoActivity(context, model.getAnime().getId(), TitleType.ANIME);
-        ruName = model.getAnime().getRuName();
-        enName = model.getAnime().getEnName();
-        poster = model.getAnime().getPoster();
         basicInfo = Html.fromHtml(context.getString(R.string.combine_field_base_info,
                 model.getAnime().getKind().toLocalString(context),
                 model.getAnime().getStatus().toLocalString(context),

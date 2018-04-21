@@ -17,7 +17,7 @@ import com.amasaemi.javashikiapp.modules.base.adapters.interfaces.ViewModel;
  * Created by Alex on 04.02.2018.
  */
 
-public class NavigationHeaderModel extends BaseObservable implements ViewModel {
+public final class NavigationHeaderModel extends BaseObservable implements ViewModel {
     private final Uri GUESS_AVATAR = Uri.parse(String.format("drawable://%d", R.drawable.img_load_failed));
 
     public String username;

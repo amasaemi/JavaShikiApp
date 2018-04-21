@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Alex on 04.02.2018.
  */
 
-public class ShikiDataBindingAdapters {
+public final class ShikiDataBindingAdapters {
     @BindingAdapter("android:onClick")
     public static void click(View view, Runnable runnable) {
         view.setOnClickListener((v) -> runnable.run());

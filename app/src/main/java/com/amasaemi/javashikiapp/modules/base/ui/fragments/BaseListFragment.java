@@ -67,23 +67,17 @@ public abstract class BaseListFragment extends BaseFragment {
                 R.color.refresh_3,
                 R.color.refresh_4
         );
-        // ставим маркер о том, что фрагмент создан и будет запущен впервый раз
-        mFragmentIsFirstRun = true;
-        // если текущий фрагмент виден - инициализируем его
-        if (getUserVisibleHint()) {
-            // создаем адаптер
-            setupRecyclerView();
-            initialFragment();
-        }
+        // создаем адаптер
+        setupRecyclerView();
+        // инициализируем фрагмент
+        initialFragment();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
-        // если текущий фрагмент виден и не проинициализирован - инициализируем его
-        if (isVisibleToUser && getView() != null) {
-            // создаем адаптер
+        // если стиль списка был сменен - применяем изменения
+        if (!mFragmentIsFirstRun && mShortListStyleNow != listStyleIsShort()) {
             setupRecyclerView();
             initialFragment();
         }
@@ -110,13 +104,13 @@ public abstract class BaseListFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (mBinding != null) {
+        if (mBinding != null && mLayoutManager != null) {
             // сохраняем предыдущее значение количества позиций в адаптере RecyclerView
             outState.putInt(SCROLL_LISTENER_ITEM_COUNT, mScrollListenerPreviousItemCount);
             // сохраняем маркер загрузки
             outState.putBoolean(SCROLL_LISTENER_LOADING, mScrollListenerLoading);
             // сохраняем позицию recyclerview
-//            outState.putParcelable(RECYCLER_VIEW_POS, mLayoutManager.onSaveInstanceState());
+            outState.putParcelable(RECYCLER_VIEW_POS, mLayoutManager.onSaveInstanceState());
         }
     }
 
@@ -175,7 +169,6 @@ public abstract class BaseListFragment extends BaseFragment {
         stateVisibilityContainer(false);
         mListPos = mLayoutManager.onSaveInstanceState();
 
-        setupRecyclerViewLayoutManager(null);
         setupRecyclerView();
 
         // восстанавливаем список
@@ -275,7 +268,7 @@ public abstract class BaseListFragment extends BaseFragment {
     }
 
     /**
-     * Метод инициализирует фрагмент в случае первого запуска
+     * Метод инициализирует фрагмент в случае первого запуска или смены адаптера recyclerView
      */
     public void initialFragment() {
         if (getPresenter() != null && (mFragmentIsFirstRun || mShortListStyleNow != listStyleIsShort())) {

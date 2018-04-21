@@ -2,15 +2,16 @@ package com.amasaemi.javashikiapp.modules.base.ui.fragments;
 
 import com.amasaemi.javashikiapp.modules.base.mvp.views.ShikiView;
 import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.MvpFragment;
 
 /**
  * Created by Alex on 31.01.2018.
  */
 
-public abstract class BaseFragment extends MvpFragment implements ShikiView {
+public abstract class BaseFragment extends MvpAppCompatFragment implements ShikiView {
     // фрагмент запущен впервые
-    protected boolean mFragmentIsFirstRun = false;
+    protected boolean mFragmentIsFirstRun = true;
 
     protected int getOrientation() {
         return getResources().getConfiguration().orientation;

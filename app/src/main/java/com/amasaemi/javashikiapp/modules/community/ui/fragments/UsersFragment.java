@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Alex on 22.02.2018.
  */
 
-public class UsersFragment extends BaseListFragment implements ShikiListView<UserListResponse> {
+public final class UsersFragment extends BaseListFragment implements ShikiListView<UserListResponse> {
     public static final String TAG = UsersFragment.class.getSimpleName();
 
     public static UsersFragment getInstance(Bundle bundle) {

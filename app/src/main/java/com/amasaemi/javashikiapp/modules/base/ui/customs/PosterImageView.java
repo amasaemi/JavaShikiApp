@@ -7,7 +7,7 @@ import android.util.AttributeSet;
  * Created by Александр on 02.10.2017.
  */
 
-public class PosterImageView extends android.support.v7.widget.AppCompatImageView {
+public final class PosterImageView extends android.support.v7.widget.AppCompatImageView {
     public PosterImageView(Context context) {
         super(context);
     }

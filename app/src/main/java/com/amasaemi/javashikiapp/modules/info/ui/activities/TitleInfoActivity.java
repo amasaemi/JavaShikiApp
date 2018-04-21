@@ -1,25 +1,25 @@
 package com.amasaemi.javashikiapp.modules.info.ui.activities;
 
-import android.app.FragmentManager;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.data.network.pojo.constants.TitleType;
 import com.amasaemi.javashikiapp.modules.base.ui.activities.BaseActivity;
 import com.amasaemi.javashikiapp.modules.base.ui.customs.DeactiveViewPager;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
 import com.amasaemi.javashikiapp.modules.info.ui.fragments.AnimeInfoFragment;
 import com.amasaemi.javashikiapp.modules.info.ui.fragments.MangaInfoFragment;
+import com.amasaemi.javashikiapp.modules.info.ui.fragments.RelatedInfoFragment;
+import com.amasaemi.javashikiapp.modules.info.ui.fragments.SimilarInfoFragment;
 
 /**
  * Created by Alex on 12.03.2018.
  */
 
-public class TitleInfoActivity extends BaseActivity {
+public final class TitleInfoActivity extends BaseActivity {
     public static final String TITLE_ID = "title_id";
     public static final String TITLE_TYPE = "title_type";
 
@@ -44,7 +44,7 @@ public class TitleInfoActivity extends BaseActivity {
         mFragmentContainer = new DeactiveViewPager(this);
         mFragmentContainer.setId(1648);
         // цепляем адаптер для просмотра страниц
-        mFragmentContainer.setAdapter(new FragmentViewerAdapter(getFragmentManager()));
+        mFragmentContainer.setAdapter(new FragmentViewerAdapter(getSupportFragmentManager()));
         // назначаем view для активности
         setContentView(mFragmentContainer);
 
@@ -74,6 +74,15 @@ public class TitleInfoActivity extends BaseActivity {
         mFragmentContainer.setCurrentItem(page);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (((FragmentViewerAdapter) mFragmentContainer.getAdapter()).getItem(mFragmentContainer.getCurrentItem()).onBackPressed()) {
+            super.onBackPressed();
+        } else {
+            switchPage(0);
+        }
+    }
+
     private class FragmentViewerAdapter extends FragmentPagerAdapter {
         private FragmentViewerAdapter(FragmentManager fm) {
             super(fm);
@@ -92,6 +101,10 @@ public class TitleInfoActivity extends BaseActivity {
                         default: throw new NullPointerException(String.format("%s is not valid title type", mTitleType.name()));
                     }
                 }
+
+                case 1: return SimilarInfoFragment.getInstance(mBundle);
+
+                case 2: return RelatedInfoFragment.getInstance(mBundle);
 //                case 2: return ActorsFragment.getInstance(null);
 //                case 3: return TopicFragment.getInstance(null);
                 default: throw new NullPointerException(String.format("%d is not valid index of adapter", pos));
@@ -100,7 +113,7 @@ public class TitleInfoActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 1;
+            return 3;
         }
     }
 }

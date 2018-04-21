@@ -64,7 +64,6 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
 
     private void transparentStatusBar() {
         Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
     }
 
@@ -76,12 +75,8 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
         initToolbarTitle();
         // получаем id тайтла из интента
         mTitleId = getArguments().getInt(TitleInfoActivity.TITLE_ID, -1);
-        // загружаем данные либо восстанавливаем их
-        if (savedInstanceState == null) {
-            getPresenter().getTitleById(mTitleId);
-        } else {
-            getPresenter().loadOrRestoreData();
-        }
+        // загружаем или восстанавливаем данные
+        getPresenter().getTitleById(mTitleId);
     }
 
     private void initToolbarTitle() {
@@ -108,6 +103,11 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
                 mBinding.descriptionTextView.setMaxLines(500);
                 view.setVisibility(View.GONE);
             });
+
+            // TODO: 05.04.2018
+            mBinding.similarButton.setOnClickListener((btn) -> ((TitleInfoActivity) getActivity()).switchPage(1));
+            mBinding.relatedButton.setOnClickListener((btn) -> ((TitleInfoActivity) getActivity()).switchPage(2));
+
             // добавляем слушатель на нажатию по сезону
             initSeasonClick();
 
@@ -115,27 +115,6 @@ public abstract class BaseInfoFragment extends BaseFragment implements ShikiInfo
             // TODO: 29.03.2018 настроить ratedialog
 
             stateVisibilityContainer(true);
-        }).run();
-    }
-
-    @Override
-    public final void setVideosMenu(List<TitleInfoResponse.VideoResponse> response) {
-        new Thread(() -> {
-            // TODO: 25.03.2018
-        }).run();
-    }
-
-    @Override
-    public final void setRelatedMenu(List<TitleInfoResponse.RelatedResponse> response) {
-        new Thread(() -> {
-            // TODO: 25.03.2018
-        }).run();
-    }
-
-    @Override
-    public final void setSimilarMenu(List<TitleListItemResponse> response) {
-        new Thread(() -> {
-            // TODO: 25.03.2018
         }).run();
     }
 

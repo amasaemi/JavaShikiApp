@@ -12,7 +12,7 @@ import java.util.Locale;
  * Created by Alex on 02.02.2018.
  */
 
-public class CalendarDelimiterModel extends BaseObservable implements DoubleRecyclerAdapter.HeaderModel {
+public final class CalendarDelimiterModel extends BaseObservable implements DoubleRecyclerAdapter.HeaderModel {
     public String date;
 
     public CalendarDelimiterModel(CalendarResponse item) {

@@ -1,14 +1,12 @@
 package com.amasaemi.javashikiapp.modules.list.ui.fragments;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.amasaemi.javashikiapp.R;
 import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseFragment;
+import com.amasaemi.javashikiapp.modules.base.ui.fragments.BaseListFragment;
 import com.amasaemi.javashikiapp.modules.community.ui.fragments.ClubsFragments;
 import com.amasaemi.javashikiapp.modules.community.ui.fragments.UsersFragment;
 
@@ -84,7 +83,7 @@ public final class CommunityFragment  extends BaseFragment {
         }
 
         @Override
-        public Fragment getItem(int pos) {
+        public BaseListFragment getItem(int pos) {
             switch (pos) {
                 case 0: return UsersFragment.getInstance(null);
                 case 1: return ClubsFragments.getInstance(null);

@@ -1,5 +1,8 @@
 package com.amasaemi.javashikiapp.modules.base.mvp.presenters;
 
+import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+
 /**
  * Created by Alex on 31.01.2018.
  */

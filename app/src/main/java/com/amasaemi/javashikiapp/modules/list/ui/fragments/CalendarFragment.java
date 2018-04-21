@@ -43,13 +43,6 @@ public final class CalendarFragment extends BaseListFragment implements ShikiLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        // настраиваем цветовую схему у swiperefresh
-        mBinding.loadIndicator.setColorScheme(
-                R.color.refresh_1,
-                R.color.refresh_2,
-                R.color.refresh_3,
-                R.color.refresh_4
-        );
     }
 
     @Override

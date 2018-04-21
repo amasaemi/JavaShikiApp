@@ -21,8 +21,10 @@ public abstract class BaseInfoPresenter extends MvpPresenter<ShikiInfoView> impl
     // список с внешними ссылками тайтла
     protected List<TitleInfoResponse.ExternalLinksResponse> mTitleExternalLinks = new ArrayList<>();
     // список с похожими тайтлами
+    @Deprecated
     protected List<TitleListItemResponse> mTitleSimilar = new ArrayList<>();
     // список со связанными тайтлами
+    @Deprecated
     protected List<TitleInfoResponse.RelatedResponse> mTitleRelated = new ArrayList<>();
     // список с видео (op, ed, etc) тайтла
     protected List<TitleInfoResponse.VideoResponse> mTitleVideos = new ArrayList<>();

@@ -11,7 +11,7 @@ import com.amasaemi.javashikiapp.data.managers.StaticAppManager;
  * Created by Alex on 31.01.2018.
  */
 
-public class DeactiveViewPager extends ViewPager {
+public final class DeactiveViewPager extends ViewPager {
     public DeactiveViewPager(Context context) {
         super(context);
     }
